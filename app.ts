@@ -2,6 +2,10 @@ import {
   NextFunction, Request, Response,
 } from 'express';
 
+import indexRouter from './routes/index';
+
+import usersRouter from './routes/users';
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -9,9 +13,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
-
-const indexRouter = require('./routes');
-const usersRouter = require('./routes/users');
 
 const app = express();
 app.use(cors());

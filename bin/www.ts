@@ -2,9 +2,10 @@
 /**
  * Module dependencies.
  */
+import app from '../app';
+
 const debug = require('debug')('server:server');
 const http = require('http');
-const app = require('../app');
 
 /**
  * Normalize a port into a number, string, or false.
