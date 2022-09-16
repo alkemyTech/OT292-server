@@ -8,29 +8,39 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING
+      first_name: {
+        type: Sequelize.STRING,
+        allowNull : false
       },
-      lastName: {
-        type: Sequelize.STRING
+      last_name: {
+        type: Sequelize.STRING,
+        allowNull : false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false,
+        unique : true
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false
       },
       photo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
+      delete_at : {
+        allowNull : false,
+        type : Sequelize.DATE
+     },
       roleId : {
         type : Sequelize.INTEGER,
         allowNull : false,
@@ -42,6 +52,7 @@ module.exports = {
           onDelete: 'SET NULL'
       }
     });
+   
   },
   async down(queryInterface:any, Sequelize:any) {
     await queryInterface.dropTable('Users');
