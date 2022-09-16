@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
-import app from '../app';
+import app from '../../app';
 
 const debug = require('debug')('server:server');
 const http = require('http');
