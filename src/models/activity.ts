@@ -1,13 +1,5 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
 
-/*
-id: INTEGER NOT NULL AUTO_INCREMENT
-name: VARCHAR NOT NULL
-content: TEXT NOT NULL
-image: VARCHAR NOT NULL
-timestamps y softDeletes
- */
-
 const sequelizeInstance = new Sequelize(process.env.DATABASE_URI || '');
 
 class Activity extends Model<InferAttributes<Activity>, InferCreationAttributes<Activity>> {
