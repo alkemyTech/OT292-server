@@ -28,20 +28,20 @@ module.exports = {
         type: STRING,
         allowNull: false,
       },
-      welcomeText: {
+      welcome_text: {
         type: TEXT,
         allowNull: false,
       },
-      aboutUsText: {
+      about_us_text: {
         type: TEXT,
         allowNull: true,
       },
-      deletedAt: {
+      deleted_at: {
         type: DATE,
         allowNull: true,
       },
-      createdAt: DATE,
-      updatedAt: DATE,
+      created_at: DATE,
+      updated_at: DATE,
     });
   },
 

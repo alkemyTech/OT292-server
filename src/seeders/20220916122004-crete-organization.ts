@@ -9,10 +9,10 @@ module.exports = {
       address: 'the doral',
       phone: 5111223344556,
       email: 'myorg@myorg.com',
-      welcomeText: 'welcome to my organization',
-      aboutUsText: 'abouts us',
-      createdAt: new Date,
-      updatedAt: new Date
+      welcome_text: 'welcome to my organization',
+      about_us_text: 'abouts us',
+      created_at: new Date,
+      updated_at: new Date
     }], {});
   },
 
