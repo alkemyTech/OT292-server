@@ -2,7 +2,7 @@ import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
   async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.createTable('Roles', {
+    await queryInterface.createTable('roles', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
