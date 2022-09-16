@@ -11,9 +11,9 @@ class Organization extends Model<InferAttributes<Organization>, InferCreationAtt
   declare address: string | null;
   declare phone: number | null;
   declare email: string;
-  declare welcomeText: string;
-  declare aboutUsText: string | null;
-  declare deletedAt: CreationOptional<Date>;
+  declare welcomeText: Text;
+  declare aboutUsText: Text | null;
+  declare deletedAt: Date | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -52,7 +52,10 @@ Organization.init({
     type: DataTypes.STRING,
     allowNull: true,
   },
-  deletedAt: DataTypes.DATE,
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
 }, {

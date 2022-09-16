@@ -1,4 +1,4 @@
-import sequelize, { DataTypes, INTEGER, STRING, DATE, BIGINT } from 'sequelize';
+import sequelize, { DataTypes, INTEGER, STRING, DATE, BIGINT, TEXT} from 'sequelize';
 
 module.exports = {
   async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
@@ -29,14 +29,17 @@ module.exports = {
         allowNull: false,
       },
       welcomeText: {
-        type: STRING,
+        type: TEXT,
         allowNull: false,
       },
       aboutUsText: {
-        type: STRING,
+        type: TEXT,
         allowNull: true,
       },
-      deletedAt: DATE,
+      deletedAt: {
+        type: DATE,
+        allowNull: true,
+      },
       createdAt: DATE,
       updatedAt: DATE,
     });
