@@ -1,13 +1,13 @@
-import {Model,InferAttributes,InferCreationAttributes} from 'sequelize'
+import {Model,InferAttributes,InferCreationAttributes, CreateOptions} from 'sequelize'
 
 module.exports = (sequelize:any, DataTypes:any) => {
   class User extends Model <InferAttributes<User>,InferCreationAttributes<User>> {
-    declare id:number;
+    declare id:CreateOptions<number>;
     declare firstName : string;
     declare lastName : string;
     declare email:string;
     declare password:string;
-    declare photo:string;
+    declare photo:null|string;
     
     static associate(models:any) {
        User.belongsTo(models.Role);
@@ -30,19 +30,18 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     email: {
       type : DataTypes.STRING,
-      allowNull :false
+      allowNull :false,
+      unique : true
     },
     password: {
        type : DataTypes.STRING,
        allowNull : false,
-       validate : {
-         min : 6
-       }
+      
     },
     photo: {
        type : DataTypes.STRING,
        allowNull : true,
-       defaultValue : 'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg'
+       
     },
     
    
@@ -50,7 +49,8 @@ module.exports = (sequelize:any, DataTypes:any) => {
     sequelize,
     modelName: 'User',
     paranoid : true,
-    deletedAt : 'softDelete',
+    deletedAt :true,
+    underscored : true,
     timestamps : true,
   });
   return User;
