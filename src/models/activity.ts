@@ -49,6 +49,7 @@ Activity.init({
   timestamps: true,
   paranoid: true,
   modelName: 'Activity',
+  tableName: 'Activities',
   underscored: true,
 });
 

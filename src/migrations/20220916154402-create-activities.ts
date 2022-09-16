@@ -20,9 +20,9 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
-      deletedAt: {
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE,
+      deleted_at: {
         type: DataTypes.DATE,
         allowNull: true,
       }
