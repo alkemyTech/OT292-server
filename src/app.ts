@@ -2,9 +2,9 @@ import {
   NextFunction, Request, Response,
 } from 'express';
 
-import indexRouter from './src/routes/index';
+import indexRouter from './routes';
 
-import usersRouter from './src/routes/users';
+import usersRouter from './routes/users';
 
 const createError = require('http-errors');
 const express = require('express');
