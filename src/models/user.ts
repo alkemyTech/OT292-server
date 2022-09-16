@@ -1,28 +1,57 @@
-import { Model, DataTypes as types, Sequelize } from 'sequelize';
+import {Model,InferAttributes,InferCreationAttributes} from 'sequelize'
 
-export default (sequelize: Sequelize, DataTypes: typeof types) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models: any) {
-      User.belongsTo(models.Role, { as: 'role' });
+module.exports = (sequelize:any, DataTypes:any) => {
+  class User extends Model <InferAttributes<User>,InferCreationAttributes<User>> {
+    declare id:number;
+    declare firstName : string;
+    declare lastName : string;
+    declare email:string;
+    declare password:string;
+    declare photo:string;
+    
+    static associate(models:any) {
+       User.belongsTo(models.Role);
     }
   }
-
   User.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    image: DataTypes.STRING,
-    password: DataTypes.STRING,
-    roleId: DataTypes.INTEGER,
-    deletedAt: DataTypes.DATE,
+     id : {
+       type : DataTypes.INTEGER,
+       autoIncrement : true,
+       primaryKey :true,
+       allowNull : false
+     },
+    firstName: {
+       type : DataTypes.STRING,
+       allowNull : false
+    },
+    lastName:{
+      type : DataTypes.STRING,
+      allowNull : false
+    },
+    email: {
+      type : DataTypes.STRING,
+      allowNull :false
+    },
+    password: {
+       type : DataTypes.STRING,
+       allowNull : false,
+       validate : {
+         min : 6
+       }
+    },
+    photo: {
+       type : DataTypes.STRING,
+       allowNull : true,
+       defaultValue : 'https://thumbs.dreamstime.com/z/icono-de-usuario-predeterminado-vectores-imagen-perfil-avatar-predeterminada-vectorial-medios-sociales-retrato-182347582.jpg'
+    },
+    
+   
   }, {
     sequelize,
     modelName: 'User',
+    paranoid : true,
+    deletedAt : 'softDelete',
+    timestamps : true,
   });
   return User;
 };
