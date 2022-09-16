@@ -16,8 +16,8 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_At: DataTypes.DATE,
+      updated_At: DataTypes.DATE,
     });
   },
 
