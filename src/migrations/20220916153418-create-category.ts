@@ -21,12 +21,14 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      createdAt: {
-        allowNull: false,
+      created_at: {
         type: DataTypes.DATE
       },
-      updatedAt: {
-        allowNull: false,
+      deleted_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      updated_at: {
         type: DataTypes.DATE
       },
     });

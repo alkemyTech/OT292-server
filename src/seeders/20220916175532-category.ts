@@ -6,8 +6,8 @@ module.exports = {
       name: 'General',
       description: 'Categorias generales',
       image: 'https://fvja.files.wordpress.com/2021/06/cult-y-comunicacion.jpg',
-      createdAt: new Date,
-      updatedAt: new Date
+      created_at: new Date,
+      updated_at: new Date
     }], {});
   },
 
