@@ -17,7 +17,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "import/no-dynamic-require": "off",
+        "import/no-dynamic-require": "warning",
         "@typescript-eslint/lines-between-class-members": "off",
         "no-console": "off",
         "linebreak-style": "off"
