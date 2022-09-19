@@ -11,7 +11,12 @@ class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
+  static associate(models:any) {
+    Role.hasOne(models.User);
+ }
 }
+
 
 Role.init({
   id: {
