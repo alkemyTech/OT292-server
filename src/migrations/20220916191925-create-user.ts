@@ -37,15 +37,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      delete_at : {
-        allowNull : false,
+      deleted_at : {
+        allowNull : true,
         type : Sequelize.DATE
      },
-      roleId : {
-        type : Sequelize.INTEGER,
-        allowNull : false,
+      role_id : {
+        type : Sequelize.INTEGER.UNSIGNED,
+        allowNull : true,
         references: {
-            model: 'Role',
+            model: 'roles',
             key: 'id',
           },
           onUpdate: 'CASCADE',
