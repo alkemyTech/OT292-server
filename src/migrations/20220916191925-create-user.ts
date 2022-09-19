@@ -41,7 +41,7 @@ module.exports = {
         allowNull : true,
         type : Sequelize.DATE
      },
-      role_id : {
+      role_Id : {
         type : Sequelize.INTEGER.UNSIGNED,
         allowNull : true,
         references: {
