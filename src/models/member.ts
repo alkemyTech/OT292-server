@@ -20,7 +20,7 @@ class Member extends Model<InferAttributes<Member>, InferCreationAttributes<Memb
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-  declare deletedAt: CreationOptional<Date>;
+  declare deletedAt: CreationOptional<Date> | null;
 }
 
 Member.init({
@@ -55,7 +55,10 @@ Member.init({
   },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
-  deletedAt: DataTypes.DATE,
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 }, {
   sequelize,
   modelName: 'Member',
