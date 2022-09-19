@@ -1,4 +1,4 @@
-import {Model,InferAttributes,InferCreationAttributes, CreateOptions} from 'sequelize'
+import {Model,InferAttributes,InferCreationAttributes, CreateOptions,CreationOptional} from 'sequelize'
 
 module.exports = (sequelize:any, DataTypes:any) => {
   class User extends Model <InferAttributes<User>,InferCreationAttributes<User>> {
@@ -8,6 +8,8 @@ module.exports = (sequelize:any, DataTypes:any) => {
     declare email:string;
     declare password:string;
     declare photo:null|string;
+    declare createdAt: CreationOptional<Date>;
+    declare updatedAt: CreationOptional<Date>;
     
     static associate(models:any) {
        User.belongsTo(models.Role);
@@ -43,6 +45,15 @@ module.exports = (sequelize:any, DataTypes:any) => {
        allowNull : true,
        
     },
+    createdAt:{
+        type : DataTypes.DATE,
+        defaultValue : Date.now()
+    },
+    
+    updatedAt: {
+     type: DataTypes.DATE,
+     defaultValue : Date.now()
+    } 
     
    
   }, {
