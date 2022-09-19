@@ -13,15 +13,15 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      facebookUrl: {
+      facebook_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      instagramUrl: {
+      instagram_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      linkedinUrl: {
+      linkedin_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
