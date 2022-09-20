@@ -2,7 +2,11 @@ import {
   NextFunction, Request, Response
 } from 'express';
 
+<<<<<<< HEAD
+import indexRouter from './routes/index';
+=======
 import indexRouter from './routes';
+>>>>>>> develop
 
 import usersRouter from './routes/users';
 
