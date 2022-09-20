@@ -11,9 +11,9 @@ class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
   declare content: string;
   declare image: string;
 
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: Date | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: Date | null;
 
   declare categoryId: number | null;
 
@@ -52,13 +52,13 @@ News.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
   },
-  updated_at: {
+  updatedAt: {
     type: DataTypes.DATE,
   },
-  deleted_at: {
+  deletedAt: {
     type: DataTypes.DATE,
     allowNull: true,
   },
