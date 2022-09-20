@@ -38,7 +38,7 @@ Category.init({
   paranoid: true,
   timestamps: true,
   tableName: 'categories',
-  modelName: 'category',
+  modelName: 'Category',
   underscored: true,
 });
 
