@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
+import { verifyToken } from '../utils/jwt.handle';
 
 export default function validateToken(req: Request, res: Response, next: NextFunction) {
   try {
@@ -7,7 +8,7 @@ export default function validateToken(req: Request, res: Response, next: NextFun
     if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length);
     }
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    const payload = verifyToken(token) as { id: string };
     req.userId = payload.id;
     return next();
   } catch (error) {
