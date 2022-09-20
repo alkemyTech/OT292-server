@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
       },
       category_id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'categories',

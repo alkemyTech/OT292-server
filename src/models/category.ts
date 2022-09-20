@@ -1,19 +1,26 @@
-
 import {Model,InferAttributes,DataTypes,InferCreationAttributes, CreationOptional, Sequelize} from 'sequelize';
+
 const sequelize = new Sequelize(process.env.DB_URI || '');
 
 class Category extends Model <InferAttributes<Category>, InferCreationAttributes<Category>>  {
   declare id : CreationOptional<number>;
+
   declare name:string;
   declare description:string | null;
   declare image:string | null;
+
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
   declare deleted_at: Date | null;
+
+  static associate(models: any) {
+    Category.hasOne(models.News);
+  }
 }
+
 Category.init({
   id: {
-      type : DataTypes.INTEGER,
+      type : DataTypes.INTEGER.UNSIGNED,
       allowNull : false,
       primaryKey : true,
       autoIncrement : true
@@ -35,10 +42,10 @@ Category.init({
   deleted_at: DataTypes.DATE,
 }, {
   sequelize,
+  modelName: 'Category',
+  tableName: 'categories',
   paranoid: true,
   timestamps: true,
-  tableName: 'categories',
-  modelName: 'Category',
   underscored: true,
 });
 
