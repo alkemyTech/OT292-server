@@ -21,10 +21,6 @@ Testimonials.init({
 }, {
     sequelize,
     modelName: 'Testimonials',
-    tableName: 'testimonials',
-    timestamps: true,
-    paranoid: true,
-    underscored: true,
 });
 exports.default = Testimonials;
 //# sourceMappingURL=testimonials.js.map

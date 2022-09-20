@@ -16,7 +16,15 @@ class Organization extends Model<InferAttributes<Organization>, InferCreationAtt
   declare deletedAt: Date | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
+  static associate(models:any) {
+    Organization.hasMany(models.Slide, {
+      foreignKey: 'organizationId',
+      as: "slides"
+    })      
+  }
 }
+
 
 Organization.init({
   id: {

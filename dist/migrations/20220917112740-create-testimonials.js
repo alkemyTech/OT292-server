@@ -18,6 +18,9 @@ module.exports = {
                     primaryKey: true,
                     type: Sequelize.INTEGER
                 },
+                id: {
+                    type: Sequelize.NUMBER
+                },
                 name: {
                     type: Sequelize.STRING
                 },
@@ -36,6 +39,14 @@ module.exports = {
                 deletedAt: {
                     type: Sequelize.DATE
                 },
+                createdAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                },
+                updatedAt: {
+                    allowNull: false,
+                    type: Sequelize.DATE
+                }
             });
         });
     },
