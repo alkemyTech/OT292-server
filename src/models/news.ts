@@ -1,11 +1,10 @@
 import {
-  CreationOptional, DataTypes, InferAttributes,
+  CreationOptional, DataTypes as types, InferAttributes,
   InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
+import news from '../controllers/news';
 
-const sequelizeInstance = new Sequelize(process.env.DATABASE_URI || '');
-
-class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
+export class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
   declare id: CreationOptional<Number>;
   declare name: string;
   declare content: string;
@@ -21,54 +20,58 @@ class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
     News.belongsTo(models.Category, {
       foreignKey: 'category_id',
       targetKey: 'id',
-      keyType: DataTypes.INTEGER,
+      keyType: types.INTEGER,
       constraints: true,
     });
   }
 }
-News.init({
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  categoryId: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    allowNull: true,
-    references: {
-      model: 'categories',
-      key: 'id',
-    },
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-  deletedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-}, {
-  sequelize: sequelizeInstance,
-  modelName: 'News',
-  tableName: 'news',
-  underscored: true,
-  timestamps: true,
-  paranoid: true,
-});
 
-export default News;
+export default function initUserModel(sequelize: Sequelize, DataTypes: typeof types) {
+  News.init({
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    categoryId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true,
+      references: {
+        model: 'categories',
+        key: 'id',
+      },
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+  }, {
+    sequelize,
+    modelName: 'News',
+    tableName: 'news',
+    underscored: true,
+    timestamps: true,
+    paranoid: true,
+  });
+
+  return News;
+}
+
