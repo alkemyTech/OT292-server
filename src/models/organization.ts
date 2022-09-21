@@ -24,6 +24,7 @@ export class Organization extends
   }
 }
 
+
 export default function initOrganizationModel(sequelize: Sequelize, DataTypes: typeof types) {
   Organization.init({
     id: {
@@ -75,3 +76,4 @@ export default function initOrganizationModel(sequelize: Sequelize, DataTypes: t
   });
   return Organization;
 }
+
