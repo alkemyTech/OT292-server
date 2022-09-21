@@ -1,10 +1,8 @@
 import {Model,InferAttributes,DataTypes,InferCreationAttributes, CreationOptional, Sequelize} from 'sequelize';
-
 const sequelize = new Sequelize(process.env.DB_URI || '');
 
 class Category extends Model <InferAttributes<Category>, InferCreationAttributes<Category>>  {
   declare id : CreationOptional<number>;
-
   declare name:string;
   declare description:string | null;
   declare image:string | null;
