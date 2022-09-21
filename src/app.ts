@@ -4,6 +4,7 @@ import {
 
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
+import organizationRouter from './routes/organizations';
 
 const createError = require('http-errors');
 const express = require('express');
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/organization',organizationRouter)
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
