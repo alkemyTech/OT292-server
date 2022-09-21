@@ -6,6 +6,4 @@ const router : express.Router = express.Router();
 
 router.post('/login', authValidation, authController.login);
 
-// router.get('/', (req, res)=>{res.send('Hellowordl')})
-
 export default router;
