@@ -8,7 +8,7 @@ export default function validateToken(req: Request, res: Response, next: NextFun
     if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length);
     }
-    const payload = verifyToken(token) as { id: string };
+    const payload = verifyToken(token) as { id: number };
     req.userId = payload.id;
     return next();
   } catch (error) {
