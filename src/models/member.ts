@@ -1,6 +1,6 @@
 import {
   Model,
-  DataTypes,
+  DataTypes as types,
   Sequelize,
   InferAttributes,
   InferCreationAttributes,
@@ -9,7 +9,7 @@ import {
 
 const sequelize = new Sequelize(process.env.DB_URI || '');
 
-class Member extends Model<InferAttributes<Member>, InferCreationAttributes<Member>> {
+export class Member extends Model<InferAttributes<Member>, InferCreationAttributes<Member>> {
   declare id: CreationOptional<Number>;
   declare name: string;
   declare facebookUrl: string | null;
@@ -23,49 +23,50 @@ class Member extends Model<InferAttributes<Member>, InferCreationAttributes<Memb
   declare deletedAt: CreationOptional<Date> | null;
 }
 
-Member.init({
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  facebookUrl: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  instagramUrl: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  linkedinUrl: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  createdAt: DataTypes.DATE,
-  updatedAt: DataTypes.DATE,
-  deletedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-}, {
-  sequelize,
-  modelName: 'Member',
-  tableName: 'members',
-  timestamps: true,
-  paranoid: true,
-  underscored: true,
-});
-
-export default Member;
+export default function initUserModel(sequelize: Sequelize, DataTypes: typeof types) {
+  Member.init({
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    facebookUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    instagramUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    linkedinUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+  }, {
+    sequelize,
+    modelName: 'Member',
+    tableName: 'members',
+    timestamps: true,
+    paranoid: true,
+    underscored: true,
+  })
+  return Member;
+};
