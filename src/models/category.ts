@@ -7,9 +7,9 @@ class Category extends Model <InferAttributes<Category>, InferCreationAttributes
   declare name:string;
   declare description:string | null;
   declare image:string | null;
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: Date | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: Date | null;
 }
 Category.init({
   id: {
@@ -30,9 +30,9 @@ Category.init({
     type : DataTypes.STRING,
     allowNull : true
   },
-  created_at: DataTypes.DATE,
-  updated_at: DataTypes.DATE,
-  deleted_at: DataTypes.DATE,
+  createdAt: DataTypes.DATE,
+  updatedAt: DataTypes.DATE,
+  deletedAt: DataTypes.DATE,
 }, {
   sequelize,
   paranoid: true,
