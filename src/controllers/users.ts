@@ -11,7 +11,7 @@ async function deleteUser (req: Request, res: Response) {
     }
     try {
         await db.User.destroy({ where: { id } });
-          res.status(200).json({ error: 'User Deleted' });
+          res.status(200).json({ message: 'User Deleted' });
 
     } catch (error) {
         return res.status(400).json({ error: 'Could not delete' });
