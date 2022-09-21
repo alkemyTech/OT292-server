@@ -3,14 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "dev": "ts-node src/bin/www.ts",
-    "build": "tsc --build"
-=======
     "start": "node .dist/bin/www.js",
     "dev": "ts-node src/bin/www.ts",
     "build": "tsc"
->>>>>>> develop
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
