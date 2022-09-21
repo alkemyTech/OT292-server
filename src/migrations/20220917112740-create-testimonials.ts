@@ -1,45 +1,37 @@
 'use strict';
+import sequelize, { DataTypes } from 'sequelize';
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.createTable('Testimonials', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      id: {
-        type: Sequelize.NUMBER
+        type: DataTypes.INTEGER.UNSIGNED
       },
       name: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       image: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       content: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
-      createdAt: {
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        type: Sequelize.DATE
-      },
-      deletedAt: {
-        type: Sequelize.DATE
-      },
-      createdAt: {
+      created_At: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
-      updatedAt: {
+      updated_At: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
+      },
+      deleted_At: {
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.dropTable('Testimonials');
   }
 };

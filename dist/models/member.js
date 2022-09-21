@@ -1,49 +1,57 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Member = void 0;
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize(process.env.DB_URI || '');
 class Member extends sequelize_1.Model {
 }
-Member.init({
-    id: {
-        type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    name: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    facebookUrl: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: true,
-    },
-    instagramUrl: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: true,
-    },
-    linkedinUrl: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: true,
-    },
-    image: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    description: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: true,
-    },
-    createdAt: sequelize_1.DataTypes.DATE,
-    updatedAt: sequelize_1.DataTypes.DATE,
-    deletedAt: sequelize_1.DataTypes.DATE,
-}, {
-    sequelize,
-    modelName: 'Member',
-    tableName: 'members',
-    timestamps: true,
-    paranoid: true,
-    underscored: true,
-});
-exports.default = Member;
+exports.Member = Member;
+function initUserModel(sequelize, DataTypes) {
+    Member.init({
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        facebookUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        instagramUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        linkedinUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE,
+        deletedAt: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+    }, {
+        sequelize,
+        modelName: 'Member',
+        tableName: 'members',
+        timestamps: true,
+        paranoid: true,
+        underscored: true,
+    });
+    return Member;
+}
+exports.default = initUserModel;
+;
 //# sourceMappingURL=member.js.map

@@ -13,9 +13,9 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
     declare image:string;
     declare content:string;
 
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
-    declare deletedAt: CreationOptional<Date>
+    declare createdAt: CreationOptional<Date>| null;
+    declare updatedAt: CreationOptional<Date>| null;
+    declare deletedAt: CreationOptional<Date>| null;
 
   }
   Testimonials.init({
@@ -35,6 +35,8 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'Testimonials',
+    modelName: 'Testimonial',
+    tableName: 'Testimonials',
+    underscored: true,
   });
  export default Testimonials;

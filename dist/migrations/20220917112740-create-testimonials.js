@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_1 = require("sequelize");
 module.exports = {
     up(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -16,36 +18,27 @@ module.exports = {
                     allowNull: false,
                     autoIncrement: true,
                     primaryKey: true,
-                    type: Sequelize.INTEGER
-                },
-                id: {
-                    type: Sequelize.NUMBER
+                    type: sequelize_1.DataTypes.INTEGER.UNSIGNED
                 },
                 name: {
-                    type: Sequelize.STRING
+                    type: sequelize_1.DataTypes.STRING
                 },
                 image: {
-                    type: Sequelize.STRING
+                    type: sequelize_1.DataTypes.STRING
                 },
                 content: {
-                    type: Sequelize.STRING
+                    type: sequelize_1.DataTypes.STRING
                 },
-                createdAt: {
-                    type: Sequelize.DATE
-                },
-                updatedAt: {
-                    type: Sequelize.DATE
-                },
-                deletedAt: {
-                    type: Sequelize.DATE
-                },
-                createdAt: {
+                created_At: {
                     allowNull: false,
-                    type: Sequelize.DATE
+                    type: sequelize_1.DataTypes.DATE
                 },
-                updatedAt: {
+                updated_At: {
                     allowNull: false,
-                    type: Sequelize.DATE
+                    type: sequelize_1.DataTypes.DATE
+                },
+                deleted_At: {
+                    type: sequelize_1.DataTypes.DATE
                 }
             });
         });

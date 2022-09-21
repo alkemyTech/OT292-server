@@ -5,6 +5,7 @@ import {
 import indexRouter from './routes';
 
 import usersRouter from './routes/users';
+import sendMailRouter from  './routes/sendemail';
 
 const createError = require('http-errors');
 const express = require('express');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/sender', sendMailRouter)
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {

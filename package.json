@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "ts-node src/bin/www.ts"
+    "start": "node .dist/bin/www.js",
+    "dev": "ts-node src/bin/www.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",

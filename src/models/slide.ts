@@ -32,5 +32,7 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
   }, {
     sequelize,
     modelName: 'Slide',
+    timestamps:false,
+    underscored:true
   });
   export default Slide;

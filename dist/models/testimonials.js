@@ -20,7 +20,9 @@ Testimonials.init({
     deletedAt: sequelize_1.DataTypes.DATE
 }, {
     sequelize,
-    modelName: 'Testimonials',
+    modelName: 'Testimonial',
+    tableName: 'Testimonials',
+    underscored: true,
 });
 exports.default = Testimonials;
 //# sourceMappingURL=testimonials.js.map

@@ -8,6 +8,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Module dependencies.
  */
 const app_1 = __importDefault(require("../app"));
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 const debug = require('debug')('server:server');
 const http = require('http');
 /**

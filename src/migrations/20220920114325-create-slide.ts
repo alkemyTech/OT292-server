@@ -1,36 +1,37 @@
 'use strict';
+import sequelize, { DataTypes } from 'sequelize';
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.createTable('Slides', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
-      imageUrl: {
-        type: Sequelize.STRING
+      image_Url: {
+        type: DataTypes.STRING
       },
       text: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       order: {
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
-      organizationId: {
-        type: Sequelize.INTEGER
+      organization_Id: {
+        type: DataTypes.INTEGER
       },
-      createdAt: {
+      created_At: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
-      updatedAt: {
+      updated_At: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.dropTable('Slides');
   }
 };

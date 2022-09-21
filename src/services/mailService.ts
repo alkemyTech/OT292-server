@@ -1,13 +1,27 @@
 import sgMail from '@sendgrid/mail';
+const ejs = require('ejs');
+const read = require('fs').readFileSync;
+const join = require('path').join;
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-async function sendMail (to: string, subject: string, html: string) {
-  const msg = {
+async function sendMail (to: string, data: any, email:string, subject:string) {
+          // ruta template
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+          console.log(process.env.SENDGRID_API_KEY!, "apikey");
+console.log(process.env.SENDGRID_EMAIL_SENDER, "emailsender");
+          console.log("ingreso a service mail")
+console.log(subject)
+          const str = read(join(__dirname, '../views/plantillaemail.ejs'), 'utf8');
+
+          // body para el mail
+        
+          const body = ejs.compile(str)(data);
+          const msg = {
     to,
-    from: process.env.SENDGRID_EMAIL_SENDER!,
+    from: email,
     subject,
-    html
+    html: body
+    
   };
   try {
     await sgMail.send(msg);
@@ -16,6 +30,4 @@ async function sendMail (to: string, subject: string, html: string) {
   }
 }
 
-module.exports = {
-  sendMail,
-};
+export default sendMail
