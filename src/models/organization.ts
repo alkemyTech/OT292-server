@@ -1,10 +1,9 @@
 import {
-  CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize,
+  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
 
-const sequelize = new Sequelize(process.env.DB_HOST || '127.0.0.1');
-
-class Organization extends Model<InferAttributes<Organization>, InferCreationAttributes<Organization>> {
+export class Organization extends
+  Model<InferAttributes<Organization>, InferCreationAttributes<Organization>> {
   declare id: CreationOptional<number>;
   declare name: string;
   declare image: string;
@@ -18,54 +17,54 @@ class Organization extends Model<InferAttributes<Organization>, InferCreationAtt
   declare updatedAt: CreationOptional<Date>;
 }
 
-Organization.init({
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  phone: {
-    type: DataTypes.BIGINT.UNSIGNED,
-    allowNull: true,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  welcomeText: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  aboutUsText: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  deletedAt: {
-    type: DataTypes.DATE,
-    allowNull: true
-  },
-  createdAt: DataTypes.DATE,
-  updatedAt: DataTypes.DATE,
-}, {
-  sequelize,
-  modelName: 'Organization',
-  tableName: 'Organizations',
-  timestamps: true,
-  paranoid: true,
-  underscored: true,
-});
-
-export default Organization;
-
+export default function initOrganizationModel(sequelize: Sequelize, DataTypes: typeof types) {
+  Organization.init({
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.BIGINT.UNSIGNED,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    welcomeText: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    aboutUsText: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+  }, {
+    sequelize,
+    modelName: 'Organization',
+    tableName: 'Organizations',
+    timestamps: true,
+    paranoid: true,
+    underscored: true,
+  });
+  return Organization;
+}
