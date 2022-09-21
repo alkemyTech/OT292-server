@@ -1,5 +1,5 @@
 import {
-  NextFunction, Request, Response
+  NextFunction, Request, Response,
 } from 'express';
 
 import indexRouter from './routes/index';

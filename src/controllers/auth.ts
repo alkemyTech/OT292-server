@@ -1,29 +1,16 @@
-import express, { Response, Request } from "express";
-import { body, ValidationChain, validationResult } from 'express-validator';
+import { Response, Request } from 'express';
 
+const { validationResult } = require('express-validator');
 
-// const login = (
-//     body('email').isEmail(),
-//     ( req : Request, res : Response ) => {
-//         res.send({message: 'Hello world'});
-//     }); 
+const login = async (req: Request, res: Response) : Promise<object> => {
+  console.log(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-const login = (
-    (req: Request, res: Response) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        console.log("BBODYY",req.body)
-        console.log(errors)
-        
+  console.log(req.body);
+  return res.json('MADE LOGINNN!!!');
+};
 
-        res.send('Controller')
-        }
-    )
-
-
-
-export default {login}
-
-
+export default { login };
