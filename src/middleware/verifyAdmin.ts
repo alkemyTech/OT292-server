@@ -9,7 +9,7 @@ export default async function verifyAdmin(req: Request, res: Response, next: Nex
   }
   const role = await user.getRole();
   if (role.name !== 'admin') {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(403).json({ message: 'Forbidden' });
   }
   return next();
 }
