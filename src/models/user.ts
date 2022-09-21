@@ -1,6 +1,6 @@
 import {
   Model, InferAttributes, InferCreationAttributes, CreationOptional, Sequelize,
-  DataTypes as types, ForeignKey,
+  DataTypes as types, ForeignKey, BelongsToGetAssociationMixin,
 } from 'sequelize';
 import { Role } from './role';
 
@@ -15,6 +15,8 @@ export class User extends Model <InferAttributes<User>, InferCreationAttributes<
   declare updatedAt: CreationOptional<Date>;
 
   declare roleId: ForeignKey<Role['id']>;
+
+  declare getRole: BelongsToGetAssociationMixin<Role>;
 
   static associate(models: any) {
     User.belongsTo(models.Role);
