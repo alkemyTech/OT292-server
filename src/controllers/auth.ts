@@ -7,7 +7,7 @@ const { validationResult } = require('express-validator');
 
 const login = async (req: Request, res: Response, next : NextFunction) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ ok: false}); }
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() }); }
 
   try {
     const userFromDB : any | null = await db.User.findOne({
