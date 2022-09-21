@@ -10,8 +10,8 @@ export class Organization extends
   declare address: string | null;
   declare phone: number | null;
   declare email: string;
-  declare welcomeText: Text;
-  declare aboutUsText: Text | null;
+  declare welcomeText: string;
+  declare aboutUsText: string | null;
   declare deletedAt: Date | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
