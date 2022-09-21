@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
+import { deleteUser } from '../controllers/users';
 
 const router = express.Router();
 
@@ -6,5 +7,7 @@ const router = express.Router();
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send('respond with a resource');
 });
+
+router.delete('/:id', deleteUser)
 
 export default router;
