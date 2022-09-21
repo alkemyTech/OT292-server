@@ -67,4 +67,6 @@ export default function initUserModel(sequelize: Sequelize, DataTypes: typeof ty
     underscored: true,
   })
   return Member;
+
 };
+
