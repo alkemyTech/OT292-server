@@ -7,8 +7,6 @@ import {
   CreationOptional,
 } from 'sequelize';
 
-const sequelize = new Sequelize(process.env.DB_URI || '');
-
 export class Member extends Model<InferAttributes<Member>, InferCreationAttributes<Member>> {
   declare id: CreationOptional<Number>;
   declare name: string;
