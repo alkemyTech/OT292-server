@@ -2,7 +2,7 @@ import {
   NextFunction, Request, Response
 } from 'express';
 
-import indexRouter from './routes';
+import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 
 const createError = require('http-errors');
