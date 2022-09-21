@@ -2,7 +2,6 @@ import {
   CreationOptional, DataTypes as types, InferAttributes,
   InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
-import news from '../controllers/news';
 
 export class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
   declare id: CreationOptional<Number>;
