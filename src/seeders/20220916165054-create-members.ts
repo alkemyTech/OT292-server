@@ -1,17 +1,17 @@
-import { QueryInterface, Sequelize} from 'sequelize';
+import { QueryInterface, Sequelize } from 'sequelize';
 
 module.exports = {
   async up(queryInterface: QueryInterface, Sequelize: Sequelize) {
-    await queryInterface.bulkInsert('members', [{
+    await queryInterface.bulkInsert('Members', [{
       name: 'John Doe',
-      facebookUrl: 'www.url.com',
-      instagramUrl: 'www.url.com',
-      linkedinUrl: 'www.url.com',
+      facebook_Url: 'www.url.com',
+      instagram_Url: 'www.url.com',
+      linkedin_Url: 'www.url.com',
       image: 'www.url.com',
       description: 'lorem ipsum',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: new Date(),
+      created_At: new Date(),
+      updated_At: new Date(),
+      deleted_At: null,
     }], {});
   },
 
