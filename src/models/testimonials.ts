@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import {
   CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
+=======
+import { Model, DataTypes as types, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional} from 'sequelize';
+
+const sequelize = new Sequelize(process.env.DB_URI || '');
+
+>>>>>>> 49c1b946968d733c4053d503c70dae5f1aa9852c
   export class Testimonials extends Model<InferAttributes<Testimonials>, InferCreationAttributes<Testimonials>> {
     /**
      * Helper method for defining associations.
@@ -39,5 +46,10 @@ import {
     underscored: true,
     paranoid: true,
   });
+<<<<<<< HEAD
   return Testimonials;
 }
+=======
+  return Testimonials
+  }
+>>>>>>> 49c1b946968d733c4053d503c70dae5f1aa9852c
