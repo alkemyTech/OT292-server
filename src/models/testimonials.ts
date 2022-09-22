@@ -1,4 +1,3 @@
-
 import {
   CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
@@ -16,7 +15,7 @@ import {
 
     declare createdAt: CreationOptional<Date>| null;
     declare updatedAt: CreationOptional<Date>| null;
-  
+    declare deletedAt: CreationOptional<Date>| null;
 
   }
   export default function initTestimonialModel(sequelize: Sequelize, DataTypes: typeof types) {
@@ -33,7 +32,11 @@ import {
     image: DataTypes.STRING,
     content: DataTypes.STRING,
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    }
   }, {
     sequelize,
     modelName: 'Testimonial',
