@@ -1,13 +1,4 @@
 import {
-<<<<<<< HEAD
-  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
-} from 'sequelize';
-export class Category extends Model <InferAttributes<Category>, InferCreationAttributes<Category>>  {
-  declare id : CreationOptional<number>;
-  declare name:string;
-  declare description:string | null;
-  declare image:string | null;
-=======
   Model, InferAttributes, InferCreationAttributes, CreationOptional, Sequelize, DataTypes as types,
 } from 'sequelize';
 
@@ -16,8 +7,6 @@ export class Category extends Model <InferAttributes<Category>, InferCreationAtt
   declare name: string;
   declare description: string | null;
   declare image: string | null;
->>>>>>> 1ed37065bac9259d653cadafbd213e05d4113a87
-
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
