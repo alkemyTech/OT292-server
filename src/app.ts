@@ -2,13 +2,13 @@ import {
   NextFunction, Request, Response,
 } from 'express';
 
-
 import indexRouter from './routes/index';
 
 import usersRouter from './routes/users';
 import authRouter from './routes/auth';
 import organizationRouter from './routes/organizations';
-import sendMailRouter from  './routes/sendemail';
+import sendMailRouter from './routes/sendemail';
+import categoryRouter from './routes/categories';
 
 const createError = require('http-errors');
 const express = require('express');
@@ -34,15 +34,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/organization',organizationRouter)
-app.use('/sender', sendMailRouter)
+app.use('/organization', organizationRouter);
+app.use('/sender', sendMailRouter);
+app.use('/categories', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404));
 });
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any, req: Request, res: Response) => {
   res.status(err.status || 500);
   res.json({ error: err.message });
 });
