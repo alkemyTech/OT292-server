@@ -7,6 +7,7 @@ export class Category extends Model <InferAttributes<Category>, InferCreationAtt
   declare name: string;
   declare description: string | null;
   declare image: string | null;
+
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
@@ -15,6 +16,7 @@ export class Category extends Model <InferAttributes<Category>, InferCreationAtt
     Category.hasMany(models.News);
   }
 }
+
 export default function initCategoryModel(sequelize: Sequelize, DataTypes: typeof types) {
   Category.init({
     id: {
