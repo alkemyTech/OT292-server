@@ -16,6 +16,7 @@ console.log(subject)
           // body para el mail
         
           const body = ejs.compile(str)(data);
+          console.log(data)
           const msg = {
     to,
     from: email,
