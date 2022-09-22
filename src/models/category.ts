@@ -1,7 +1,7 @@
-import {Model,InferAttributes,DataTypes,InferCreationAttributes, CreationOptional, Sequelize} from 'sequelize';
-const sequelize = new Sequelize(process.env.DB_URI || '');
-
-class Category extends Model <InferAttributes<Category>, InferCreationAttributes<Category>>  {
+import {
+  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
+} from 'sequelize';
+export class Category extends Model <InferAttributes<Category>, InferCreationAttributes<Category>>  {
   declare id : CreationOptional<number>;
   declare name:string;
   declare description:string | null;
@@ -15,7 +15,7 @@ class Category extends Model <InferAttributes<Category>, InferCreationAttributes
     Category.hasOne(models.News);
   }
 }
-
+export default function initCategoryModel(sequelize: Sequelize, DataTypes: typeof types) {
 Category.init({
   id: {
       type : DataTypes.INTEGER.UNSIGNED,
@@ -46,5 +46,5 @@ Category.init({
   timestamps: true,
   underscored: true,
 });
-
-export default Category
+return Category;
+}

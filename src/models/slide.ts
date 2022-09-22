@@ -1,7 +1,8 @@
 
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional} from 'sequelize';
-const sequelize = new Sequelize(process.env.DB_URI || '');
-  class Slide extends Model<InferAttributes<Slide>, InferCreationAttributes<Slide>> {
+import {
+  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
+} from 'sequelize';
+  export class Slide extends Model<InferAttributes<Slide>, InferCreationAttributes<Slide>> {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -19,6 +20,7 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
 
     }
   }
+  export default function initSlideModel(sequelize: Sequelize, DataTypes: typeof types) {
   Slide.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -35,4 +37,5 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
     timestamps:false,
     underscored:true
   });
-  export default Slide;
+  return Slide;
+}

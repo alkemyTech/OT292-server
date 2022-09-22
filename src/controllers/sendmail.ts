@@ -1,9 +1,13 @@
 
 import Organization from "../models/organization";
+import db from "../models/index";
+
 import  sendMail  from "../services/mailService"
 
 async function sendWelcomeEmail(mailto:string){
     console.log('ingreso a sendwelcome email')
+    const organizations = await db.Organization.findAll({attributes : {exclude :["id","welcomeText","createdAt","updatedAt","deletedAt","aboutUsText","email"]}})
+    console.log(organizations.values)
     const contact = {
 
     }

@@ -1,8 +1,7 @@
-import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional} from 'sequelize';
-
-const sequelize = new Sequelize(process.env.DB_URI || '');
-
-  class Testimonials extends Model<InferAttributes<Testimonials>, InferCreationAttributes<Testimonials>> {
+import {
+  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
+} from 'sequelize';
+  export class Testimonials extends Model<InferAttributes<Testimonials>, InferCreationAttributes<Testimonials>> {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,9 +14,10 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
 
     declare createdAt: CreationOptional<Date>| null;
     declare updatedAt: CreationOptional<Date>| null;
-    declare deletedAt: CreationOptional<Date>| null;
+  
 
   }
+  export default function initTestimonialModel(sequelize: Sequelize, DataTypes: typeof types) {
   Testimonials.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -31,12 +31,13 @@ const sequelize = new Sequelize(process.env.DB_URI || '');
     image: DataTypes.STRING,
     content: DataTypes.STRING,
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-    deletedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Testimonial',
     tableName: 'Testimonials',
     underscored: true,
+    paranoid: true,
   });
- export default Testimonials;
+  return Testimonials;
+}

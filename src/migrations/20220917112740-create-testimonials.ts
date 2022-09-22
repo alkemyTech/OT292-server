@@ -25,9 +25,6 @@ module.exports = {
       updated_At: {
         allowNull: false,
         type: DataTypes.DATE
-      },
-      deleted_At: {
-        type: DataTypes.DATE
       }
     });
   },
