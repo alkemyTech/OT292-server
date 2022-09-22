@@ -67,4 +67,5 @@ export default function initMemberModel(sequelize: Sequelize, DataTypes: typeof 
     underscored: true,
   });
   return Member;
-}
+};
+
