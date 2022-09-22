@@ -1,7 +1,8 @@
 import {
-  CreationOptional, DataTypes as types, InferAttributes,
+  CreationOptional, DataTypes as types, ForeignKey, InferAttributes,
   InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
+import { Category } from './category';
 
 export class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
   declare id: CreationOptional<Number>;
@@ -13,19 +14,14 @@ export class News extends Model<InferAttributes<News>, InferCreationAttributes<N
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
 
-  declare categoryId: number | null;
+  declare categoryId: ForeignKey<Category>;
 
   static associate(models: any) {
-    News.belongsTo(models.Category, {
-      foreignKey: 'category_id',
-      targetKey: 'id',
-      keyType: types.INTEGER,
-      constraints: true,
-    });
+    News.belongsTo(models.Category);
   }
 }
 
-export default function initUserModel(sequelize: Sequelize, DataTypes: typeof types) {
+export default function initNewsModel(sequelize: Sequelize, DataTypes: typeof types) {
   News.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -73,4 +69,3 @@ export default function initUserModel(sequelize: Sequelize, DataTypes: typeof ty
 
   return News;
 }
-

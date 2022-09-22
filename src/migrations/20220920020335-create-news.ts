@@ -25,7 +25,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'categories',
+          model: 'Categories',
           key: 'id',
         },
         onUpdate: 'CASCADE',
