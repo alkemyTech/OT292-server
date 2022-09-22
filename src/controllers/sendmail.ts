@@ -1,21 +1,14 @@
-import Organization from "../models/organization";
 import db from "../models/index";
 
 import sendMail from "../services/mailService";
 
 async function sendWelcomeEmail(mailto: string) {
-  console.log("ingreso a sendwelcome email");
-
   const organizations: any = await   db.Organization.findOne({
     attributes: {
       exclude: ["id", "createdAt", "updatedAt", "deletedAt", "aboutUsText"],
     },
     order: [["id", "DESC"]],
   });
-
-  console.log(organizations)
-  console.log(organizations.image);
-
   const data = {
     text: organizations.welcomeText,
     img: organizations.image,
@@ -31,7 +24,6 @@ async function sendWelcomeEmail(mailto: string) {
       },
     ],
   };
-  console.log(data);
   await sendMail(mailto, data, organizations.email, data.subject);
 }
 
