@@ -18,10 +18,10 @@ export class Member extends Model<InferAttributes<Member>, InferCreationAttribut
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-  declare deletedAt: CreationOptional<Date> | null;
+  declare deletedAt: Date | null;
 }
 
-export default function initUserModel(sequelize: Sequelize, DataTypes: typeof types) {
+export default function initMemberModel(sequelize: Sequelize, DataTypes: typeof types) {
   Member.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -65,8 +65,7 @@ export default function initUserModel(sequelize: Sequelize, DataTypes: typeof ty
     timestamps: true,
     paranoid: true,
     underscored: true,
-  })
+  });
   return Member;
-
 };
 

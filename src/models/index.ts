@@ -4,6 +4,9 @@ import initActivityModel from './activity';
 import initRoleModel from './role';
 import initOrganizationModel from './organization';
 import configFile from '../config/config';
+import initCategoryModel from './category';
+import initMemberModel from './member';
+import initNewsModel from './news';
 
 type EnvType = 'development' | 'test' | 'production';
 const env: EnvType = process.env.NODE_ENV as EnvType || 'development';
@@ -15,6 +18,9 @@ const db = {
   User: initUserModel(sequelize, DataTypes),
   Role: initRoleModel(sequelize, DataTypes),
   Organization: initOrganizationModel(sequelize, DataTypes),
+  Category: initCategoryModel(sequelize, DataTypes),
+  Member: initMemberModel(sequelize, DataTypes),
+  News: initNewsModel(sequelize, DataTypes),
 };
 
 db.Role.associate(db);
