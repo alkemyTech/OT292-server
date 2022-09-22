@@ -15,7 +15,15 @@ export class Organization extends
   declare deletedAt: Date | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
+  static associate(models:any) {
+    Organization.hasMany(models.Slide, {
+      foreignKey: 'organizationId',
+      as: "slides"
+    })      
+  }
 }
+
 
 export default function initOrganizationModel(sequelize: Sequelize, DataTypes: typeof types) {
   Organization.init({
@@ -68,3 +76,4 @@ export default function initOrganizationModel(sequelize: Sequelize, DataTypes: t
   });
   return Organization;
 }
+
