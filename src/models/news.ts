@@ -15,6 +15,7 @@ export class News extends Model<InferAttributes<News>, InferCreationAttributes<N
   declare deletedAt: Date | null;
 
   declare categoryId: ForeignKey<Category>;
+  declare type: string;
 
   static associate(models: any) {
     News.belongsTo(models.Category);
@@ -47,6 +48,10 @@ export default function initNewsModel(sequelize: Sequelize, DataTypes: typeof ty
     image: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

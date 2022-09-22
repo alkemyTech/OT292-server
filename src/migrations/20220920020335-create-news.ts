@@ -31,6 +31,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       created_at: {
         type: DataTypes.DATE,
       },
