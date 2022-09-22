@@ -6,6 +6,7 @@ import {
 import indexRouter from './routes/index';
 
 import usersRouter from './routes/users';
+import organizationRouter from './routes/organizations';
 import sendMailRouter from  './routes/sendemail';
 
 const createError = require('http-errors');
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/organization',organizationRouter)
 app.use('/sender', sendMailRouter)
 
 // catch 404 and forward to error handler
