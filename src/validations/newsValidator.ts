@@ -1,15 +1,28 @@
-import { checkSchema, Schema } from 'express-validator';
+import { checkSchema } from 'express-validator';
 import reportError from './reportErrorValidation';
 
-const schema : Schema = {
+const schemaId = checkSchema({
   id: {
-    in: ['query'],
-    isInt: {
-      errorMessage: 'ID must be an integuer',
-    },
+    in: ['params'],
+    exists: { errorMessage: 'Must provide an ID' },
+    isInt: { errorMessage: 'ID must be an integuer' },
     toInt: true,
-    optional: { options: { nullable: true } },
   },
+});
+
+const schemaName = checkSchema({
+  name: {
+    in: ['body'],
+    notEmpty: {
+      errorMessage: 'Name cannot be empty',
+    },
+    isString: {
+      errorMessage: 'Name must be string',
+    },
+  },
+});
+
+const schemaCategoryId = checkSchema({
   categoryId: {
     in: ['body'],
     notEmpty: {
@@ -21,15 +34,9 @@ const schema : Schema = {
     toInt: true,
     optional: { options: { nullable: true } },
   },
-  name: {
-    in: ['body'],
-    notEmpty: {
-      errorMessage: 'Name cannot be empty',
-    },
-    isString: {
-      errorMessage: 'Name must be string',
-    },
-  },
+});
+
+const schemaContent = checkSchema({
   content: {
     in: ['body'],
     notEmpty: {
@@ -39,6 +46,9 @@ const schema : Schema = {
       errorMessage: 'Content must be string',
     },
   },
+});
+
+const schemaImage = checkSchema({
   image: {
     in: ['body'],
     notEmpty: {
@@ -48,11 +58,37 @@ const schema : Schema = {
       errorMessage: 'Image must be string',
     },
   },
-};
+});
 
-const validate = checkSchema(schema);
-
-export default [
-  ...validate,
+const validateCreation = [
+  ...schemaName,
+  ...schemaContent,
+  ...schemaImage,
+  ...schemaCategoryId,
   reportError,
 ];
+
+const validateUpdate = [
+  ...schemaName,
+  ...schemaContent,
+  ...schemaImage,
+  ...schemaCategoryId,
+  reportError,
+];
+
+const validateDelete = [
+  ...schemaId,
+  reportError,
+];
+
+const validateRead = [
+  ...schemaId,
+  reportError,
+];
+
+export default {
+  validateCreation,
+  validateUpdate,
+  validateRead,
+  validateDelete,
+};
