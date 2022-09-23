@@ -14,7 +14,13 @@ async function index(req : Request, res : Response) {
  */
 const create = async (req : Request, res: Response, next: NextFunction) => {
   try {
-    const newsSaved : NewsClass = await NewsClass.create(req.body);
+    const newsSaved : NewsClass = await NewsClass.create({
+      name: req.body.name,
+      content: req.body.content,
+      image: req.body.image,
+      categoryId: req.body.categoryId ? req.body.categoryId : null,
+      type: 'news',
+    });
 
     return res.status(201).json(newsSaved);
   } catch (error) {
