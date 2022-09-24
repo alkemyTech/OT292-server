@@ -1,4 +1,3 @@
-import Organization from "../models/organization";
 import db from "../models/index";
 
 import sendMail from "../services/mailService";
@@ -27,7 +26,6 @@ async function sendWelcomeEmail(mailto: string) {
       },
     ],
   };
-
   await sendMail(mailto, data, organizations.email, data.subject);
 }
 
