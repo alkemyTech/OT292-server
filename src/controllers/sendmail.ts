@@ -4,7 +4,6 @@ import db from "../models/index";
 import sendMail from "../services/mailService";
 
 async function sendWelcomeEmail(mailto: string) {
-  console.log("ingreso a sendwelcome email");
 
   const organizations: any = await   db.Organization.findOne({
     attributes: {
