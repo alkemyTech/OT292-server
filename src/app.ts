@@ -2,12 +2,12 @@ import {
   NextFunction, Request, Response,
 } from 'express';
 
-
 import indexRouter from './routes/index';
 
 import usersRouter from './routes/users';
 import authRouter from './routes/auth';
 import organizationRouter from './routes/organizations';
+import newsRouter from './routes/news';
 import sendMailRouter from  './routes/sendemail';
 
 const createError = require('http-errors');
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/news',newsRouter);
 app.use('/organization',organizationRouter)
 app.use('/sender', sendMailRouter)
 
