@@ -13,6 +13,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
+
       facebook_url: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -22,6 +23,7 @@ module.exports = {
         allowNull: true,
       },
       linkedin_url: {
+
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -33,6 +35,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true,
       },
+
       created_at: {
         type: DataTypes.DATE,
       },
