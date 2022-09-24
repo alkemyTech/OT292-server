@@ -13,9 +13,6 @@ async function sendWelcomeEmail(mailto: string) {
     order: [["id", "DESC"]],
   });
 
-  console.log(organizations)
-  console.log(organizations.image);
-
   const data = {
     text: organizations.welcomeText,
     img: organizations.image,
@@ -31,7 +28,6 @@ async function sendWelcomeEmail(mailto: string) {
       },
     ],
   };
-  console.log(data);
   await sendMail(mailto, data, organizations.email, data.subject);
 }
 
