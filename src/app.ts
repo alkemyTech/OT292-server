@@ -6,6 +6,7 @@ import indexRouter from './routes/index';
 
 import usersRouter from './routes/users';
 import authRouter from './routes/auth';
+import newsRouter from './routes/news';
 import organizationRouter from './routes/organizations';
 import categoryRouter from './routes/categories';
 import newsRouter from './routes/news';
