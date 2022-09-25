@@ -1,8 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import News, { News as NewsClass } from '../models/news';
+import { Request, Response } from 'express';
+import db from '../models/index';
 
 async function index(req : Request, res : Response) {
   res.json({ message: `${News.name} controller` });
+}
+
+const getNewById = async (req:Request,res:Response) => {
+    try{
+      const newById = await db.News.findByPk(req.params.id);
+      return res.status(200).json(newById);
+    }catch(error){
+       return res.status(500).json(error);
+    }
 }
 
 /**
@@ -30,5 +41,6 @@ const create = async (req : Request, res: Response, next: NextFunction) => {
 
 export default {
   index,
+  getNewById,
   create,
 };
