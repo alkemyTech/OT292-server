@@ -9,6 +9,6 @@ const router : Router = express.Router();
 
 router.get('/:id',getNewById);
 router.post('/', validateToken, verifyAdmin, newsValidator.validateCreation, newsController.create);
+router.delete('/:id', validateToken, verifyAdmin, newsValidator.validateDelete, newsController.deleteNews);
 
 export default router;
-

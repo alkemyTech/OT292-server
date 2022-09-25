@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import News, { News as NewsClass } from '../models/news';
-import { Request, Response } from 'express';
 import db from '../models/index';
 
 async function index(req : Request, res : Response) {
@@ -39,8 +38,25 @@ const create = async (req : Request, res: Response, next: NextFunction) => {
   }
 };
 
+/**
+ * Allows us delete a entry of News.
+ * @param req Request
+ * @param res Response
+ * @param next Next
+ */
+const deleteNews = async (req : Request, res: Response, next: NextFunction) => {
+  try {
+    const result : number = await db.News.destroy({ where: { id: req.params.id } });
+    if (!result) return res.status(404).json({ status: 404, message: 'Resource not found' });
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+
 export default {
   index,
   getNewById,
   create,
+  deleteNews
 };
