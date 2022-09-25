@@ -20,7 +20,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     if (userFromDB) {
       const match: boolean = bcrypt.compareSync(req.body.password, userFromDB.password);
       if (match) {
-        const token = generateToken(userFromDB.id);
+        const token = generateToken(userFromDB.id, userFromDB.roleId);
         return res.status(200).json({ message: { token }, status: 200 });
       }
     }
