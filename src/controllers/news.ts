@@ -54,9 +54,37 @@ const deleteNews = async (req : Request, res: Response, next: NextFunction) => {
   }
 }
 
+const updateNews = async (req: Request, res: Response, next: NextFunction) =>{
+  const id = req.params.id;
+  const {name, content, image, categoryId} = req.body
+
+  let news
+  try {
+    news = await db.News.findByPk(id);
+    if(!news) return res.status(404).json({ message: 'News not found', status: 404 });
+    
+    if(name) news.name = name;
+    if(content) news.content = content;
+    if(image) news.image = image;
+    if(categoryId) news.categoryId = categoryId;
+    try {
+      news.save();
+    } catch (error) {
+      return res.status(500).json(error);
+
+    }
+    return res.status(200).json({message: news, status: 200})
+    
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+
+}
+
 export default {
   index,
   getNewById,
   create,
+  updateNews,
   deleteNews
 };
