@@ -46,7 +46,7 @@ export default function initCategoryModel(sequelize: Sequelize, DataTypes: typeo
   }, {
     sequelize,
     modelName: 'Category',
-    tableName: 'categories',
+    tableName: 'Categories',
     paranoid: true,
     timestamps: true,
     underscored: true,
