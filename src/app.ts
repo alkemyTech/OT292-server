@@ -10,6 +10,7 @@ import organizationRouter from './routes/organizations';
 import categoryRouter from './routes/categories';
 import newsRouter from './routes/news';
 import sendMailRouter from  './routes/sendemail';
+import activitiesRouter from './routes/activities';
 
 const createError = require('http-errors');
 const express = require('express');
@@ -39,6 +40,7 @@ app.use('/organization', organizationRouter);
 app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news',newsRouter);
+app.use('/activities', activitiesRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
