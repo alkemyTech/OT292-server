@@ -1,9 +1,31 @@
 import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 import db from '../models/index'
 
 async function index (req: Request, res: Response) {
   res.send('Activities controller');
 }
+
+const createActivity = async (req: Request, res: Response) => {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
+  
+
+  const {name, content, image} = req.body
+
+  try {
+    const newActivity = await db.Activity.create({
+      name,
+      content,
+      image
+    })
+    res.status(200).json({ message: newActivity.toJSON(), status: 200})
+  } catch (error) {
+    return res.status(500).json({message: error, status: 500})
+  }
+}
+
 const updateActivity = async (req:Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
   const { name, content, image} = req.body
@@ -29,5 +51,6 @@ const updateActivity = async (req:Request, res: Response, next: NextFunction) =>
 }
 export default{
   index,
-  updateActivity
+  updateActivity,
+  createActivity
 };
