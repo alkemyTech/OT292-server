@@ -32,7 +32,18 @@ const getDetails = async (req: Request, res: Response) => {
   return res.status(200).json({ message: category.toJSON(), status: 200 });
 };
 
+export async function create(req: Request, res: Response) {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(400).json({ errors: error.array(), status: 400 });
+  }
+
+  const { name, description, image } = req.body;
+
+  const category = await db.Category.create({ name, description, image });
+  return res.status(201).json({ message: category.toJSON(), status: 201 });
+}
+
 export {
   getDetails,
 };
-
