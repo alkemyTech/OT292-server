@@ -5,7 +5,7 @@ export default async function verifyOwnership(req: Request, res: Response, next:
   const id = req.params.id;
   const userId = req.userId;
 
-  if (Number(id) === Number(userId)) {
+  if (Number(id) === userId) {
     return next();
   }
   return verifyAdmin(req, res, next);

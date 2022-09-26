@@ -7,8 +7,8 @@ export class Role extends Model<InferAttributes<Role>, InferCreationAttributes<R
   declare name: string;
   declare description: string | null;
 
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 
   static associate(models: any) {
     Role.hasMany(models.User);
@@ -30,11 +30,11 @@ export default function initRoleModel(sequelize: Sequelize, DataTypes: typeof ty
       type: DataTypes.STRING,
       allowNull: true,
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   }, {
     sequelize,
-    modelName: 'role',
+    modelName: 'Role',
     tableName: 'roles',
     timestamps: true,
     paranoid: false,
