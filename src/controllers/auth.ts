@@ -33,4 +33,13 @@ const login = async (req: Request, res: Response, next : NextFunction) => {
   }
 };
 
+export const authMe = async(req:Request,res:Response)=> {
+    try{
+      const me = await db.User.findByPk(req.userId);
+      return res.status(200).json(me)
+    }catch(error){
+      return res.status(500).json(error);
+    }
+}
+
 export default { login };
