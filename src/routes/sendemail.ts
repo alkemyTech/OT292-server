@@ -4,7 +4,6 @@ const router = express.Router();
 
 /* GET users listing. */
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
-  console.log('ingreso')
   sendWelcomeEmail("fvaron@itfip.edu.co")
     res.send('respond with a resource');
 });

@@ -6,7 +6,8 @@ const join = require('path').join;
 
 async function sendMail (to: string, data: any, email:string, subject:string) {
           // ruta template
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
+          sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+
           const str = read(join(__dirname, '../views/plantillaemail.ejs'), 'utf8');
 
           // body para el mail
