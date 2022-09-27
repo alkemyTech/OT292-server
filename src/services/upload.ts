@@ -13,6 +13,6 @@ async function imgUploadFile(file:any){
     
    
     const uploadFile = await awsS3(file);
-    return (uploadFile); 
+    return (uploadFile.Location); 
   }
 export default imgUploadFile;
