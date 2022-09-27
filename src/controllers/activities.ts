@@ -7,24 +7,20 @@ async function index (req: Request, res: Response) {
 }
 
 const createActivity = async (req: Request, res: Response) => {
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
-  
-
-  const {name, content, image} = req.body
-
+  const { name, content, image } = req.body;
   try {
     const newActivity = await db.Activity.create({
       name,
       content,
-      image
-    })
-    res.status(200).json({ message: newActivity.toJSON(), status: 200})
+      image,
+    });
+    return res.status(200).json({ message: newActivity.toJSON(), status: 200 });
   } catch (error) {
-    return res.status(500).json({message: error, status: 500})
+    return res.status(400).json({ message: error, status: 400 });
   }
-}
+};
 
 const updateActivity = async (req:Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
