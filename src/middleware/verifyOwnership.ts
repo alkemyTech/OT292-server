@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import verifyAdmin from './verifyAdmin';
 
 export default async function verifyOwnership(req: Request, res: Response, next: NextFunction) {
-  const id = req.params.id;
-  const userId = req.userId;
+  const { id } = req.params;
+  const { userId } = req;
 
   if (Number(id) === userId) {
     return next();
