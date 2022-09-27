@@ -14,7 +14,6 @@ credentials: credentialws
 async function uploadFile(file: any){
     //upload`${imageTimestamp}.${prueba.extension}`
 
-    console.log(`${file.path}.${file.mimetype.split("/")[1]}`, "upload s3")
     const stream = fs.createReadStream(file.path)
     const paramsUplad = {
         Bucket: process.env.AWS_BUCKET_NAME,
@@ -23,8 +22,6 @@ async function uploadFile(file: any){
     }
     const command = new PutObjectCommand(paramsUplad)
    const result = await client.send(command)
-   console.log(result)
-   console.log(command)
    return result
 }
 export default uploadFile;
