@@ -11,7 +11,7 @@ router.get('/este',getOrganizationData);
 router.post('/prueba', upload.single('image'),uploadFile)
 
 async function uploadFile(req: Request, res: Response){
-    console.log(req.file)
-    const uploadImage = imgUploadFile(req.file)
+    const uploadImage = await imgUploadFile(req.file)
+    res.json(uploadImage)
 }
 export default router;
