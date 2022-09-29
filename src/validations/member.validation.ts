@@ -19,6 +19,10 @@ const schemaName = checkSchema({
     },
     isString: {
       errorMessage: 'Name must be string',
+      bail: true,
+    },
+    isAlpha: {
+      errorMessage: 'Name must be alphabetic',
     },
   },
 });
