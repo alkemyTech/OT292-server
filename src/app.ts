@@ -9,7 +9,7 @@ import usersRouter from './routes/users';
 import authRouter from './routes/auth';
 import organizationRouter from './routes/organizations';
 import sendMailRouter from  './routes/sendemail';
-import newRouter from './routes/news';
+
 
 const createError = require('http-errors');
 const express = require('express');
@@ -37,7 +37,7 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/organization',organizationRouter)
 app.use('/sender', sendMailRouter);
-app.use('/news',newRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
