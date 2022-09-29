@@ -18,14 +18,18 @@ module.exports = {
       content: {
         type: DataTypes.STRING
       },
-      created_At: {
+      created_at: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updated_At: {
+      updated_at: {
         allowNull: false,
         type: DataTypes.DATE
-      }
+      },
+      deleted_at: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
     });
   },
   async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {

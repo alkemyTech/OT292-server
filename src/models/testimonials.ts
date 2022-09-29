@@ -33,16 +33,15 @@ import {
     content: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
-    deletedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    }
+    deletedAt: DataTypes.DATE,
+    
   }, {
     sequelize,
     modelName: 'Testimonial',
     tableName: 'Testimonials',
-    underscored: true,
+    timestamps: true,
     paranoid: true,
+    underscored: true,
   });
 
   return Testimonials
