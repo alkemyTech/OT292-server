@@ -34,7 +34,7 @@ import {
   }, {
     sequelize,
     modelName: 'Slide',
-    timestamps:false,
+    timestamps:true,
     underscored:true
   });
   return Slide;
