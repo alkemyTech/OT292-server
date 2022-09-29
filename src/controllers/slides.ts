@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import db from '../models/index';
-import {generateToken} from '../utils/jwt.handle';
+
 
 export const slideDetail = async (req:Request,res:Response) => {
     try{
@@ -11,7 +11,6 @@ export const slideDetail = async (req:Request,res:Response) => {
         return res.status(500).json(error);
     }
 }
-
 
 
 export const slideDelete = async (req:Request,res:Response) => {
