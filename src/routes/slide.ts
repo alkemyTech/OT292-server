@@ -8,7 +8,8 @@ import ValidateToken from '../middleware/auth';
 
 const router = Router();
 
-router.get('/:id',ValidateToken,VerifyAdmin,slideDetail);
+router.get('/:id',ValidateToken,VerifyAdmin,validateRead,slideDetail);
+
 
 
 export default router;
