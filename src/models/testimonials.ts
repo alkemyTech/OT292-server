@@ -1,5 +1,6 @@
 import {
-  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
+  CreationOptional, DataTypes as types, ForeignKey, InferAttributes,
+  InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
 
   export class Testimonials extends Model<InferAttributes<Testimonials>, InferCreationAttributes<Testimonials>> {
