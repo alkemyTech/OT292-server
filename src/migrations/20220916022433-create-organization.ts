@@ -40,15 +40,15 @@ module.exports = {
         type: DATE,
         allowNull: true,
       },
-      facebookUrl: {
+      facebook_url: {
         type: STRING,
         allowNull: true,
       },
-      instagramUrl: {
+      instagram_url: {
         type: STRING,
         allowNull: true,
       },
-      linkedinUrl: {
+      linkedin_url: {
         type: STRING,
         allowNull: true,
       },
