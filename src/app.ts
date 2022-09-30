@@ -11,6 +11,7 @@ import categoryRouter from './routes/categories';
 import newsRouter from './routes/news';
 import sendMailRouter from  './routes/sendemail';
 import activitiesRouter from './routes/activities';
+import slideRouter from './routes/slide';
 
 const createError = require('http-errors');
 const express = require('express');
@@ -41,6 +42,7 @@ app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news',newsRouter);
 app.use('/activities', activitiesRouter);
+app.use('/slides', slideRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
