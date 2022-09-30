@@ -6,7 +6,7 @@ export const slidesGetAll = async (_req: Request, res: Response) => {
     const slides = await db.Slide.findAll({
       attributes: ['id', 'imageUrl', 'order'],
     });
-    if (!slides) {
+    if (slides.length===0) {
       return res.status(404).json({ message: 'Slides does not exist', status: 404 });
     }
     return res.status(200).json({ message: slides, status: 200 });
