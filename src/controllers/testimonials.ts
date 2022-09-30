@@ -12,7 +12,16 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       res.status(500).json(error);
     }
 };
-const deletetestimonial = async (req:Request, res:Response) => {
+const deletetestimonial = async (req:Request, res:Response,  next:NextFunction) => {
+
+  try {
+    const id = req.params.id;
+    let destroy = await db.Testimonial.destroy({ where: { id: id } });
+    if(!destroy) return res.status(404).json({status: 404, message: "Testimonial not found"});
+    return res.status(200).json({status: 200, message: "Testimonial deleted"});
+  } catch (error) {
+    res.status(500).json(error);
+  }
 
 }
 
