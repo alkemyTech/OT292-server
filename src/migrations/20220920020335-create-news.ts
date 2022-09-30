@@ -2,7 +2,7 @@ import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
   async up(queryInterface : sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.createTable('News', {
+    await queryInterface.createTable('news', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -31,6 +31,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       created_at: {
         type: DataTypes.DATE,
       },
@@ -44,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.dropTable('News');
+    await queryInterface.dropTable('news');
   },
 };

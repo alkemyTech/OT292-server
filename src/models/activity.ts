@@ -47,7 +47,7 @@ export default function initActivityModel(sequelize: Sequelize, DataTypes: typeo
     timestamps: true,
     paranoid: true,
     modelName: 'Activity',
-    tableName: 'Activities',
+    tableName: 'activities',
     underscored: true,
   });
   return Activity;

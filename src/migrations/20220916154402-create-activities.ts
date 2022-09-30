@@ -2,7 +2,7 @@ import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
   async up (queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.createTable('Activities', {
+    await queryInterface.createTable('activities', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
@@ -30,6 +30,6 @@ module.exports = {
   },
 
   async down (queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.dropTable('Activities');
+    await queryInterface.dropTable('activities');
   }
 };
