@@ -12,6 +12,7 @@ import newsRouter from './routes/news';
 import sendMailRouter from  './routes/sendemail';
 import activitiesRouter from './routes/activities';
 
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -36,11 +37,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+
+
 app.use('/organization', organizationRouter);
 app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news',newsRouter);
 app.use('/activities', activitiesRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
