@@ -3,8 +3,9 @@ import verifyAdmin from './verifyAdmin';
 
 export default async function verifyOwnership(req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
-  const { userId } = req.body;
-  if (id === userId) {
+  const { userId } = req;
+
+  if (Number(id) === userId) {
     return next();
   }
   return verifyAdmin(req, res, next);

@@ -4,8 +4,32 @@ import { NextFunction } from 'connect';
 import db from '../models/index';
 import { generateToken } from '../utils/jwt.handle';
 import { User } from '../models/user';
+import {
+  buildUser, filterPassword, passwordHash, userByEmail,
+} from '../services/userService';
 
 const { validationResult } = require('express-validator');
+
+const registerUser = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 404 }); }
+
+  const existingUser = await userByEmail(req.body.email);
+  if (existingUser) {
+    return res.status(400).json({ error: 'email already used', status: 400 });
+  }
+
+  const user = buildUser(req.body);
+  user.password = passwordHash(req.body.password);
+
+  try {
+    const newUser = await user.save();
+    const dataUser = filterPassword(newUser);
+    return res.status(200).json({ message: dataUser, status: 200 });
+  } catch (error) {
+    return res.status(404).json({ message: error, status: 404 });
+  }
+};
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -31,4 +55,15 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { login };
+
+
+
+export const authMe = async(req:Request,res:Response)=> {
+    try{
+      const me = await db.User.findByPk(req.userId);
+      return res.status(200).json(me)
+    }catch(error){
+      return res.status(500).json(error);
+    }
+}
+export default { login, registerUser };
