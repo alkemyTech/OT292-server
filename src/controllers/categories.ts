@@ -16,7 +16,7 @@ export async function remove(req: Request, res: Response) {
   return res.status(204).json({ status: 204 });
 }
 
-const getDetails = async (req: Request, res: Response) => {
+export async function getDetails(req: Request, res: Response) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -30,9 +30,19 @@ const getDetails = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json({ message: category.toJSON(), status: 200 });
-};
+}
 
-export {
-  getDetails,
-};
+export async function list(req: Request, res: Response) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
+  const offset = parseInt(req.query.offset as string, 10) || 0;
+  const limit = parseInt(req.query.limit as string, 10) || 20;
+  const categories = await db.Category.findAndCountAll({ offset, limit, attributes: ['name'] });
+
+  return res.status(200).json(
+    { message: { count: categories.count, categories: categories.rows }, status: 200 },
+  );
+}

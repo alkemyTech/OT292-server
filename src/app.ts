@@ -37,11 +37,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+
+
 app.use('/organization', organizationRouter);
 app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news', newsRouter);
 app.use('/activities', activitiesRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
