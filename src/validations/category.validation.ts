@@ -1,4 +1,4 @@
-import { param, checkSchema } from 'express-validator';
+import { param, checkSchema, query } from 'express-validator';
 import reportError from './reportErrorValidation';
 
 const schemaId = checkSchema({
@@ -67,3 +67,8 @@ export default {
   getDetailsValidator,
   updateValidator,
 };
+
+export const listValidator = [
+  query('offset', 'Invalid offset').optional().isInt(),
+  query('limit', 'Invalid limit').optional().isInt(),
+];
