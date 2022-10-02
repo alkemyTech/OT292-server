@@ -12,8 +12,8 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       res.status(500).json(error);
     }
 };
-const deletetestimonial = async (req:Request, res:Response,  next:NextFunction) => {
 
+const deletetestimonial = async (req:Request, res:Response) => {
   try {
     const id = req.params.id;
     let destroy = await db.Testimonial.destroy({ where: { id: id } });
@@ -22,7 +22,6 @@ const deletetestimonial = async (req:Request, res:Response,  next:NextFunction) 
   } catch (error) {
     res.status(500).json(error);
   }
-
 }
 
 export default {
