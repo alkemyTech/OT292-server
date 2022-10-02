@@ -49,8 +49,7 @@ app.use('/categories', categoryRouter);
 app.use('/news', newsRouter);
 app.use('/activities', activitiesRouter);
 app.use('/testimonials', testimonioRouter);
-
-app.use('/slides',slideRouter);
+app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 
 // catch 404 and forward to error handler

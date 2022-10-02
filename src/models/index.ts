@@ -25,7 +25,7 @@ const db = {
   Member: initMemberModel(sequelize, DataTypes),
   News: initNewsModel(sequelize, DataTypes),
   Testimonial: initTestimonialsModel(sequelize, DataTypes),
-  Slide : initSlideModel(sequelize,DataTypes)
+  Slide: initSlideModel(sequelize, DataTypes),
   Contact: initContactModel(sequelize, DataTypes),
 };
 
