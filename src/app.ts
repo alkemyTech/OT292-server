@@ -48,7 +48,6 @@ app.use('/news', newsRouter);
 app.use('/activities', activitiesRouter);
 app.use('/members', membersRouter);
 
-
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
   const error : Error = createError(404, `Route ${req.hostname + req.path} not found`, { expose: false });
