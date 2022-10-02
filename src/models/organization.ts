@@ -12,6 +12,9 @@ export class Organization extends
   declare email: string;
   declare welcomeText: string;
   declare aboutUsText: string | null;
+  declare facebookUrl: string | null;
+  declare instagramUrl: string | null;
+  declare linkedinUrl: string | null;
   declare deletedAt: Date | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -57,6 +60,18 @@ export default function initOrganizationModel(sequelize: Sequelize, DataTypes: t
       allowNull: false,
     },
     aboutUsText: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    facebookUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    linkedinUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    instagramUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },

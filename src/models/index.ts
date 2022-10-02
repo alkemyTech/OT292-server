@@ -8,6 +8,8 @@ import initCategoryModel from './category';
 import initMemberModel from './member';
 import initNewsModel from './news';
 import initTestimonialsModel from './testimonials';
+import initSlideModel from './slide';
+import initContactModel from './contact';
 
 type EnvType = 'development' | 'test' | 'production';
 const env: EnvType = process.env.NODE_ENV as EnvType || 'development';
@@ -23,9 +25,12 @@ const db = {
   Member: initMemberModel(sequelize, DataTypes),
   News: initNewsModel(sequelize, DataTypes),
   Testimonial: initTestimonialsModel(sequelize, DataTypes),
+  Slide : initSlideModel(sequelize,DataTypes)
+  Contact: initContactModel(sequelize, DataTypes),
 };
 
 db.Role.associate(db);
 db.User.associate(db);
+db.Slide.associate(db);
 
 export default db;

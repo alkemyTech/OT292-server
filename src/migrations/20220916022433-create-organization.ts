@@ -40,6 +40,18 @@ module.exports = {
         type: DATE,
         allowNull: true,
       },
+      facebook_url: {
+        type: STRING,
+        allowNull: true,
+      },
+      instagram_url: {
+        type: STRING,
+        allowNull: true,
+      },
+      linkedin_url: {
+        type: STRING,
+        allowNull: true,
+      },
       created_at: DATE,
       updated_at: DATE,
     });
