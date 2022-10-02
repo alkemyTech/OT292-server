@@ -56,6 +56,15 @@ export const getDetails = async (req: Request, res: Response) => {
   return res.status(200).json({ message: category.toJSON(), status: 200 });
 }
 
+export const create = async (req:Request,res:Response) => {
+    try{
+        const newCategory = await db.Category.create(req.body);
+         return res.status(200).json({message : `The Category ${newCategory.name} has been created Successful`});
+    }catch(error){
+      return res.status(500).json(error);
+    }
+}
+
 export async function list(req: Request, res: Response) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -73,4 +82,5 @@ export async function list(req: Request, res: Response) {
 
 export default {
   getDetails,
+  create
 };
