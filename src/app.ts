@@ -13,6 +13,7 @@ import categoryRouter from './routes/categories';
 import newsRouter from './routes/news';
 import sendMailRouter from './routes/sendemail';
 import activitiesRouter from './routes/activities';
+import testimonioRouter from './routes/testimonials';
 import slideRouter from './routes/slide';
 import membersRouter from './routes/members';
 
@@ -33,7 +34,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,6 +48,7 @@ app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news', newsRouter);
 app.use('/activities', activitiesRouter);
+app.use('/testimonials', testimonioRouter);
 app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 

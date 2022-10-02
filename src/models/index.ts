@@ -7,6 +7,7 @@ import configFile from '../config/config';
 import initCategoryModel from './category';
 import initMemberModel from './member';
 import initNewsModel from './news';
+import initTestimonialsModel from './testimonials';
 import initSlideModel from './slide';
 import initContactModel from './contact';
 
@@ -23,6 +24,7 @@ const db = {
   Category: initCategoryModel(sequelize, DataTypes),
   Member: initMemberModel(sequelize, DataTypes),
   News: initNewsModel(sequelize, DataTypes),
+  Testimonial: initTestimonialsModel(sequelize, DataTypes),
   Slide: initSlideModel(sequelize, DataTypes),
   Contact: initContactModel(sequelize, DataTypes),
 };
