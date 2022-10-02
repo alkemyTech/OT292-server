@@ -7,6 +7,7 @@ import configFile from '../config/config';
 import initCategoryModel from './category';
 import initMemberModel from './member';
 import initNewsModel from './news';
+import initSlideModel from './slide';
 import initContactModel from './contact';
 
 type EnvType = 'development' | 'test' | 'production';
@@ -22,10 +23,12 @@ const db = {
   Category: initCategoryModel(sequelize, DataTypes),
   Member: initMemberModel(sequelize, DataTypes),
   News: initNewsModel(sequelize, DataTypes),
+  Slide : initSlideModel(sequelize,DataTypes)
   Contact: initContactModel(sequelize, DataTypes),
 };
 
 db.Role.associate(db);
 db.User.associate(db);
+db.Slide.associate(db);
 
 export default db;

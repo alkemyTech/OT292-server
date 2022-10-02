@@ -13,6 +13,7 @@ import categoryRouter from './routes/categories';
 import newsRouter from './routes/news';
 import sendMailRouter from './routes/sendemail';
 import activitiesRouter from './routes/activities';
+import slideRouter from './routes/slide';
 import membersRouter from './routes/members';
 
 const express = require('express');
@@ -46,6 +47,7 @@ app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
 app.use('/news', newsRouter);
 app.use('/activities', activitiesRouter);
+app.use('/slides',slideRouter);
 app.use('/members', membersRouter);
 
 // catch 404 and forward to error handler
