@@ -1,10 +1,13 @@
-import { Router } from 'express';
+import {Router} from 'express';
+import {slidesGetAll, slideDetail, slideDelete} from '../controllers/slides';
+import {validateRead} from '../validations/slideValidator';
 import VerifyAdmin from '../middleware/verifyAdmin';
-import validateToken from '../middleware/auth';
-import { slidesGetAll } from '../controllers/slides';
+import ValidateToken from '../middleware/auth';
 
 const router = Router();
 
 router.get('/', validateToken, VerifyAdmin, slidesGetAll);
+router.delete('/:id',validateToken,VerifyAdmin,validateRead,slideDelete);
+router.get('/:id',ValidateToken,VerifyAdmin,validateRead,slideDetail);
 
 export default router;

@@ -1,5 +1,6 @@
 import {
-  CreationOptional, DataTypes as types, InferAttributes, InferCreationAttributes, Model, Sequelize,
+  CreationOptional, DataTypes as types, ForeignKey, InferAttributes,
+  InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
 
   export class Testimonials extends Model<InferAttributes<Testimonials>, InferCreationAttributes<Testimonials>> {
@@ -33,16 +34,15 @@ import {
     content: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
-    deletedAt: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    }
+    deletedAt: DataTypes.DATE,
+    
   }, {
     sequelize,
     modelName: 'Testimonial',
     tableName: 'Testimonials',
-    underscored: true,
+    timestamps: true,
     paranoid: true,
+    underscored: true,
   });
 
   return Testimonials
