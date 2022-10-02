@@ -15,6 +15,7 @@ const schemaName = checkSchema({
     in: ['body'],
     notEmpty: {
       errorMessage: 'Name cannot be empty',
+      bail: true,
     },
     isString: {
       errorMessage: 'Name must be string',
@@ -27,6 +28,7 @@ const schemaCategoryId = checkSchema({
     in: ['body'],
     notEmpty: {
       errorMessage: 'Category ID cannot be empty',
+      bail: true,
     },
     isInt: {
       errorMessage: 'Category ID must be an integuer',
@@ -41,6 +43,7 @@ const schemaContent = checkSchema({
     in: ['body'],
     notEmpty: {
       errorMessage: 'Content cannot be empty',
+      bail: true,
     },
     isString: {
       errorMessage: 'Content must be string',
@@ -53,6 +56,7 @@ const schemaImage = checkSchema({
     in: ['body'],
     notEmpty: {
       errorMessage: 'Image cannot be empty',
+      bail: true,
     },
     isString: {
       errorMessage: 'Image must be string',
