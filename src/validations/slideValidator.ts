@@ -1,4 +1,4 @@
-import { checkSchema } from 'express-validator';
+import { body, checkSchema } from 'express-validator';
 import reportError from './reportErrorValidation';
 
 const schemaId = checkSchema({
@@ -11,6 +11,12 @@ const schemaId = checkSchema({
 });
 
 export const validateRead = [
-    ...schemaId,
-    reportError,
-  ];
+  ...schemaId,
+  reportError,
+];
+
+export const validateCreate = [
+  body('text').exists().withMessage('Must provide a text'),
+  body('order').exists().withMessage('Must provide an order'),
+  body('organizationId').exists().withMessage('Must provide an organizationId'),
+];
