@@ -46,11 +46,9 @@ export async function readAllMembers(req:Request, res: Response, next:NextFuncti
 }
 export async function deleteMenbers(req:Request, res: Response, next: NextFunction){
   const id = req.params.id;
-  console.log(id)
   let menbersdelete;
   try {
     menbersdelete = await db.Member.destroy({ where: { id }})
-    console.log(menbersdelete)
     if(!menbersdelete) return res.status(404).json({ status: 'Menber Not Found' });
     return res.status(200).json({ status: '200', message: 'Menbers deleted successfully'});
   } catch (error) {
