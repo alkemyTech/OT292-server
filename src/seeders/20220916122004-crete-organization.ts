@@ -11,6 +11,9 @@ module.exports = {
       email: 'myorg@myorg.com',
       welcome_text: 'welcome to my organization',
       about_us_text: 'abouts us',
+      facebook_url: 'SomosMás',
+      linkedin_url: 'Somos_Más',
+      instagram_url: 'Somos_Más',
       created_at: new Date,
       updated_at: new Date
     }], {});
