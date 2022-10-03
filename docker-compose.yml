@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: ot292-app
+    build: 
+        context: .
+        target: Production
+    ports:
+      - '4000:3000'
+    environment:
+      - DB_NAME=ong
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_PORT=3306
+      - DB_HOST=mysupersqldatabase
+      - JWT_SECRET=mysecretekeymysecretekey
+    command: npm run start
+    links:
+      - mysql
+  mysql:
+    container_name: mysql_container_name
+    hostname: mysupersqldatabase
+    image: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "4306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ong
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+volumes:
+  mysql-data:
+
