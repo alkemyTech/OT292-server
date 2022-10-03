@@ -142,7 +142,11 @@ const schemaImage = checkSchema({
     },
 });
 
-export const validateReadAll = [...schemaLimit, ...schemaOffset];
+export const validateReadAll = [
+    ...schemaLimit,
+    ...schemaOffset,
+    reportError,
+];
 
 export const validateCreation = [
     ...schemaName,
