@@ -1,13 +1,17 @@
-import {Router} from 'express';
-import {slidesGetAll, slideDetail, slideDelete} from '../controllers/slides';
-import {validateRead} from '../validations/slideValidator';
-import VerifyAdmin from '../middleware/verifyAdmin';
-import ValidateToken from '../middleware/auth';
+import { Router } from 'express';
+import {
+  slidesGetAll, slideDetail, slideDelete, slideCreate,
+} from '../controllers/slides';
+import { validateCreate, validateRead } from '../validations/slideValidator';
+import verifyAdmin from '../middleware/verifyAdmin';
+import validateToken from '../middleware/auth';
+import uploadMiddleware from '../services/multer';
 
 const router = Router();
 
-router.get('/', validateToken, VerifyAdmin, slidesGetAll);
-router.delete('/:id',validateToken,VerifyAdmin,validateRead,slideDelete);
-router.get('/:id',ValidateToken,VerifyAdmin,validateRead,slideDetail);
+router.get('/', validateToken, verifyAdmin, slidesGetAll);
+router.delete('/:id', validateToken, verifyAdmin, validateRead, slideDelete);
+router.get('/:id', validateToken, verifyAdmin, validateRead, slideDetail);
+router.post('/', validateToken, verifyAdmin, uploadMiddleware.single('image'), validateCreate, slideCreate);
 
 export default router;
