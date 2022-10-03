@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import createHttpError from 'http-errors';
 import db from '../models/index';
+import { Member } from '../models/member';
 
 export async function index(request: Request, response:Response) {
   response.send(`${db.Member.name}`);
