@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.get('/', validateToken, verifyAdmin, validateReadAll, readAllMembers);
 router.post('/', validateToken, validateCreation, createMember);
-router.delete('/', validateToken, verifyAdmin ,validateDelete, deleteMenbers)
+router.delete('/:id' ,validateDelete, deleteMenbers)
 
 export default router;
