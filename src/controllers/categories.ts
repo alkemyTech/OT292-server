@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { devNull } from 'os';
-import { where } from 'sequelize';
 import { getCategory } from '../services/categoryService';
 import db from '../models';
 import { Category } from '../models/category';
@@ -54,16 +52,16 @@ export const getDetails = async (req: Request, res: Response) => {
   }
 
   return res.status(200).json({ message: category.toJSON(), status: 200 });
-}
+};
 
-export const create = async (req:Request,res:Response) => {
-    try{
-        const newCategory = await db.Category.create(req.body);
-         return res.status(200).json({message : `The Category ${newCategory.name} has been created Successful`});
-    }catch(error){
-      return res.status(500).json(error);
-    }
-}
+export const create = async (req:Request, res:Response) => {
+  try {
+    const newCategory = await db.Category.create(req.body);
+    return res.status(200).json({ message: `The Category ${newCategory.name} has been created Successful` });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
 export async function list(req: Request, res: Response) {
   const errors = validationResult(req);
@@ -82,5 +80,5 @@ export async function list(req: Request, res: Response) {
 
 export default {
   getDetails,
-  create
+  create,
 };
