@@ -24,7 +24,7 @@ services:
     links:
       - mysql
   mysql:
-    container_name: mysql_container_name
+    container_name: mysql_db
     hostname: mysupersqldatabase
     image: mysql
     ports:
