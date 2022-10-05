@@ -20,13 +20,9 @@ export class Organization extends
   declare updatedAt: CreationOptional<Date>;
 
   static associate(models:any) {
-    Organization.hasMany(models.Slide, {
-      foreignKey: 'organizationId',
-      as: "slides"
-    })      
+    Organization.hasMany(models.Slide);
   }
 }
-
 
 export default function initOrganizationModel(sequelize: Sequelize, DataTypes: typeof types) {
   Organization.init({
@@ -91,4 +87,3 @@ export default function initOrganizationModel(sequelize: Sequelize, DataTypes: t
   });
   return Organization;
 }
-

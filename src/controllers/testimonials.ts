@@ -23,8 +23,31 @@ const deletetestimonial = async (req:Request, res:Response) => {
     res.status(500).json(error);
   }
 }
+const updatetestimnoial = async (req:Request, res:Response, nxt:NextFunction) => {
+  const id = req.params.id;
+  const { name, content, image} = req.body;
+  let update;
+
+  try {
+    update = await db.Testimonial.findByPk(id);
+    if(!update) return res.status(404 ).json({ message: 'No found testimonial' });
+    if(name) update.name = name;
+    if(content) update.content = content;
+    if(image) update.image = image;
+    try {
+      update.save();
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+    return  res.status(200).json({status: 200, message: update});
+   
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+}
 
 export default {
   create,
-  deletetestimonial
+  deletetestimonial,
+  updatetestimnoial
 };

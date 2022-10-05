@@ -2,7 +2,7 @@ import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
   async up(queryInterface : sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.createTable('Members', {
+    await queryInterface.createTable('members', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -49,6 +49,6 @@ module.exports = {
     });
   },
   async down(queryInterface : sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.dropTable('Members');
+    await queryInterface.dropTable('members');
   },
 };
