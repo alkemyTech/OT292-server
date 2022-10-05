@@ -6,15 +6,12 @@ RUN mkdir -p /home/app
 # Setup working dir in container
 WORKDIR /home/app
 
-# Copy Dependecies needed
-COPY ./package*.json .
 # Copy app source code
 COPY . .
 
 # Download dependencies (development)
 RUN npm install 
-RUN npm install -g typescript
-RUN npm install -g nodemon
+RUN npm install -g typescript nodemon
 
 # Build dist js files
 RUN tsc --build

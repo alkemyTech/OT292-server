@@ -10,9 +10,8 @@ services:
     restart: always
     volumes:
       - ./:/home/app
-      - /home/app/node_modules
     ports:
-      - '4000:3000'
+      - '3000:3000'
     environment:
       - ${DB_NAME}
       - ${DB_USER}
@@ -28,7 +27,7 @@ services:
     hostname: mysupersqldatabase
     image: mysql
     ports:
-      - "4306:3306"
+      - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: ong
