@@ -3,23 +3,25 @@ version: '3.9'
 services:
   api:
     container_name: ot292-app
+    hostname: api-ong
     build: 
         context: .
         target: Production
     ports:
       - '4000:3000'
+    restart: always
     environment:
-      - DB_NAME=ong
-      - DB_USER=user
-      - DB_PASSWORD=password
-      - DB_PORT=3306
-      - DB_HOST=mysupersqldatabase
-      - JWT_SECRET=mysecretekeymysecretekey
+      - ${DB_NAME}
+      - ${DB_USER}
+      - ${DB_PASSWORD}
+      - ${DB_PORT}
+      - ${DB_HOST}
+      - ${JWT_SECRET}
     command: npm run start
     links:
       - mysql
   mysql:
-    container_name: mysql_container_name
+    container_name: mysql_db
     hostname: mysupersqldatabase
     image: mysql
     volumes:
