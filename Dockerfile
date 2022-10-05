@@ -8,16 +8,14 @@ WORKDIR /home/app
 
 # Copy Dependecies needed
 COPY ./package*.json .
+# Copy app source code
+COPY . .
+
 # Download dependencies (development)
 RUN npm install 
 RUN npm install -g typescript
 RUN npm install -g nodemon
 
-# Copy app source code
-COPY ./src ./src
-COPY ./uploads ./uploads
-COPY ./.sequelizerc ./.sequelizerc
-COPY ./tsconfig.json ./tsconfig.json
 # Build dist js files
 RUN tsc --build
 
