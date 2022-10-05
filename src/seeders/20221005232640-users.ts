@@ -1,4 +1,5 @@
 import sequelize from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 module.exports = {
   async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
@@ -21,7 +22,7 @@ module.exports = {
       first_name: 'admin',
       last_name: 'admin',
       email: 'admin@admin.admin',
-      password: 'admin',
+      password: (await bcrypt.hash('admin', 10)),
       photo: 'admin',
       created_at: new Date(),
       updated_at: new Date(),
@@ -31,7 +32,7 @@ module.exports = {
       first_name: 'testAdmin',
       last_name: 'testAdmin',
       email: 'admin2@admin.admin',
-      password: 'testAdmin',
+      password: (await bcrypt.hash('testAdmin', 10)),
       photo: 'testAdmin',
       created_at: new Date(),
       updated_at: new Date(),
@@ -41,7 +42,7 @@ module.exports = {
       first_name: 'user',
       last_name: 'user',
       email: 'user@user.user',
-      password: 'user',
+      password: (await bcrypt.hash('user', 10)),
       photo: 'user',
       created_at: new Date(),
       updated_at: new Date(),
@@ -51,7 +52,7 @@ module.exports = {
       first_name: 'user2',
       last_name: 'user2',
       email: 'user2@user.user',
-      password: 'user2',
+      password: (await bcrypt.hash('user2', 10)),
       photo: 'user',
       created_at: new Date(),
       updated_at: new Date(),
