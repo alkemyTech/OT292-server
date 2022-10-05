@@ -16,6 +16,7 @@ import activitiesRouter from './routes/activities';
 import testimonioRouter from './routes/testimonials';
 import slideRouter from './routes/slide';
 import membersRouter from './routes/members';
+import contactsRouter from './routes/contacts';
 
 const express = require('express');
 const path = require('path');
@@ -23,7 +24,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
-
 
 const app = express();
 app.use(cors());
@@ -42,7 +42,6 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
-
 app.use('/organization', organizationRouter);
 app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
@@ -51,6 +50,7 @@ app.use('/activities', activitiesRouter);
 app.use('/testimonials', testimonioRouter);
 app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
+app.use('/contacts', contactsRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
