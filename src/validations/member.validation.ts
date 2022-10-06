@@ -60,7 +60,7 @@ const schemaFacebookUrl = checkSchema({
         require_host: true,
       },
       errorMessage:
-                'the url must have the format : http://www.facebook.com/route',
+                'the url must have the format : https://www.facebook.com/route',
     },
     optional: { options: { nullable: true } },
   },
@@ -99,7 +99,7 @@ const schemaInstagramUrl = checkSchema({
         require_host: true,
       },
       errorMessage:
-                'the url must have the format : http://www.instagram.com/route',
+                'the url must have the format : https://www.instagram.com/route',
     },
     optional: { options: { nullable: true } },
   },
@@ -122,8 +122,17 @@ const schemaLinkedinUrl = checkSchema({
         protocols: ['https'],
         require_host: true,
       },
-      errorMessage:
-                'the url must have the format : http://www.linkedin.com/route',
+      errorMessage: 'the url must have the format : https://www.linkedin.com/route',
+    },
+    optional: { options: { nullable: true } },
+  },
+});
+
+const schemaDescription = checkSchema({
+  description: {
+    in: ['body'],
+    isString: {
+      errorMessage: 'Content must be string',
     },
     optional: { options: { nullable: true } },
   },
@@ -154,15 +163,18 @@ export const validateCreation = [
   ...schemaInstagramUrl,
   ...schemaLinkedinUrl,
   ...schemaImage,
+  ...schemaDescription,
   reportError,
 ];
 
 export const validateUpdate = [
+  ...schemaId,
   ...schemaName,
   ...schemaFacebookUrl,
   ...schemaInstagramUrl,
   ...schemaLinkedinUrl,
   ...schemaImage,
+  ...schemaDescription,
   reportError,
 ];
 
