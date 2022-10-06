@@ -26,6 +26,25 @@ export async function createMember(req:Request, res: Response, next:NextFunction
   }
 }
 
+export const putMember = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const member : Member | null = await db.Member.findByPk(req.params.id);
+    if (!member) { return next(createHttpError(404)); }
+
+    member.name = req.body.name;
+    member.description = req.body.description || null;
+    member.facebookUrl = req.body.facebookUrl || null;
+    member.instagramUrl = req.body.instagramUrl || null;
+    member.linkedinUrl = req.body.linkedinUrl || null;
+    member.image = req.body.image;
+    await member.save();
+
+    return res.status(200).json({ message: member, status: 200 });
+  } catch (error:Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
+  }
+};
+
 export async function readAllMembers(req:Request, res: Response, next:NextFunction) {
   try {
     const limit : number | undefined = parseInt(req.query.limit as string, 10) || undefined;
@@ -60,5 +79,6 @@ export default {
   index,
   readAllMembers,
   createMember,
-  deleteMenbers
+  putMember,
+  deleteMenbers,
 };
