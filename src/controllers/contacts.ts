@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import createHttpError from 'http-errors';
 import db from '../models/index';
-
+import { sendContactEmail } from '../services/mailService';
 
 const createContact = async (req: Request, res:Response, next: NextFunction) => {
   const {
@@ -11,6 +11,7 @@ const createContact = async (req: Request, res:Response, next: NextFunction) => 
     const newContact = await db.Contact.create({
       name, phone, email, message,
     });
+    await sendContactEmail(email);
     return res.status(200).json(
       { message: newContact, status: 200 },
 
