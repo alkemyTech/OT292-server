@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: ot292-dev
+    hostname: api-ong
+    build: 
+        context: .
+        target: Development
+    restart: always
+    volumes:
+      - ./:/home/app
+    ports:
+      - '3000:3000'
+    environment:
+      - ${DB_NAME}
+      - ${DB_USER}
+      - ${DB_PASSWORD}
+      - ${DB_PORT}
+      - ${DB_HOST}
+      - ${JWT_SECRET}
+    command: npm run dev:watch
+    links:
+      - mysql
+  mysql:
+    container_name: mysql_db
+    hostname: mysupersqldatabase
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: ong
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+    - mysql-data:/var/lib/mysql
+
+    
+volumes:
+  mysql-data:
+
