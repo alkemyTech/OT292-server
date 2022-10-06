@@ -44,15 +44,15 @@ export async function readAllMembers(req:Request, res: Response, next:NextFuncti
     return next(createHttpError(500, error.message, { expose: false }));
   }
 }
-export async function deleteMenbers(req:Request, res: Response, next: NextFunction){
-  const id = req.params.id;
-  let menbersdelete;
+export async function deleteMembers(req:Request, res: Response) {
+  const { id } = req.params;
+  let membersdelete;
   try {
-    menbersdelete = await db.Member.destroy({ where: { id }})
-    if(!menbersdelete) return res.status(404).json({ status: 'Menber Not Found' });
-    return res.status(200).json({ status: '200', message: 'Menbers deleted successfully'});
+    membersdelete = await db.Member.destroy({ where: { id } });
+    if (!membersdelete) return res.status(404).json({ status: 'Menber Not Found' });
+    return res.status(200).json({ status: '200', message: 'Menbers deleted successfully' });
   } catch (error) {
-    return res.status(500).json( error );
+    return res.status(500).json(error);
   }
 }
 
@@ -60,5 +60,5 @@ export default {
   index,
   readAllMembers,
   createMember,
-  deleteMenbers
+  deleteMembers,
 };
