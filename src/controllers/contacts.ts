@@ -1,6 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
 import createHttpError from 'http-errors';
 import db from '../models/index';
+import { sendContactEmail } from '../services/mailService';
+
+const createContact = async (req: Request, res:Response, next: NextFunction) => {
+  const {
+    name, phone, email, message,
+  } = req.body;
+  try {
+    const newContact = await db.Contact.create({
+      name, phone, email, message,
+    });
+    await sendContactEmail(email);
+    return res.status(200).json(
+      { message: newContact, status: 200 },
+
+    );
+  } catch (error : Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
+  }
+};
 
 const getAll = async (req: Request, res:Response, next: NextFunction) => {
   try {
@@ -22,5 +41,6 @@ const getAll = async (req: Request, res:Response, next: NextFunction) => {
 };
 
 export default {
+  createContact,
   getAll,
 };

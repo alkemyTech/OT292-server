@@ -3,6 +3,8 @@ import {
 } from 'express';
 
 import createError from 'http-errors';
+import helmet from 'helmet';
+import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './middlewares/error.handler';
 import indexRouter from './routes/index';
 
@@ -19,6 +21,8 @@ import membersRouter from './routes/members';
 import contactsRouter from './routes/contacts';
 import backofficeRouter from './routes/backoffice';
 
+import swaggerDocument from '../docs/openapi.json';
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -27,6 +31,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+app.use(helmet());
 app.use(cors());
 
 // view engine setup
@@ -42,7 +47,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
-
 app.use('/organization', organizationRouter);
 app.use('/sender', sendMailRouter);
 app.use('/categories', categoryRouter);
@@ -54,9 +58,11 @@ app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
 app.use('/backoffice', backofficeRouter); 
 
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const error : Error = createError(404, `Route ${req.hostname + req.path} not found`, { expose: false });
+  const error: Error = createError(404, `Route ${req.hostname + req.path} not found`, { expose: false });
   next(error);
 });
 

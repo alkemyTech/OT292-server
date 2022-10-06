@@ -7,6 +7,7 @@ import validateToken from '../middlewares/auth';
 
 const router : Router = express.Router();
 
+
 router.get('/:id',validateToken,verifyAdmin,newsValidator.validateRead,newsController.getNewById);
 router.put('/:id', validateToken, verifyAdmin, newsValidator.validateUpdate, newsController.updateNews)
 router.post('/', validateToken, verifyAdmin, newsValidator.validateCreation, newsController.create);
