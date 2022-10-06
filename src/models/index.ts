@@ -32,5 +32,6 @@ const db = {
 db.Role.associate(db);
 db.User.associate(db);
 db.Slide.associate(db);
+db.Organization.associate(db);
 
 export default db;
