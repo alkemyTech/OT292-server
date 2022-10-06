@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator';
 import { getCategory } from '../services/categoryService';
 import db from '../models';
 import { Category } from '../models/category';
+import page from '../utils/pagination'
 
 export async function remove(req: Request, res: Response) {
   const error = validationResult(req);
@@ -68,17 +69,18 @@ export async function list(req: Request, res: Response) {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
-  const offset = parseInt(req.query.offset as string, 10) || 0;
-  const limit = parseInt(req.query.limit as string, 10) || 20;
-  const categories = await db.Category.findAndCountAll({ offset, limit, attributes: ['name'] });
-
+  const resource = req.baseUrl
+ const pag:any = req.query.page || 1
+  const categories = await db.Category.findAndCountAll({  limit: 10,
+    offset: 10 * (pag - 1), attributes: ['name'] });
+const paginat = await page.calculatePage(categories.count, pag, resource)
   return res.status(200).json(
-    { message: { count: categories.count, categories: categories.rows }, status: 200 },
+    { message: { pagination:paginat,categories: categories.rows }, status: 200 },
   );
 }
 
 export default {
   getDetails,
   create,
+  list
 };
