@@ -3,6 +3,7 @@ import {
 } from 'express';
 
 import createError from 'http-errors';
+import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
 import { errorHandler } from './middlewares/error.handler';
 import indexRouter from './routes/index';
@@ -29,6 +30,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+app.use(helmet());
 app.use(cors());
 
 // view engine setup
