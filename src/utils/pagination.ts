@@ -3,8 +3,8 @@ const port = process.env.PORT || 3000;
 const urlBase = process.env.APP_URL_PRODUCTION ? `${process.env.APP_URL_PRODUCTION}` : `http://localhost:${port}`;
 const pageString = '?page=';
 
-const calculatePage = async (total: number, page: number, url: any) => {
-  const currentPage: number = Math.ceil(page / 10);
+const calculatePage = async (total: number, page: number, url: string) => {
+  const currentPage: number = page;
   const totalPages = Math.ceil(total / 10);
   const previos = currentPage === 1 || currentPage > totalPages + 1 ? undefined : currentPage - 1;
   const next = totalPages < currentPage + 1 ? undefined : currentPage + 1;
@@ -16,7 +16,4 @@ const calculatePage = async (total: number, page: number, url: any) => {
     count: totalPages,
   };
 };
-
-export default {
-  calculatePage,
-};
+export default calculatePage;

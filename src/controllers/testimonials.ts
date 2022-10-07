@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import createHttpError from 'http-errors';
 import db from '../models/index';
-import utils from '../utils/pagination';
+import calculatePage from '../utils/pagination';
 
 const getTestimonials = async (req: Request, res: Response, next: NextFunction) => {
   const resource = req.baseUrl;
@@ -12,7 +12,7 @@ const getTestimonials = async (req: Request, res: Response, next: NextFunction) 
     attributes: ['id', 'name', 'image'],
   });
   try {
-    const paginations = await utils.calculatePage(testimonial.count, pag, resource);
+    const paginations = await calculatePage(testimonial.count, pag, resource);
     return res.status(200).json({
       message: { pagination: paginations, testimonial: testimonial.rows },
       status: 200,
