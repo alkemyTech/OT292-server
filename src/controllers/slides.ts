@@ -2,8 +2,12 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import db from '../models/index';
 import upload from '../services/upload';
+import {generateToken} from '../utils/jwt.handle'
+
+
 
 export const slidesGetAll = async (_req: Request, res: Response) => {
+   
   try {
     const slides = await db.Slide.findAll({
       attributes: ['id', 'imageUrl', 'order'],
@@ -56,3 +60,22 @@ export const slideCreate = async (req: Request, res: Response) => {
     return res.status(500).json(error);
   }
 };
+
+export const slideUpdate = async(req:Request,res:Response) => {
+
+    const {imageUrl,text,order,organizationId} = req.body;
+    try {
+         const slide = await db.Slide.findByPk(req.params.id);
+          if(!slide) return res.status(404).json({message : "Slide not found"});
+          slide.imageUrl = imageUrl ? imageUrl : slide.imageUrl;
+          slide.text = text? text : slide.text;
+          slide.order = order? order : slide.order;
+          slide.organizationId = organizationId ? organizationId : slide.organizationId
+          await slide.save();
+          return res.status(200).json(slide);
+
+           
+    }catch(error){
+      return res.status(500).json({error});
+    }
+}
