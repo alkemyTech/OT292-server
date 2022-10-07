@@ -1,5 +1,26 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import createHttpError from 'http-errors';
 import db from '../models/index';
+import utils from '../utils/pagination';
+
+const getTestimonials = async (req: Request, res: Response, next: NextFunction) => {
+  const resource = req.baseUrl;
+  const pag: number = Number(req.query.page) || 1;
+  const testimonial = await db.Testimonial.findAndCountAll({
+    limit: 10,
+    offset: 10 * (pag - 1),
+    attributes: ['id', 'name', 'image'],
+  });
+  try {
+    const paginations = await utils.calculatePage(testimonial.count, pag, resource);
+    return res.status(200).json({
+      message: { pagination: paginations, testimonial: testimonial.rows },
+      status: 200,
+    });
+  } catch (error : Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
+  }
+};
 
 const create = async (req: Request, res: Response) => {
   const { name, content, image } = req.body;
@@ -48,4 +69,5 @@ export default {
   create,
   deletetestimonial,
   updatetestimnoial,
+  getTestimonials,
 };
