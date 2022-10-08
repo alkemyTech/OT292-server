@@ -19,6 +19,7 @@ export class News extends Model<InferAttributes<News>, InferCreationAttributes<N
 
   static associate(models: any) {
     News.belongsTo(models.Category);
+    News.hasMany(models.Comment);
   }
 }
 
