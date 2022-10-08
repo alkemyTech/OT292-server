@@ -10,14 +10,18 @@ To install dependencies, run
 ``` bash
 npm install
 ```
+3)Build:
 
-3) Migrations:
+``` bash
+npm run build
+```
+4) Migrations:
 
 ``` bash
 npx sequelize-cli db:migrate
 ```
 
-4) Seeders:
+5) Seeders:
 
 ``` bash
 npx sequelize-cli db:seed:all
@@ -26,7 +30,11 @@ npx sequelize-cli db:seed:all
 ## Start local server
 
 ``` bash
-npm start
+npm run dev
+```
+## Start local server with nodemon
+``` bash
+npm run dev:watch
 ```
 
 ## Test users
