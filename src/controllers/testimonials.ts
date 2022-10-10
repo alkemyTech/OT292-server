@@ -4,17 +4,20 @@ import db from '../models/index';
 import calculatePage from '../utils/pagination';
 
 const getTestimonials = async (req: Request, res: Response, next: NextFunction) => {
-  const resource = req.baseUrl;
-  const pag: number = Number(req.query.page) || 1;
-  const testimonial = await db.Testimonial.findAndCountAll({
-    limit: 10,
-    offset: 10 * (pag - 1),
-    attributes: ['id', 'name', 'image'],
-  });
+  const limit : number = parseInt(req.query.limit as string, 10) || 10;
+  const offset : number | undefined = parseInt(req.query.offset as string, 10) || 10;
+  const page : number = parseInt(req.query.page as string, 10) || 1;
+
   try {
-    const paginations = await calculatePage(testimonial.count, pag, resource);
+    const testimonial = await db.Testimonial.findAndCountAll({
+      limit,
+      offset: offset * (page - 1),
+      attributes: ['id', 'name', 'image'],
+    });
+
+    const pages = calculatePage(testimonial.count, page, offset, limit, req.baseUrl);
     return res.status(200).json({
-      message: { pagination: paginations, testimonial: testimonial.rows },
+      message: { pagination: pages, testimonials: testimonial.rows },
       status: 200,
     });
   } catch (error : Error | any) {
