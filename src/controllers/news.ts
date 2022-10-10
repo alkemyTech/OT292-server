@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator';
 // eslint-disable-next-line import/no-named-as-default
 import News, { News as NewsClass } from '../models/news';
 import db from '../models/index';
-import page from '../utils/pagination';
+import calculatePage from '../utils/pagination';
 
 async function index(req: Request, res: Response) {
   res.json({ message: `${News.name} controller` });
@@ -13,14 +13,16 @@ const list = async (req: Request, res: Response) => {
   if (!error.isEmpty()) {
     return res.status(400).json({ errors: error.array(), status: 404 });
   }
-  const resource = req.baseUrl;
-  const pag: number = Number(req.query.page) || 1;
+  const limit : number = parseInt(req.query.limit as string, 10) || 10;
+  const offset : number | undefined = parseInt(req.query.offset as string, 10) || 10;
+  const page : number = parseInt(req.query.page as string, 10) || 1;
+
   const categories = await db.News.findAndCountAll({
-    limit: 10,
-    offset: 10 * (pag - 1),
+    limit,
+    offset: offset * (page - 1),
     attributes: ['name'],
   });
-  const paginat = await page(categories.count, pag, resource);
+  const paginat = calculatePage(categories.count, page, offset, limit, req.baseUrl);
   return res.status(200).json({
     message: { pagination: paginat, categories: categories.rows },
     status: 200,
