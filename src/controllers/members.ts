@@ -53,14 +53,14 @@ export async function readAllMembers(req:Request, res: Response, next:NextFuncti
     const page : number = parseInt(req.query.page as string, 10) || 1;
 
     const result = await db.Member.findAndCountAll({
-      attributes: ['name', 'id'],
+      attributes: ['name'],
       limit,
       offset: offset * (page - 1),
     });
 
     const pages = calculatePage(result.count, page, offset, limit, req.baseUrl);
     return res.status(200).json(
-      { message: { pagination: pages, categories: result.rows }, status: 200 },
+      { message: { pagination: pages, members: result.rows }, status: 200 },
     );
   } catch (error : Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
