@@ -1,6 +1,5 @@
 import express from 'express';
 
-
 import {
   validateReadAll, validateCreation, validateDelete, validateUpdate,
 } from '../validations/member.validation';
@@ -18,6 +17,5 @@ router.post('/', validateToken, validateCreation, createMember);
 
 router.put('/:id', validateToken, validateUpdate, putMember);
 router.delete('/:id', validateToken, verifyAdmin, validateDelete, deleteMembers);
-
 
 export default router;
