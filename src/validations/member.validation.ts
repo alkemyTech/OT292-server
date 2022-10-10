@@ -13,6 +13,7 @@ const schemaLimit = checkSchema({
       bail: true,
     },
     toInt: true,
+    optional: { options: { nullable: true } },
   },
 });
 
@@ -78,6 +79,7 @@ const schemaOffset = checkSchema({
       bail: true,
     },
     toInt: true,
+    optional: { options: { nullable: true } },
   },
 });
 
