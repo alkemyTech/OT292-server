@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 const urlBase = process.env.APP_URL_PRODUCTION ? `${process.env.APP_URL_PRODUCTION}` : `http://localhost:${port}`;
 
 /**
- * Create pagination url for different contexts
+ * Create page url string for different contexts
  * @param relativeUrl Relative Url from the request
  * @param numberPage Number page
  * @param offset
@@ -17,14 +17,23 @@ const buildUrl: Function = (
   limit:number,
 ) : string => (`${urlBase}${relativeUrl}?page=${numberPage}&offset=${offset}&limit=${limit}`);
 
+/**
+ * Create pagination url string for different request
+ * @param totalRecords
+ * @param currentPage Number page
+ * @param offset
+ * @param limit
+ * @param relativeUrl Relative Url from the request
+ * @returns Object pagination
+ */
 const calculatePage = (
-  total: number,
+  totalRecords: number,
   currentPage: number,
   offset: number,
   limit: number,
   relativeUrl: string,
-) => {
-  const totalPages = Math.ceil(total / limit);
+) : Object => {
+  const totalPages = Math.ceil(totalRecords / limit);
   const previos = (currentPage === 1 || currentPage > totalPages + 1) ? undefined : currentPage - 1;
   const next = totalPages < currentPage + 1 ? undefined : currentPage + 1;
 
@@ -36,4 +45,5 @@ const calculatePage = (
     count: totalPages,
   };
 };
+
 export default calculatePage;
