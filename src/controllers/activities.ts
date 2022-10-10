@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import db from '../models/index'
+import db from '../database/models/index';
 
 async function index (req: Request, res: Response) {
   res.send('Activities controller');

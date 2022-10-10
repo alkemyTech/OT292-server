@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import createHttpError from 'http-errors';
-import db from '../models/index';
+import db from '../database/models/index';
 import { sendContactEmail } from '../services/mailService';
 
 const createContact = async (req: Request, res:Response, next: NextFunction) => {

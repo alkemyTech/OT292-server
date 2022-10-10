@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import newsController from '../controllers/news';
 import newsValidator from '../validations/newsValidator';
-import verifyAdmin from '../middleware/verifyAdmin';
-import validateToken from '../middlewares/auth';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
 
 const router : Router = express.Router();
 

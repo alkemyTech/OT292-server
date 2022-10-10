@@ -3,7 +3,7 @@ import authController from '../controllers/auth';
 import authValidation from '../validations/auth.validation';
 import registerUserValidator from '../validations/registerUser.validator';
 import {authMe} from '../controllers/auth';
-import validateToken from '../middleware/auth';
+import validateToken from '../middlewares/authenticateToken';
 
 const router : express.Router = express.Router();
 

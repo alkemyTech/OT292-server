@@ -3,8 +3,8 @@ import {
   slidesGetAll, slideDetail, slideDelete, slideCreate,slideUpdate
 } from '../controllers/slides';
 import { validateCreate, validateRead, validateUpdate } from '../validations/slideValidator';
-import verifyAdmin from '../middleware/verifyAdmin';
-import validateToken from '../middleware/auth';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
 import uploadMiddleware from '../services/multer';
 
 const router = Router();

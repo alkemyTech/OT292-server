@@ -1,6 +1,6 @@
-import db from "../models";
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import db from "../database/models";
 
 const getAll = async (req: Request, res: Response)=>{
     const errors = validationResult(req);

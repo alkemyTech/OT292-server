@@ -7,8 +7,8 @@ import {
   listValidator, updateValidator,
 } from '../validations/category.validation';
 
-import verifyAdmin from '../middleware/verifyAdmin';
-import verifyToken from '../middleware/auth';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import verifyToken from '../middlewares/authenticateToken';
 
 const router = Router();
 

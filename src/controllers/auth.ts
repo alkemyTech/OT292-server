@@ -1,9 +1,9 @@
 import { Response, Request } from 'express';
 import bcrypt from 'bcryptjs';
 import { NextFunction } from 'connect';
-import db from '../models/index';
+import db from '../database/models/index';
 import { generateToken } from '../utils/jwt.handle';
-import { User } from '../models/user';
+import { User } from '../database/models/user';
 import {
   buildUser, filterPassword, passwordHash, userByEmail,
 } from '../services/userService';

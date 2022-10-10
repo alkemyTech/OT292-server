@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import activityController from '../controllers/activities';
 import activityValidator from '../validations/activityValidator';
-import verifyAdmin from '../middleware/verifyAdmin';
-import validateToken from '../middleware/auth';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
 import activityCreateValidation from '../validations/activityCreate.validation';
 
 const router:Router = express.Router();

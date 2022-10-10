@@ -7,8 +7,8 @@ import {
   readAllMembers, createMember, deleteMembers, putMember,
 } from '../controllers/members';
 
-import validateToken from '../middleware/auth';
-import verifyAdmin from '../middleware/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
+import verifyAdmin from '../middlewares/verifyAdmin';
 
 const router = express.Router();
 

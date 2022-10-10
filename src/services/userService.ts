@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
-import db from '../models';
-import { User } from '../models/user';
+import db from '../database/models';
+import { User } from '../database/models/user';
 
 export function filterPassword(user: User) {
   const dataResponse = {

@@ -1,8 +1,8 @@
 import {Router, Request, Response} from 'express';
 import imgUploadFile from '../services/upload';
 import {getOrganizationData, updateOrganization} from '../controllers/organizations'
-import validateToken from '../middleware/auth';
-import verifyAdmin from '../middleware/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
+import verifyAdmin from '../middlewares/verifyAdmin';
 import organizationValidation from '../validations/organization.validation';
 
 const router = Router();

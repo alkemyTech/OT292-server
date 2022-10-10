@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import db from '../models/index';
+import db from '../database/models/index';
 import upload from '../services/upload';
-import {generateToken} from '../utils/jwt.handle'
+import { generateToken } from '../utils/jwt.handle';
 
 
 

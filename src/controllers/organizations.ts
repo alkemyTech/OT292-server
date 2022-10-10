@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import db from '../models/index';
+import db from '../database/models/index';
 
 export const getOrganizationData = async (_req: Request, res: Response) => {
   try {

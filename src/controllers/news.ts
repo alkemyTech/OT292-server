@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-// eslint-disable-next-line import/no-named-as-default
-import News, { News as NewsClass } from '../models/news';
-import db from '../models/index';
+import News, { News as NewsClass } from '../database/models/news';
+import db from '../database/models/index';
 import calculatePage from '../utils/pagination';
 
 async function index(req: Request, res: Response) {

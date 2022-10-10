@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models/index';
+import db from '../database/models/index';
 
 async function deleteUser(req: Request, res: Response) {
   const { id } = req.params;
