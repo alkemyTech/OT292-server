@@ -1,20 +1,28 @@
-import sequelize from 'sequelize';
-import Category from '../models/category';
+import { QueryInterface, Sequelize } from 'sequelize';
+import { faker } from '@faker-js/faker';
 
+const createRandomNews : Function = () : Object => ({
+  name: faker.random.words(),
+  content: faker.lorem.sentence(),
+  image: faker.image.imageUrl(),
+  category_id: 1,
+  created_at: faker.date.past(1, new Date()),
+  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+});
+
+const fillNews : Function = (n:number) : Object[] => {
+  const activities : Object[] = [];
+  Array.from({ length: n }).forEach(() => activities.push(createRandomNews()));
+  return activities;
+};
+
+const news = fillNews(200);
 module.exports = {
-  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.bulkInsert('news', [{
-      name: 'Title example',
-      content: 'Loram ipsum',
-      image: 'www.anImageURL.com',
-      category_id: 1,
-      created_at: new Date(),
-      updated_at: new Date(),
-
-    }], {});
+  async up(queryInterface: QueryInterface, Sequelize: Sequelize) {
+    await queryInterface.bulkInsert('news', news, {});
   },
 
-  async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
+  async down(queryInterface: QueryInterface, Sequelize: Sequelize) {
     //  await queryInterface.bulkDelete('News', null, {});
   },
 };
