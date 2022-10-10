@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import createHttpError from 'http-errors';
 import db from '../models/index';
 import { Member } from '../models/member';
+import calculatePage from '../utils/pagination';
 
 export async function index(request: Request, response:Response) {
   response.send(`${db.Member.name}`);
@@ -47,17 +48,19 @@ export const putMember = async (req: Request, res: Response, next: NextFunction)
 
 export async function readAllMembers(req:Request, res: Response, next:NextFunction) {
   try {
-    const limit : number | undefined = parseInt(req.query.limit as string, 10) || undefined;
-    const offset : number | undefined = parseInt(req.query.offset as string, 10) || undefined;
+    const limit : number = parseInt(req.query.limit as string, 10) || 10;
+    const offset : number | undefined = parseInt(req.query.offset as string, 10) || 10;
+    const page : number = parseInt(req.query.page as string, 10) || 1;
 
     const result = await db.Member.findAndCountAll({
-      attributes: ['name'],
+      attributes: ['name', 'id'],
       limit,
-      offset,
+      offset: offset * (page - 1),
     });
 
+    const pages = calculatePage(result.count, page, offset, limit, req.baseUrl);
     return res.status(200).json(
-      { message: { count: result.count, members: result.rows }, status: 200 },
+      { message: { pagination: pages, categories: result.rows }, status: 200 },
     );
   } catch (error : Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
