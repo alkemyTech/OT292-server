@@ -1,18 +1,28 @@
 import { QueryInterface, Sequelize } from 'sequelize';
+import { faker } from '@faker-js/faker';
+
+const createRandomMember : Function = () : Object => ({
+  name: faker.name.fullName(),
+  facebook_Url: faker.internet.url(),
+  instagram_Url: faker.internet.url(),
+  linkedin_Url: faker.internet.url(),
+  image: faker.image.imageUrl(),
+  description: faker.lorem.sentence(),
+  created_at: faker.date.past(1, new Date()),
+  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+});
+
+const fillMembers : Function = (n:number) : Object[] => {
+  const activities : Object[] = [];
+  Array.from({ length: n }).forEach(() => activities.push(createRandomMember()));
+  return activities;
+};
+
+const members = fillMembers(200);
 
 module.exports = {
   async up(queryInterface: QueryInterface, Sequelize: Sequelize) {
-    await queryInterface.bulkInsert('members', [{
-      name: 'John Doe',
-      facebook_Url: 'www.url.com',
-      instagram_Url: 'www.url.com',
-      linkedin_Url: 'www.url.com',
-      image: 'www.url.com',
-      description: 'lorem ipsum',
-      created_At: new Date(),
-      updated_At: new Date(),
-      deleted_At: null,
-    }], {});
+    await queryInterface.bulkInsert('members', members, {});
   },
 
   async down(queryInterface: QueryInterface, Sequelize: Sequelize) {
