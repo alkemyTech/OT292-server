@@ -1,7 +1,7 @@
 import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
-  async up (queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
+  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.createTable('activities', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -25,11 +25,11 @@ module.exports = {
       deleted_at: {
         type: DataTypes.DATE,
         allowNull: true,
-      }
+      },
     });
   },
 
-  async down (queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
+  async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.dropTable('activities');
-  }
+  },
 };

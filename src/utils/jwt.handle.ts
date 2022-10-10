@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'mysecretKEYOT292-33';
 
-const generateToken = (id: number, role:number): string => sign({ id , role}, JWT_SECRET, {
+const generateToken = (id: number, role:number): string => sign({ id, role }, JWT_SECRET, {
   expiresIn: '1h',
 });
 

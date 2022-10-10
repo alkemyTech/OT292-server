@@ -2,8 +2,9 @@
 /**
  * Module dependencies.
  */
-import app from '../app';
 import { config } from 'dotenv';
+import app from '../app';
+
 config();
 
 const debug = require('debug')('server:server');

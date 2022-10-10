@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import db from '../database/models/index';
 
-async function index (req: Request, res: Response) {
+async function index(req: Request, res: Response) {
   res.send('Activities controller');
 }
 
@@ -23,16 +23,16 @@ const createActivity = async (req: Request, res: Response) => {
 };
 
 const updateActivity = async (req:Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
-  const { name, content, image} = req.body
-  let activity
+  const { id } = req.params;
+  const { name, content, image } = req.body;
+  let activity;
   try {
     activity = await db.Activity.findByPk(id);
-    if(!activity) return res.status(404).json({ message: "Activity not found", status: 404 });
+    if (!activity) return res.status(404).json({ message: 'Activity not found', status: 404 });
 
-    if(name) activity.name = name;
-    if(content) activity.content = content;
-    if(image) activity.image = image;
+    if (name) activity.name = name;
+    if (content) activity.content = content;
+    if (image) activity.image = image;
 
     try {
       activity.save();
@@ -41,12 +41,11 @@ const updateActivity = async (req:Request, res: Response, next: NextFunction) =>
     }
     return res.status(200).json(activity);
   } catch (error) {
-    return res.status(400).json({ error: error});
+    return res.status(400).json({ error });
   }
-  
-}
-export default{
+};
+export default {
   index,
   updateActivity,
-  createActivity
+  createActivity,
 };

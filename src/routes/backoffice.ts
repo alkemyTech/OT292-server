@@ -5,6 +5,6 @@ import validateToken from '../middlewares/authenticateToken';
 
 const router:Router = express.Router();
 
-router.get('/contacts', validateToken, verifyAdmin,contac.getContact);
+router.get('/contacts', validateToken, verifyAdmin, contac.getContact);
 
 export default router;

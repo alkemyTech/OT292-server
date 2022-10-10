@@ -1,4 +1,6 @@
-import sequelize, { DataTypes, INTEGER, STRING, DATE, BIGINT, TEXT} from 'sequelize';
+import sequelize, {
+  DataTypes, INTEGER, STRING, DATE, BIGINT, TEXT,
+} from 'sequelize';
 
 module.exports = {
   async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
@@ -60,4 +62,4 @@ module.exports = {
   async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
     await queryInterface.dropTable('Organizations');
   },
-}
+};

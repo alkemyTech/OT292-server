@@ -54,10 +54,9 @@ export const getDetailsValidator = [
   param('id', 'Invalid id').exists().isInt(),
 ];
 
-
 export const createValidator = [
-   param('name','Invalid name').exists().isString()
-]
+  param('name', 'Invalid name').exists().isString(),
+];
 
 export const updateValidator = [
   ...schemaId,

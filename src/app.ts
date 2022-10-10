@@ -56,7 +56,7 @@ app.use('/testimonials', testimonioRouter);
 app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
-app.use('/backoffice', backofficeRouter); 
+app.use('/backoffice', backofficeRouter);
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
