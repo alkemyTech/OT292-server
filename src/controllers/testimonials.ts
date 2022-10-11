@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 import db from '../database/models/index';
 import calculatePage from '../utils/pagination';
 
-const getTestimonials = async (req: Request, res: Response, next: NextFunction) => {
+const readAll = async (req: Request, res: Response, next: NextFunction) => {
   const limit : number = parseInt(req.query.limit as string, 10) || 10;
   const offset : number | undefined = parseInt(req.query.offset as string, 10) || 10;
   const page : number = parseInt(req.query.page as string, 10) || 1;
@@ -36,7 +36,7 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const deletetestimonial = async (req:Request, res:Response) => {
+const remove = async (req:Request, res:Response) => {
   try {
     const { id } = req.params;
     const destroy = await db.Testimonial.destroy({ where: { id } });
@@ -46,23 +46,23 @@ const deletetestimonial = async (req:Request, res:Response) => {
     return res.status(500).json(error);
   }
 };
-const updatetestimnoial = async (req:Request, res:Response) => {
+const update = async (req:Request, res:Response) => {
   const { id } = req.params;
   const { name, content, image } = req.body;
-  let update;
+  let updated;
 
   try {
-    update = await db.Testimonial.findByPk(id);
-    if (!update) return res.status(404).json({ message: 'No found testimonial' });
-    if (name) update.name = name;
-    if (content) update.content = content;
-    if (image) update.image = image;
+    updated = await db.Testimonial.findByPk(id);
+    if (!updated) return res.status(404).json({ message: 'No found testimonial' });
+    if (name) updated.name = name;
+    if (content) updated.content = content;
+    if (image) updated.image = image;
     try {
-      update.save();
+      updated.save();
     } catch (error) {
       return res.status(500).json(error);
     }
-    return res.status(200).json({ status: 200, message: update });
+    return res.status(200).json({ status: 200, message: updated });
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -70,7 +70,7 @@ const updatetestimnoial = async (req:Request, res:Response) => {
 
 export default {
   create,
-  deletetestimonial,
-  updatetestimnoial,
-  getTestimonials,
+  readAll,
+  update,
+  remove,
 };
