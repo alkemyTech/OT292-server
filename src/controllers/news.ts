@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import News, { News as NewsClass } from '../database/models/news';
+import { News } from '../database/models/news';
 import db from '../database/models/index';
 import calculatePage from '../utils/pagination';
 
 async function index(req: Request, res: Response) {
   res.json({ message: `${News.name} controller` });
 }
-const list = async (req: Request, res: Response) => {
+const readAll = async (req: Request, res: Response) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
     return res.status(400).json({ errors: error.array(), status: 404 });
@@ -28,7 +28,7 @@ const list = async (req: Request, res: Response) => {
   });
 };
 
-const getNewById = async (req: Request, res: Response) => {
+const readDetails = async (req: Request, res: Response) => {
   try {
     const newById = await db.News.findByPk(req.params.id);
     return res.status(200).json(newById);
@@ -46,7 +46,7 @@ const getNewById = async (req: Request, res: Response) => {
  */
 const create = async (req: Request, res: Response) => {
   try {
-    const newsSaved: NewsClass = await NewsClass.create({
+    const newsSaved: News = await News.create({
       name: req.body.name,
       content: req.body.content,
       image: req.body.image,
@@ -66,7 +66,7 @@ const create = async (req: Request, res: Response) => {
  * @param res Response
  * @param next Next
  */
-const deleteNews = async (req: Request, res: Response) => {
+const remove = async (req: Request, res: Response) => {
   try {
     const result: number = await db.News.destroy({
       where: { id: req.params.id },
@@ -82,7 +82,7 @@ const deleteNews = async (req: Request, res: Response) => {
   }
 };
 
-const updateNews = async (req: Request, res: Response) => {
+const update = async (req: Request, res: Response) => {
   const { id } = req.params;
   const {
     name, content, image, categoryId,
@@ -110,9 +110,9 @@ const updateNews = async (req: Request, res: Response) => {
 
 export default {
   index,
-  getNewById,
   create,
-  updateNews,
-  deleteNews,
-  list,
+  readDetails,
+  readAll,
+  update,
+  remove,
 };
