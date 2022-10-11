@@ -19,7 +19,6 @@ export function errorHandler(
   error : any,
   req : Request,
   res : Response,
-  next : NextFunction,
 ) : Response {
   const statusCode = error.status || 500;
   res.status(statusCode);
