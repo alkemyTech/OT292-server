@@ -8,7 +8,7 @@ export async function index(request: Request, response:Response) {
   response.send(`${db.Member.name}`);
 }
 
-export async function createMember(req:Request, res: Response, next:NextFunction) {
+export async function create(req:Request, res: Response, next:NextFunction) {
   try {
     const memberSaved : Member = await db.Member.create({
       name: req.body.name,
@@ -27,7 +27,7 @@ export async function createMember(req:Request, res: Response, next:NextFunction
   }
 }
 
-export const putMember = async (req: Request, res: Response, next: NextFunction) => {
+export const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const member : Member | null = await db.Member.findByPk(req.params.id);
     if (!member) { return next(createHttpError(404)); }
@@ -46,7 +46,7 @@ export const putMember = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-export async function readAllMembers(req:Request, res: Response, next:NextFunction) {
+export async function readAll(req:Request, res: Response, next:NextFunction) {
   try {
     const limit : number = parseInt(req.query.limit as string, 10) || 10;
     const offset : number | undefined = parseInt(req.query.offset as string, 10) || 10;
@@ -66,7 +66,7 @@ export async function readAllMembers(req:Request, res: Response, next:NextFuncti
     return next(createHttpError(500, error.message, { expose: false }));
   }
 }
-export async function deleteMembers(req:Request, res: Response) {
+export async function remove(req:Request, res: Response) {
   const { id } = req.params;
   let membersdelete;
   try {
@@ -80,9 +80,8 @@ export async function deleteMembers(req:Request, res: Response) {
 
 export default {
   index,
-  readAllMembers,
-  createMember,
-  putMember,
-  deleteMembers,
-
+  create,
+  readAll,
+  update,
+  remove,
 };
