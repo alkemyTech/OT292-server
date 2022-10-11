@@ -14,7 +14,7 @@ async function uploadFile(req: Request, res: Response) {
   const uploadImage = await imgUploadFile(req.file);
   res.json(uploadImage);
 }
-
+router.get('/index', controller.index);
 router.get('/public', controller.readDetails);
 router.get('/este', controller.readDetails);
 router.post('/prueba', upload.single('image'), uploadFile);

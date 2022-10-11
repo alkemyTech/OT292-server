@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import db from '../database/models/index';
 
+export const index = async (req: Request, res: Response) => {
+  res.send('organization ctrl');
+};
+
 export const readDetails = async (_req: Request, res: Response) => {
   try {
     const organizations = await db.Organization.findOne({
@@ -35,6 +39,7 @@ export const update = async (req: Request, res: Response) => {
 };
 
 export default {
+  index,
   readDetails,
   update,
 };
