@@ -84,3 +84,9 @@ export const validateUpdate = [
   ...schemaOrganizationId,
   reportError,
 ];
+
+export default {
+  validateCreate,
+  validateRead,
+  validateUpdate,
+};

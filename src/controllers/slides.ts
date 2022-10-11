@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import db from '../database/models/index';
 import upload from '../services/upload';
-import { generateToken } from '../utils/jwt.handle';
 
 export const slidesGetAll = async (_req: Request, res: Response) => {
   try {
@@ -74,4 +73,12 @@ export const slideUpdate = async (req:Request, res:Response) => {
   } catch (error) {
     return res.status(500).json({ error });
   }
+};
+
+export default {
+  slideCreate,
+  slidesGetAll,
+  slideDetail,
+  slideUpdate,
+  slideDelete,
 };
