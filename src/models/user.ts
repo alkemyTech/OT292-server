@@ -27,7 +27,7 @@ export class User extends Model <InferAttributes<User>, InferCreationAttributes<
 export default function initUserModel(sequelize: Sequelize, DataTypes: typeof types) {
   User.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,

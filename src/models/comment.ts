@@ -7,14 +7,13 @@ import {
 
   export class Comment extends Model <InferAttributes<Comment>,InferCreationAttributes<Comment>> {
     declare id: CreationOptional<Number>;
-    declare user_id: ForeignKey<User>;
-    declare new_id:ForeignKey<News>;
-    declare content: string;
+    declare userId: ForeignKey<User>;
+    declare newId:ForeignKey<News>;
+    declare body: string;
 
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
     declare deletedAt: Date | null;
-    declare type: string;
 
     static associate(models: any) {
         Comment.belongsTo(models.Users);
@@ -30,36 +29,32 @@ import {
         autoIncrement: true,
         primaryKey: true,
       },
-      user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+      userId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id',
         }},
-      new_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+      newId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         references: {
         model: 'news',
         key: 'id',
           },
       },
-      content: {
+      body: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      type: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       createdAt: {
         type: DataTypes.DATE,
-        allowNull:true,
+        allowNull:false,
       },
       updatedAt: {
         type: DataTypes.DATE,
-        allowNull:true,
+        allowNull:false,
       },
       deletedAt: {
         type: DataTypes.DATE,

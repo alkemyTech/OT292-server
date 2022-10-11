@@ -7,34 +7,35 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER.UNSIGNED
       },
       user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id',
         }},
       new_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         references: {
         model: 'news',
         key: 'id',
           },
       },
-      content: {
+      body: {
         type: DataTypes.TEXT
       },
-      type: {
-        type: DataTypes.STRING
-      },
       created_at: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.DATE
       },
       updated_at: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      deleted_at: {
         allowNull: true,
         type: DataTypes.DATE
       },
