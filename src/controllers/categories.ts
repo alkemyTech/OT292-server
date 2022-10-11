@@ -23,7 +23,7 @@ export async function remove(req: Request, res: Response) {
  * @param req Request
  * @param res Response
  */
-export const putCategory = async (
+export const update = async (
   req: Request,
   res: Response,
 
@@ -47,7 +47,7 @@ export const putCategory = async (
   }
 };
 
-export const getDetails = async (req: Request, res: Response) => {
+export const readDetails = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -74,7 +74,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export async function list(req: Request, res: Response) {
+export async function readAll(req: Request, res: Response) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -96,7 +96,9 @@ export async function list(req: Request, res: Response) {
 }
 
 export default {
-  getDetails,
   create,
-  list,
+  readDetails,
+  readAll,
+  update,
+  remove,
 };

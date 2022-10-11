@@ -65,14 +65,15 @@ export const updateValidator = [
   ...schemaImage,
   reportError,
 ];
-
-export default {
-  deleteValidator,
-  getDetailsValidator,
-  updateValidator,
-};
-
 export const listValidator = [
   query('offset', 'Invalid offset').optional().isInt(),
   query('limit', 'Invalid limit').optional().isInt(),
 ];
+
+export default {
+  createValidator,
+  deleteValidator,
+  getDetailsValidator,
+  listValidator,
+  updateValidator,
+};
