@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
 import db from '../database/models/index';
 
-export const getOrganizationData = async (_req: Request, res: Response) => {
+export const readDetails = async (_req: Request, res: Response) => {
   try {
     const organizations = await db.Organization.findOne({
       attributes: { exclude: ['id', 'welcomeText', 'createdAt', 'updatedAt', 'deletedAt', 'aboutUsText', 'email'] },
@@ -15,10 +14,7 @@ export const getOrganizationData = async (_req: Request, res: Response) => {
   }
 };
 
-export const updateOrganization = async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
-
+export const update = async (req: Request, res: Response) => {
   const [organization] = await db.Organization.findAll();
   const data = {
     name: req.body.name || organization.name,
@@ -36,4 +32,9 @@ export const updateOrganization = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ message: 'Could not update', status: 500 });
   }
+};
+
+export default {
+  readDetails,
+  update,
 };
