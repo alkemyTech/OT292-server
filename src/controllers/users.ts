@@ -1,6 +1,30 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import {
+  buildUser, filterPassword, passwordHash, userByEmail,
+} from '../services/userService';
 import db from '../models/index';
+
+const createUser = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 404 }); }
+
+  const existingUser = await userByEmail(req.body.email);
+  if (existingUser) {
+    return res.status(400).json({ error: 'email already used', status: 400 });
+  }
+
+  const user = buildUser(req.body);
+  user.password = passwordHash(req.body.password);
+
+  try {
+    const newUser = await user.save();
+    const dataUser = filterPassword(newUser);
+    return res.status(200).json({ message: dataUser, status: 200 });
+  } catch (error) {
+    return res.status(404).json({ message: error, status: 404 });
+  }
+};
 
 const getAll = async (req: Request, res: Response) => {
   const errors = validationResult(req);
@@ -30,7 +54,7 @@ async function deleteUser(req: Request, res: Response) {
   }
 }
 
-async function updateUser(req:Request, res: Response) {
+async function updateUser(req: Request, res: Response) {
   const { id } = req.params;
   const { firstName, lastName, photo } = req.body;
 
@@ -59,6 +83,7 @@ async function updateUser(req:Request, res: Response) {
 }
 
 export default {
+  createUser,
   getAll,
   deleteUser,
   updateUser,
