@@ -20,6 +20,7 @@ export class User extends Model <InferAttributes<User>, InferCreationAttributes<
 
   static associate(models: any) {
     User.belongsTo(models.Role);
+    User.hasMany(models.Comment);
   }
 }
 
