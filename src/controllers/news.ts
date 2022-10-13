@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { News } from '../database/models/news';
-import db from '../database/models/index';
+import { News } from '../models/news';
+import db from '../models/index';
 import calculatePage from '../utils/pagination';
 
 async function index(req: Request, res: Response) {

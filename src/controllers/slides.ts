@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import db from '../database/models/index';
+import db from '../models/index';
 import upload from '../services/upload';
 
 export const slidesGetAll = async (_req: Request, res: Response) => {

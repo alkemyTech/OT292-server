@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { getCategory } from '../services/categoryService';
-import db from '../database/models';
-import { Category } from '../database/models/category';
+import db from '../models';
+import { Category } from '../models/category';
 import calculatePage from '../utils/pagination';
 
 export async function remove(req: Request, res: Response) {

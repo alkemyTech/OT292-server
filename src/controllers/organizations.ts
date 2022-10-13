@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../database/models/index';
+import db from '../models/index';
 
 export const index = async (req: Request, res: Response) => {
   res.send('organization ctrl');

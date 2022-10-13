@@ -3,7 +3,7 @@ import initUserModel from './user';
 import initActivityModel from './activity';
 import initRoleModel from './role';
 import initOrganizationModel from './organization';
-import configFile from '../config/config';
+import configFile from '../database/config/config';
 import initCategoryModel from './category';
 import initMemberModel from './member';
 import initNewsModel from './news';

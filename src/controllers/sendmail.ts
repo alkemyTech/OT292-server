@@ -1,4 +1,4 @@
-import db from '../database/models/index';
+import db from '../models/index';
 
 import sendMail from '../services/mailService';
 

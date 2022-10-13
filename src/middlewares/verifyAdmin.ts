@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import createHttpError from 'http-errors';
-import db from '../database/models';
+import db from '../models';
 
 export default async function verifyAdmin(req: Request, res: Response, next: NextFunction) {
   const { userId } = req;

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import createHttpError from 'http-errors';
-import db from '../database/models/index';
-import { Member } from '../database/models/member';
+import db from '../models/index';
+import { Member } from '../models/member';
 import calculatePage from '../utils/pagination';
 
 export async function index(request: Request, response:Response) {
