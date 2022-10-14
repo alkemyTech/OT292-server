@@ -16,16 +16,14 @@ const registerUser = async (req: Request, res: Response) => {
 
   const existingUser = await userByEmail(req.body.email);
   if (existingUser) {
-    return res.status(400).json({
+    return res.status(409).json({
       errors: [
         {
           value: req.body.email,
           msg: 'Email already in use',
-          param: 'email',
-          location: 'body',
         },
       ],
-      status: 400,
+      status: 409,
     });
   }
 
@@ -35,7 +33,7 @@ const registerUser = async (req: Request, res: Response) => {
   try {
     const newUser = await user.save();
     const dataUser = filterPassword(newUser);
-    return res.status(200).json({ message: dataUser, status: 200 });
+    return res.status(201).json({ message: dataUser, status: 201 });
   } catch (error) {
     return res.status(404).json({ message: error, status: 404 });
   }
