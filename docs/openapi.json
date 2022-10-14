@@ -18,19 +18,141 @@
       }
     },
     "responses": {
-      "UnauthorizedError": {
+      "401": {
         "description": "Access token is missing or invalid",
         "content": {
-          "status": {
+          "application/json": {
             "schema": {
-              "description": "Error code",
-              "type": "integer"
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    401
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Access token is missing or invalid"
+                }
+              }
             }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    400
+                  ]
+                },
+                "message": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "UserPost": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Nombre del usuario",
+            "example": "Juan"
           },
-          "message": {
-            "schema": {
-              "type": "string"
-            }
+          "lastName": {
+            "type": "string",
+            "description": "Apellido del usuario",
+            "example": "Perez"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email del usuario",
+            "example": "test@test.test",
+            "pattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario",
+            "example": "123456"
+          },
+          "photo": {
+            "description": "Foto del usuario",
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email del usuario",
+            "example": "test@test.test",
+            "pattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario",
+            "example": "123456"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "photo"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id del usuario",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Nombre del usuario",
+            "example": "Juan"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Apellido del usuario",
+            "example": "Perez"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email del usuario",
+            "example": "test@test.test",
+            "format": "email"
           }
         }
       }
@@ -41,26 +163,25 @@
       "bearerAuth": []
     }
   ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication"
+    }
+  ],
   "paths": {
     "/auth/login": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "Login using email and password, returns a token valid for 1 hour",
         "summary": "Login with email and password",
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "required": true
-                  },
-                  "password": {
-                    "type": "string",
-                    "required": true
-                  }
-                }
+                "$ref": "#/components/schemas/UserLogin"
               }
             }
           }
@@ -82,7 +203,10 @@
                       }
                     },
                     "status": {
-                      "type": "number"
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
                     }
                   }
                 }
@@ -90,11 +214,176 @@
             }
           },
           "400": {
-            "description": "Parameters were incorrect",
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register a new user",
+        "summary": "Register a new user",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User created",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "description": "Delete a user",
+        "summary": "Delete a user",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the user to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        404
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a user",
+        "summary": "Update a user",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the user to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        200
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        404
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -104,3 +393,5 @@
     }
   }
 }
+
+
