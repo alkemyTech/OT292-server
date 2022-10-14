@@ -10,6 +10,7 @@ import initNewsModel from './news';
 import initTestimonialsModel from './testimonials';
 import initSlideModel from './slide';
 import initContactModel from './contact';
+import initCommentModel from './comment';
 
 type EnvType = 'development' | 'test' | 'production';
 const env: EnvType = process.env.NODE_ENV as EnvType || 'development';
@@ -27,6 +28,7 @@ const db = {
   Testimonial: initTestimonialsModel(sequelize, DataTypes),
   Slide: initSlideModel(sequelize, DataTypes),
   Contact: initContactModel(sequelize, DataTypes),
+  Comment:initCommentModel(sequelize,DataTypes),
 };
 
 db.Role.associate(db);

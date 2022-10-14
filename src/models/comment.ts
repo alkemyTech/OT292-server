@@ -2,63 +2,59 @@ import {
   CreationOptional, DataTypes as types, ForeignKey, InferAttributes,
   InferCreationAttributes, Model, Sequelize,
 } from 'sequelize';
-import { Category } from './category';
+import { News } from './news';
+import { User } from './user';
 
-export class News extends Model<InferAttributes<News>, InferCreationAttributes<News>> {
+export class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: CreationOptional<Number>;
-  declare name: string;
-  declare content: string;
-  declare image: string;
+  declare userId: ForeignKey<User>;
+  declare newId: ForeignKey<News>;
+  declare body: string;
 
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
 
-  declare categoryId: ForeignKey<Category>;
-  declare type: string;
-
   static associate(models: any) {
-    News.belongsTo(models.Category);
-    News.hasMany(models.Comment);
+    Comment.belongsTo(models.Users);
+    Comment.belongsTo(models.news);
   }
 }
 
-export default function initNewsModel(sequelize: Sequelize, DataTypes: typeof types) {
-  News.init({
+export default function initCommentModel(sequelize: Sequelize, DataTypes: typeof types) {
+  Comment.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    categoryId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: 'categories',
+        model: 'Users',
         key: 'id',
       },
     },
-    name: {
-      type: DataTypes.STRING,
+    newId: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      references: {
+        model: 'news',
+        key: 'id',
+      },
     },
-    content: {
+    body: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     createdAt: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     updatedAt: {
       type: DataTypes.DATE,
+      allowNull: false,
     },
     deletedAt: {
       type: DataTypes.DATE,
@@ -66,12 +62,12 @@ export default function initNewsModel(sequelize: Sequelize, DataTypes: typeof ty
     },
   }, {
     sequelize,
-    modelName: 'News',
-    tableName: 'news',
+    modelName: 'Comment',
+    tableName: 'Comments',
     underscored: true,
     timestamps: true,
     paranoid: true,
   });
 
-  return News;
+  return Comment;
 }

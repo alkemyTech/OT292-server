@@ -1,44 +1,39 @@
 import sequelize, { DataTypes } from 'sequelize';
 
 module.exports = {
-  async up(queryInterface : sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.createTable('news', {
+  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
+    await queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER.UNSIGNED,
       },
-      name: {
-        type: DataTypes.STRING,
+      user_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-      },
-      content: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      category_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
         references: {
-          model: 'Categories',
+          model: 'Users',
           key: 'id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
       },
-      type: {
-        type: DataTypes.STRING,
-        allowNull: true,
+      new_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        references: {
+          model: 'news',
+          key: 'id',
+        },
+      },
+      body: {
+        type: DataTypes.TEXT,
       },
       created_at: {
+        allowNull: false,
         type: DataTypes.DATE,
       },
       updated_at: {
+        allowNull: false,
         type: DataTypes.DATE,
       },
       deleted_at: {
@@ -48,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.Sequelize) {
-    await queryInterface.dropTable('news');
+    await queryInterface.dropTable('Comments');
   },
 };
