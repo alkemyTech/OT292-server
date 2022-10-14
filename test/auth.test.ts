@@ -1,5 +1,3 @@
-// noinspection DuplicatedCode
-
 import chai, { expect } from 'chai';
 import chaiHttp = require('chai-http');
 import db from '../src/models';
