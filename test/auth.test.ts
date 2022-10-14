@@ -52,32 +52,6 @@ describe('Auth controller test', () => {
           location: 'body',
         });
       });
-      it('should return 400 if email is already taken', async () => {
-        await db.User.create({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'used@used.used',
-          password: '123456',
-        });
-        const res = await chai.request(app).post('/auth/register').send({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'used@used.used',
-          password: '123456',
-        });
-
-        expect(res.status).to.equal(400);
-        expect(res.body.status).to.equal(400);
-        expect(res.body).to.have.property('errors');
-        expect(res.body.errors).to.be.an('array');
-        expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          value: 'used@used.used',
-          msg: 'Email already in use',
-          param: 'email',
-          location: 'body',
-        });
-      });
       it('should return 400 if password is not provided', async () => {
         const res = await chai.request(app).post('/auth/register').send({
           firstName: 'John',
@@ -147,6 +121,44 @@ describe('Auth controller test', () => {
           param: 'lastName',
           location: 'body',
         });
+      });
+    });
+
+    it('Should return the created user', async () => {
+      const res = await chai.request(app).post('/auth/register').send({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'asd@asd.asd',
+        password: '123456',
+      });
+
+      expect(res.status).to.equal(201);
+      expect(res.body.status).to.equal(201);
+      expect(res.body).to.have.property('message');
+      expect(res.body.message).to.have.property('email').that.equal('asd@asd.asd');
+    });
+    it('should return 409 if email is already taken', async () => {
+      await db.User.create({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'used@used.used',
+        password: '123456',
+      });
+      const res = await chai.request(app).post('/auth/register').send({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'used@used.used',
+        password: '123456',
+      });
+
+      expect(res.status).to.equal(409);
+      expect(res.body.status).to.equal(409);
+      expect(res.body).to.have.property('errors');
+      expect(res.body.errors).to.be.an('array');
+      expect(res.body.errors).to.have.lengthOf(1);
+      expect(res.body.errors[0]).to.deep.equal({
+        value: 'used@used.used',
+        msg: 'Email already in use',
       });
     });
   });
