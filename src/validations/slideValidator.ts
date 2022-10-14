@@ -10,11 +10,6 @@ const schemaId = checkSchema({
   },
 });
 
-export const validateRead = [
-  ...schemaId,
-  reportError,
-];
-
 const schemaImageUrl = checkSchema({
   imageUrl: {
     in: ['body'],
@@ -74,6 +69,7 @@ export const validateCreate = [
   body('text').exists().withMessage('Must provide a text'),
   body('order').exists().withMessage('Must provide an order'),
   body('organizationId').exists().withMessage('Must provide an organizationId'),
+  reportError,
 ];
 
 export const validateUpdate = [
@@ -82,6 +78,11 @@ export const validateUpdate = [
   ...schemaText,
   ...schemaOrder,
   ...schemaOrganizationId,
+  reportError,
+];
+
+export const validateRead = [
+  ...schemaId,
   reportError,
 ];
 
