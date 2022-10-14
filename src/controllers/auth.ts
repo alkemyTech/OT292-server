@@ -12,11 +12,21 @@ const { validationResult } = require('express-validator');
 
 const registerUser = async (req: Request, res: Response) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 404 }); }
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
 
   const existingUser = await userByEmail(req.body.email);
   if (existingUser) {
-    return res.status(400).json({ error: 'email already used', status: 400 });
+    return res.status(400).json({
+      errors: [
+        {
+          value: req.body.email,
+          msg: 'Email already in use',
+          param: 'email',
+          location: 'body',
+        },
+      ],
+      status: 400,
+    });
   }
 
   const user = buildUser(req.body);
@@ -55,15 +65,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-
-
-
-export const authMe = async(req:Request,res:Response)=> {
-    try{
-      const me = await db.User.findByPk(req.userId);
-      return res.status(200).json(me)
-    }catch(error){
-      return res.status(500).json(error);
-    }
-}
+export const authMe = async (req: Request, res: Response) => {
+  try {
+    const me = await db.User.findByPk(req.userId);
+    return res.status(200).json(me);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 export default { login, registerUser };
