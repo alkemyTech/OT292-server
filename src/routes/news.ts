@@ -4,10 +4,10 @@ import validator from '../validations/newsValidator';
 import verifyAdmin from '../middlewares/verifyAdmin';
 import validateToken from '../middlewares/authenticateToken';
 
-const router : Router = express.Router();
+const router: Router = express.Router();
 
 router.post('/', validateToken, verifyAdmin, validator.validateCreation, controller.create);
-router.get('/', validateToken, verifyAdmin, controller.readAll);
+router.get('/', validateToken, verifyAdmin, validator.validateReadAll, controller.readAll);
 router.get('/:id', validateToken, verifyAdmin, validator.validateRead, controller.readDetails);
 router.put('/:id', validateToken, verifyAdmin, validator.validateUpdate, controller.update);
 router.delete('/:id', validateToken, verifyAdmin, validator.validateDelete, controller.remove);
