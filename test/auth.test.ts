@@ -1,8 +1,12 @@
 import chai, { expect } from 'chai';
 import chaiHttp = require('chai-http');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { config } from 'dotenv';
 import db from '../src/models';
 import app from '../src/app';
 
+config();
 chai.use(chaiHttp);
 
 describe('Auth controller test', () => {
@@ -158,6 +162,105 @@ describe('Auth controller test', () => {
         value: 'used@used.used',
         msg: 'Email already in use',
       });
+    });
+  });
+
+  describe('POST /auth/login', () => {
+    describe('Validation tests', () => {
+      it('should return 400 if email is not provided', async () => {
+        const res = await chai.request(app).post('/auth/login').send({
+          password: '123456',
+        });
+
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('errors');
+        expect(res.body.errors).to.be.an('array');
+        expect(res.body.errors).to.have.lengthOf(2);
+        expect(res.body.errors[0]).to.deep.equal({
+          msg: 'Cannot be empty',
+          param: 'email',
+          location: 'body',
+        });
+      });
+      it('should return 400 if email is invalid', async () => {
+        const res = await chai.request(app).post('/auth/login').send({
+          email: 'invalid',
+          password: '123456',
+        });
+
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('errors');
+        expect(res.body.errors).to.be.an('array');
+        expect(res.body.errors).to.have.lengthOf(1);
+        expect(res.body.errors[0]).to.deep.equal({
+          value: 'invalid',
+          msg: 'Must be a valid email',
+          param: 'email',
+          location: 'body',
+        });
+      });
+      it('should return 400 if password is not provided', async () => {
+        const res = await chai.request(app).post('/auth/login').send({
+          email: 'asd2@asd.asd',
+        });
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('errors');
+        expect(res.body.errors).to.be.an('array');
+        expect(res.body.errors).to.have.lengthOf(1);
+        expect(res.body.errors[0]).to.deep.equal({
+          msg: 'Cannot be empty',
+          param: 'password',
+          location: 'body',
+        });
+      });
+    });
+
+    it('should return 401 if email is not found', async () => {
+      const res = await chai.request(app).post('/auth/login').send({
+        email: 'asag@aasf.asfasf',
+        password: '123456',
+      });
+      expect(res.status).to.equal(401);
+      expect(res.body.status).to.equal(401);
+      expect(res.body).to.have.property('message');
+      expect(res.body.message).to.equal('Invalid credentials');
+    });
+    it('should return 401 if password is incorrect', async () => {
+      await db.User.create({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'asdd@asd.asd',
+        password: bcrypt.hashSync('123456', 10),
+      });
+      const res = await chai.request(app).post('/auth/login').send({
+        email: 'asdd@asd.asd',
+        password: '1234567',
+      });
+      expect(res.status).to.equal(401);
+      expect(res.body.status).to.equal(401);
+      expect(res.body).to.have.property('message');
+      expect(res.body.message).to.equal('Invalid credentials');
+    });
+    it('should return the generated token', async () => {
+      const createdUser = await db.User.create({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'nuevo@nuevo.com',
+        password: bcrypt.hashSync('123456', 10),
+      });
+      const res = await chai.request(app).post('/auth/login').send({
+        email: 'nuevo@nuevo.com',
+        password: '123456',
+      });
+      expect(res.status).to.equal(200);
+      expect(res.body.status).to.equal(200);
+      expect(res.body).to.have.property('message');
+      expect(res.body.message).to.have.property('token').that.is.a('string');
+      const payload = jwt.verify(res.body.message.token, process.env.JWT_SECRET!);
+      expect(payload).to.have.property('id').that.equal(createdUser.id);
     });
   });
 });
