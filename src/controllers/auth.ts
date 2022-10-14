@@ -41,7 +41,7 @@ const registerUser = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() }); }
+  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
 
   try {
     const userFromDB: User | null = await db.User.findOne({
@@ -57,7 +57,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       }
     }
 
-    return res.status(403).json({ ok: false });
+    return res.status(401).json({ message: 'Invalid credentials', status: 401 });
   } catch (error) {
     return next(error);
   }
