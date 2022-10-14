@@ -1,14 +1,13 @@
-import db from "../models/index";
+import db from '../models/index';
 
-import sendMail from "../services/mailService";
+import sendMail from '../services/mailService';
 
 async function sendWelcomeEmail(mailto: string) {
-
-  const organizations: any = await   db.Organization.findOne({
+  const organizations: any = await db.Organization.findOne({
     attributes: {
-      exclude: ["id", "createdAt", "updatedAt", "deletedAt", "aboutUsText"],
+      exclude: ['id', 'createdAt', 'updatedAt', 'deletedAt', 'aboutUsText'],
     },
-    order: [["id", "DESC"]],
+    order: [['id', 'DESC']],
   });
 
   const data = {
@@ -17,11 +16,11 @@ async function sendWelcomeEmail(mailto: string) {
     subject: `Welcome to ${organizations.name}`,
     ongContact: [
       {
-        type: "Phone",
+        type: 'Phone',
         value: organizations.phone,
       },
       {
-        type: "Email",
+        type: 'Email',
         value: organizations.email,
       },
     ],

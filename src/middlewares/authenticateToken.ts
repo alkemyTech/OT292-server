@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response} from 'express';
-import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import createHttpError from 'http-errors';
 import { verifyToken } from '../utils/jwt.handle';
 
 export default function validateToken(req: Request, res: Response, next: NextFunction) {
@@ -12,6 +12,6 @@ export default function validateToken(req: Request, res: Response, next: NextFun
     req.userId = payload.id;
     return next();
   } catch (error) {
-    return res.status(403).json({ error: 'Invalid token' });
+    return next(createHttpError(401));
   }
 }

@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import validator from '../validations/contact.validation';
 import controller from '../controllers/contacts';
-import verifyAdmin from '../middleware/verifyAdmin';
-import validateToken from '../middlewares/auth';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
 
 const router : Router = express.Router();
 

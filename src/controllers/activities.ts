@@ -1,14 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import db from '../models/index'
+import createHttpError from 'http-errors';
+import db from '../models/index';
 
-async function index (req: Request, res: Response) {
+async function index(req: Request, res: Response) {
   res.send('Activities controller');
 }
 
-const createActivity = async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 400 }); }
+const createActivity = async (req: Request, res: Response, next: NextFunction) => {
   const { name, content, image } = req.body;
   try {
     const newActivity = await db.Activity.create({
@@ -16,37 +14,32 @@ const createActivity = async (req: Request, res: Response) => {
       content,
       image,
     });
-    return res.status(200).json({ message: newActivity.toJSON(), status: 200 });
-  } catch (error) {
-    return res.status(400).json({ message: error, status: 400 });
+    return res.status(201).json({ message: newActivity.toJSON(), status: 201 });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message));
   }
 };
 
-const updateActivity = async (req:Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
-  const { name, content, image} = req.body
-  let activity
+const updateActivity = async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params;
+  const { name, content, image } = req.body;
+  let activity;
   try {
     activity = await db.Activity.findByPk(id);
-    if(!activity) return res.status(404).json({ message: "Activity not found", status: 404 });
+    if (!activity) return next(createHttpError(404, 'Activity not found'));
 
-    if(name) activity.name = name;
-    if(content) activity.content = content;
-    if(image) activity.image = image;
+    if (name) activity.name = name;
+    if (content) activity.content = content;
+    if (image) activity.image = image;
 
-    try {
-      activity.save();
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-    return res.status(200).json(activity);
-  } catch (error) {
-    return res.status(400).json({ error: error});
+    activity.save();
+    return res.status(200).json({ status: 200, message: activity });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message));
   }
-  
-}
-export default{
+};
+export default {
   index,
   updateActivity,
-  createActivity
+  createActivity,
 };
