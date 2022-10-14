@@ -1,17 +1,15 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
+import createHttpError from 'http-errors';
 import {
   buildUser, filterPassword, passwordHash, userByEmail,
 } from '../services/userService';
 import db from '../models/index';
 
-const createUser = async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array(), status: 404 }); }
-
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const existingUser = await userByEmail(req.body.email);
   if (existingUser) {
-    return res.status(400).json({ error: 'email already used', status: 400 });
+    return next(createHttpError(400, 'email already used'));
   }
 
   const user = buildUser(req.body);
@@ -21,8 +19,8 @@ const createUser = async (req: Request, res: Response) => {
     const newUser = await user.save();
     const dataUser = filterPassword(newUser);
     return res.status(200).json({ message: dataUser, status: 200 });
-  } catch (error) {
-    return res.status(404).json({ message: error, status: 404 });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
   }
 };
 
@@ -39,28 +37,28 @@ const getAll = async (req: Request, res: Response) => {
   return res.status(200).json({ message: 'no registered users', status: 200 });
 };
 
-async function deleteUser(req: Request, res: Response) {
+async function deleteUser(req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
 
   const existingUser = await db.User.findByPk(id);
   if (!existingUser) {
-    return res.status(400).json({ error: 'Username does not exist' });
+    return next(createHttpError(404, 'Username does not exist'));
   }
   try {
     await db.User.destroy({ where: { id } });
     return res.status(200).json({ message: 'User Deleted' });
-  } catch (error) {
-    return res.status(400).json({ error: 'Could not delete' });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
   }
 }
 
-async function updateUser(req: Request, res: Response) {
+async function updateUser(req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
   const { firstName, lastName, photo } = req.body;
 
   const existingUser = await db.User.findByPk(id);
   if (!existingUser) {
-    return res.status(404).json({ message: 'Username does not exist', status: 404 });
+    return next(createHttpError(404, 'Username does not exist'));
   }
 
   const updateData = {
@@ -77,8 +75,8 @@ async function updateUser(req: Request, res: Response) {
       attributes: { exclude: ['password'] },
     });
     return res.status(200).json({ message: userModified?.toJSON(), status: 200 });
-  } catch (error) {
-    return res.status(500).json({ message: 'Could not delete', status: 500 });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message, { expose: false }));
   }
 }
 
