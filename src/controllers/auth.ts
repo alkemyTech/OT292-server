@@ -20,7 +20,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         return res.status(200).json({ message: { token }, status: 200 });
       }
     }
-    return next(createHttpError(401, 'Unauthorized', { contents: { ok: false } }));
+    return next(createHttpError(401, 'Invalid credentials'));
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message));
   }
