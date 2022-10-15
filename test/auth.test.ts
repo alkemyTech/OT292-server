@@ -28,11 +28,10 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(2);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'Email cannot be empty',
-          param: 'email',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[email]: Email cannot be empty',
+          'body[email]: Must be a valid email',
+        ]);
       });
       it('should return 400 if email is invalid', async () => {
         const res = await chai.request(app).post('/auth/register').send({
@@ -47,12 +46,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          value: 'invalid',
-          msg: 'Must be a valid email',
-          param: 'email',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[email]: Must be a valid email',
+        ]);
       });
       it('should return 400 if password is not provided', async () => {
         const res = await chai.request(app).post('/auth/register').send({
@@ -65,11 +61,10 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(2);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'Cannot be empty',
-          param: 'password',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[password]: Cannot be empty',
+          'body[password]: Min 6 characters',
+        ]);
       });
       it('should return 400 if password is too short', async () => {
         const res = await chai.request(app).post('/auth/register').send({
@@ -83,12 +78,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          value: '1',
-          msg: 'Min 6 characters',
-          param: 'password',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[password]: Min 6 characters',
+        ]);
       });
       it('should return 400 if firstName is not provided', async () => {
         const res = await chai.request(app).post('/auth/register').send({
@@ -101,11 +93,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'First name cannot be empty',
-          param: 'firstName',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[firstName]: First name cannot be empty',
+        ]);
       });
       it('should return 400 if lastName is not provided', async () => {
         const res = await chai.request(app).post('/auth/register').send({
@@ -118,11 +108,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'Last name cannot be empty',
-          param: 'lastName',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[lastName]: Last name cannot be empty',
+        ]);
       });
     });
 
@@ -155,13 +143,7 @@ describe('Auth controller test', () => {
 
       expect(res.status).to.equal(409);
       expect(res.body.status).to.equal(409);
-      expect(res.body).to.have.property('errors');
-      expect(res.body.errors).to.be.an('array');
-      expect(res.body.errors).to.have.lengthOf(1);
-      expect(res.body.errors[0]).to.deep.equal({
-        value: 'used@used.used',
-        msg: 'Email already in use',
-      });
+      expect(res.body).to.have.property('message').that.equal('Email already used');
     });
   });
 
@@ -177,11 +159,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(2);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'Cannot be empty',
-          param: 'email',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal(
+          ['body[email]: Cannot be empty', 'body[email]: Must be a valid email'],
+        );
       });
       it('should return 400 if email is invalid', async () => {
         const res = await chai.request(app).post('/auth/login').send({
@@ -194,12 +174,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          value: 'invalid',
-          msg: 'Must be a valid email',
-          param: 'email',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[email]: Must be a valid email',
+        ]);
       });
       it('should return 400 if password is not provided', async () => {
         const res = await chai.request(app).post('/auth/login').send({
@@ -210,11 +187,9 @@ describe('Auth controller test', () => {
         expect(res.body).to.have.property('errors');
         expect(res.body.errors).to.be.an('array');
         expect(res.body.errors).to.have.lengthOf(1);
-        expect(res.body.errors[0]).to.deep.equal({
-          msg: 'Cannot be empty',
-          param: 'password',
-          location: 'body',
-        });
+        expect(res.body.errors).to.deep.equal([
+          'body[password]: Cannot be empty',
+        ]);
       });
     });
 
