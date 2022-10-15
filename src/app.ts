@@ -44,6 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
@@ -56,15 +57,13 @@ app.use('/testimonials', testimonioRouter);
 app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
-app.use('/backoffice', backofficeRouter); 
-
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/backoffice', backofficeRouter);
 
 // catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const error: Error = createError(404, `Route ${req.hostname + req.path} not found`, { expose: false });
-  next(error);
-});
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const error: Error = createError(404, `Route ${req.hostname + req.path} not found`, { expose: false });
+//   next(error);
+// });
 
 app.use(errorHandler);
 

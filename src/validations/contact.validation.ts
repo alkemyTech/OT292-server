@@ -1,7 +1,6 @@
 import { checkSchema } from 'express-validator';
 import reportError from './reportErrorValidation';
 
-
 const schemaName = checkSchema({
   name: {
     in: ['body'],
@@ -56,13 +55,11 @@ const schemaLimit = checkSchema({
   },
 });
 
-
 const createContact = [
   ...schemaName,
   ...schemaEmail,
   reportError,
 ];
-
 
 const readAll = [
   ...schemaLimit,

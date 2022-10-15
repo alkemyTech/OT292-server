@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult, ValidationError } from 'express-validator';
 import createError from 'http-errors';
+import { errorHandler } from '../middlewares/error.handler';
 
 const errorValidationFormatter = ({
   location, msg, param, value, nestedErrors,

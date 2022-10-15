@@ -48,16 +48,18 @@ const schemaImage = checkSchema({
 
 export const deleteValidator = [
   param('id', 'Invalid id').exists().isInt(),
+  reportError,
 ];
 
 export const getDetailsValidator = [
   param('id', 'Invalid id').exists().isInt(),
+  reportError,
 ];
 
-
 export const createValidator = [
-   param('name','Invalid name').exists().isString()
-]
+  param('name', 'Invalid name').exists().isString(),
+  reportError,
+];
 
 export const updateValidator = [
   ...schemaId,
@@ -66,14 +68,16 @@ export const updateValidator = [
   ...schemaImage,
   reportError,
 ];
-
-export default {
-  deleteValidator,
-  getDetailsValidator,
-  updateValidator,
-};
-
 export const listValidator = [
   query('offset', 'Invalid offset').optional().isInt(),
   query('limit', 'Invalid limit').optional().isInt(),
+  reportError,
 ];
+
+export default {
+  createValidator,
+  deleteValidator,
+  getDetailsValidator,
+  listValidator,
+  updateValidator,
+};
