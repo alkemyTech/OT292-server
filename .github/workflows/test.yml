@@ -10,6 +10,7 @@ on:
 
 env:
   NODE_ENV: test
+  JWT_SECRET: secret
 
 jobs:
   test:
