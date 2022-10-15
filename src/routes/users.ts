@@ -1,18 +1,15 @@
 import express from 'express';
-import { deleteUser, updateUser } from '../controllers/users';
-
-import verifyAdmin from '../middleware/verifyAdmin';
-import verifyToken from '../middleware/auth';
-import { getAll } from '../controllers/user';
-import verifyOwnership from '../middleware/verifyOwnership';
-import userValidation from '../validations/user.validation';
+import controller from '../controllers/users';
+import verifyAdmin from '../middlewares/verifyAdmin';
+import validateToken from '../middlewares/authenticateToken';
+import verifyOwnership from '../middlewares/verifyOwnership';
+import validator from '../validations/user.validation';
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', verifyToken, verifyAdmin, getAll);
-
-router.delete('/:id', deleteUser);
-router.patch('/:id', verifyToken, verifyOwnership, userValidation, updateUser);
+router.get('/', validateToken, verifyAdmin, controller.getAll);
+router.patch('/:id', validateToken, verifyOwnership, validator.update, controller.updateUser);
+router.delete('/:id', controller.deleteUser);
 
 export default router;
