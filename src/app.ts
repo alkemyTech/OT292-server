@@ -20,8 +20,8 @@ import slideRouter from './routes/slide';
 import membersRouter from './routes/members';
 import contactsRouter from './routes/contacts';
 import backofficeRouter from './routes/backoffice';
-
 import swaggerDocument from '../docs/openapi.json';
+import commentsRouter from './routes/comments'
 
 const express = require('express');
 const path = require('path');
@@ -56,9 +56,9 @@ app.use('/testimonials', testimonioRouter);
 app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
-app.use('/backoffice', backofficeRouter);
-
+app.use('/backoffice', backofficeRouter); 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/comments',commentsRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
