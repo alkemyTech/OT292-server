@@ -9,8 +9,8 @@ on:
       - develop
 
 env:
-NODE_ENV: test
-JWT_SECRET: secret
+  NODE_ENV: test
+  JWT_SECRET: secret
 
 jobs:
   test:
