@@ -28,7 +28,8 @@ const db = {
   Testimonial: initTestimonialsModel(sequelize, DataTypes),
   Slide: initSlideModel(sequelize, DataTypes),
   Contact: initContactModel(sequelize, DataTypes),
-  Comment:initCommentModel(sequelize,DataTypes),
+  Comment: initCommentModel(sequelize, DataTypes),
+  sequelize,
 };
 
 db.Role.associate(db);
