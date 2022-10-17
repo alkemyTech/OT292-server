@@ -38,13 +38,6 @@ const readDetails = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-/**
- * Allows us to create News
- * @param Request request
- * @param Response respose
- * @param NextFunction next
- * @returns
- */
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newsSaved: News = await News.create({
@@ -61,12 +54,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-/**
- * Allows us delete a entry of News.
- * @param req Request
- * @param res Response
- * @param next Next
- */
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result: number = await db.News.destroy({
@@ -106,10 +93,10 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getComments = (req: Request, res: Response, next: NextFunction) => {
+const getComments = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
-    const comments = db.Comment.findAll({ where: { newId: id } });
+    const comments = await db.Comment.findAll({ where: { newId: id } });
     return res.status(200).json({ message: comments, status: 200 });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message));
