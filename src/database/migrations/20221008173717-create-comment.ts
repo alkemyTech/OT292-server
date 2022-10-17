@@ -10,7 +10,7 @@ module.exports = {
         type: DataTypes.INTEGER.UNSIGNED,
       },
       user_id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',

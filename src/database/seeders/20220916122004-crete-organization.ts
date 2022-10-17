@@ -12,7 +12,7 @@ const createRandomOrganization : Function = () : Object => ({
   linkedin_url: faker.internet.url(),
   instagram_url: faker.internet.url(),
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(1, new Date()),
 });
 
 const fillOrganizations : Function = (n:number) : Object[] => {

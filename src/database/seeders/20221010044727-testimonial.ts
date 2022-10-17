@@ -6,7 +6,7 @@ const createRandomTestiomonial : Function = () : Object => ({
   image: faker.image.imageUrl(),
   content: faker.lorem.sentence(),
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(1, new Date()),
 });
 
 const fillTestimonials : Function = (n:number) : Object[] => {
@@ -19,7 +19,7 @@ const testimonials = fillTestimonials(200);
 
 module.exports = {
   async up(queryInterface: QueryInterface, Sequelize: Sequelize) {
-    await queryInterface.bulkInsert('testimonials', testimonials, {});
+    await queryInterface.bulkInsert('Testimonials', testimonials, {});
   },
 
   async down(queryInterface: QueryInterface, Sequelize: Sequelize) {

@@ -7,7 +7,7 @@ const createRandomNews : Function = () : Object => ({
   image: faker.image.imageUrl(),
   category_id: 1,
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(1, new Date()),
 });
 
 const fillNews : Function = (n:number) : Object[] => {
