@@ -106,6 +106,16 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getComments = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const comments = db.Comment.findAll({ where: { newId: id } });
+    return res.status(200).json({ message: comments, status: 200 });
+  } catch (error: Error | any) {
+    return next(createHttpError(500, error.message));
+  }
+};
+
 export default {
   index,
   create,
@@ -113,4 +123,5 @@ export default {
   readAll,
   update,
   remove,
+  getComments,
 };
