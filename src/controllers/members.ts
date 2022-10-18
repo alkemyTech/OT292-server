@@ -16,9 +16,10 @@ export async function create(req: Request, res: Response, next: NextFunction) {
       instagramUrl: req.body.instagramUrl || null,
       linkedinUrl: req.body.linkedinUrl || null,
       image: req.body.image,
+      description: req.body.description || null,
     });
 
-    return res.status(201).json(memberSaved);
+    return res.status(201).json({ status: 201, message: memberSaved });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
   }
@@ -46,7 +47,7 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
 export async function readAll(req: Request, res: Response, next: NextFunction) {
   try {
     const limit: number = parseInt(req.query.limit as string, 10) || 10;
-    const offset: number | undefined = parseInt(req.query.offset as string, 10) || 10;
+    const offset: number = parseInt(req.query.offset as string, 10) || 10;
     const page: number = parseInt(req.query.page as string, 10) || 1;
 
     const result = await db.Member.findAndCountAll({
@@ -68,8 +69,8 @@ export async function remove(req: Request, res: Response, next: NextFunction) {
   let membersdelete;
   try {
     membersdelete = await db.Member.destroy({ where: { id } });
-    if (!membersdelete) return res.status(404).json({ status: 'Menber Not Found' });
-    return res.status(200).json({ status: '200', message: 'Members deleted successfully' });
+    if (!membersdelete) return next(createHttpError(404));
+    return res.status(204).end();
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message));
   }
