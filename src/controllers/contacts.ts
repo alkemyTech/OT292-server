@@ -23,17 +23,16 @@ const createContact = async (req: Request, res:Response, next: NextFunction) => 
 
 const getAll = async (req: Request, res:Response, next: NextFunction) => {
   try {
-    const limit : number | undefined = parseInt(req.query.limit as string, 10) || undefined;
-    const offset : number | undefined = parseInt(req.query.offset as string, 10) || undefined;
+    const limit : number = parseInt(req.query.limit as string, 10) || 20;
+    const offset : number = parseInt(req.query.offset as string, 10) || 0;
 
     const result = await db.Contact.findAndCountAll({
-      attributes: ['name'],
       limit,
       offset,
     });
 
     return res.status(200).json(
-      { message: { count: result.count, members: result.rows }, status: 200 },
+      { message: { count: result.count, contacts: result.rows }, status: 200 },
     );
   } catch (error : Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
