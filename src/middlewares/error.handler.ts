@@ -19,6 +19,7 @@ export function errorHandler(
   error : any,
   req : Request,
   res : Response,
+  next: NextFunction,
 ) : Response {
   const statusCode = error.status || 500;
   res.status(statusCode);
@@ -27,10 +28,10 @@ export function errorHandler(
       name: error.name,
       status: statusCode,
       message: error.message,
-      contents: error.contents,
+      errors: error.contents,
     });
   }
-  return res.json({ name: error.name, status: statusCode, message: error.message });
+  return res.json({ status: statusCode, message: error.message });
 }
 
 export default {
