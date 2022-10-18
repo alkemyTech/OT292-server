@@ -57,11 +57,9 @@ export default function initUserModel(sequelize: Sequelize, DataTypes: typeof ty
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: Date.now(),
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: Date.now(),
     },
     roleId: {
       type: DataTypes.INTEGER.UNSIGNED,

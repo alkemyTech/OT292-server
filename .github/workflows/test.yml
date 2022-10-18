@@ -8,6 +8,10 @@ on:
     branches:
       - develop
 
+env:
+  NODE_ENV: test
+  JWT_SECRET: secret
+
 jobs:
   test:
     runs-on: ubuntu-latest
