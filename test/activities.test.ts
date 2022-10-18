@@ -95,4 +95,70 @@ describe('Activities controller test', () => {
       expect(res.body.message).to.have.property('id').that.equals(1);
     });
   });
+
+  describe('PUT /activities', () => {
+    beforeEach(async () => {
+      await db.Activity.create({
+        id: 1, name: 'name', content: 'content', image: 'image',
+      });
+    });
+
+    describe('Validation tests', () => {
+      it('should return 400 if id is invalid', async () => {
+        const res = await chai.request(app).put('/activities/invalid').auth(adminToken, { type: 'bearer' }).send({
+          name: 'name',
+          content: 'content',
+          image: 'image',
+        });
+
+        expect(res.status).to.equal(400);
+        expect(res.body.status).to.equal(400);
+        expect(res.body).to.have.property('errors');
+        expect(res.body.errors).to.be.an('array');
+        expect(res.body.errors).to.have.lengthOf(1);
+        expect(res.body.errors).to.deep.equal([
+          'params[id]: ID must be an integer',
+        ]);
+      });
+      it('should return 401 if user is not logged in', async () => {
+        const res = await chai.request(app).put('/activities/1').send({
+          name: 'name',
+          content: 'content',
+          image: 'image',
+        });
+        expect(res.status).to.equal(401);
+        expect(res.body.status).to.equal(401);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal('Unauthorized');
+      });
+      it('should return 403 if user is not admin', async () => {
+        const res = await chai.request(app).put('/activities/1').auth(userToken, { type: 'bearer' }).send({
+          name: 'name',
+          content: 'content',
+          image: 'image',
+        });
+        expect(res.status).to.equal(403);
+        expect(res.body.status).to.equal(403);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal('Forbidden');
+      });
+    });
+
+    it('should return the updated activity', async () => {
+      const res = await chai.request(app).put('/activities/1').auth(adminToken, { type: 'bearer' }).send({
+        name: 'updatedName',
+        content: 'content',
+      });
+
+      const updatedActivity = await db.Activity.findOne({ where: { id: 1 } });
+
+      expect(updatedActivity?.name).to.equal('updatedName');
+      expect(res.status).to.equal(200);
+      expect(res.body.status).to.equal(200);
+      expect(res.body).to.have.property('message').that.is.a('object');
+      expect(res.body.message).to.have.property('id').that.equals(1);
+      expect(res.body.message).to.have.property('name').that.equals('updatedName');
+      expect(res.body.message).to.have.property('updatedAt').that.does.not.equal(res.body.message.createdAt);
+    });
+  });
 });
