@@ -147,12 +147,12 @@ describe('Activities controller test', () => {
     it('should return the updated activity', async () => {
       const res = await chai.request(app).put('/activities/1').auth(adminToken, { type: 'bearer' }).send({
         name: 'updatedName',
-        content: 'content',
       });
 
       const updatedActivity = await db.Activity.findOne({ where: { id: 1 } });
 
       expect(updatedActivity?.name).to.equal('updatedName');
+      expect(updatedActivity?.content).to.equal('content');
       expect(res.status).to.equal(200);
       expect(res.body.status).to.equal(200);
       expect(res.body).to.have.property('message').that.is.a('object');
