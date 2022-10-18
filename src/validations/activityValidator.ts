@@ -49,14 +49,12 @@ const schemaImage = checkSchema({
 const validateCreation = [
   ...schemaName,
   ...schemaContent,
-  ...schemaImage,
   reportError,
 ];
 
 const validateUpdate = [
   ...schemaName,
   ...schemaContent,
-  ...schemaImage,
   reportError,
 ];
 
