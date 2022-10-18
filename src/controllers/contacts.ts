@@ -12,8 +12,8 @@ const createContact = async (req: Request, res:Response, next: NextFunction) => 
       name, phone, email, message,
     });
     await sendContactEmail(email);
-    return res.status(200).json(
-      { message: newContact, status: 200 },
+    return res.status(201).json(
+      { message: newContact, status: 201 },
 
     );
   } catch (error : Error | any) {
