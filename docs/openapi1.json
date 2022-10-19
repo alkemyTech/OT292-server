@@ -51,7 +51,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ForBidden"
+                  "$ref": "#/components/schemas/Forbidden"
                 }
               }
             }
@@ -109,7 +109,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ForBidden"
+                  "$ref": "#/components/schemas/Forbidden"
                 }
               }
             }
@@ -180,7 +180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ForBidden"
+                  "$ref": "#/components/schemas/Forbidden"
                 }
               }
             }
@@ -248,7 +248,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ForBidden"
+                  "$ref": "#/components/schemas/Forbidden"
                 }
               }
             }
@@ -275,7 +275,7 @@
       "Unauthorized": {
         "description": "(Unauthorized) Token Invalid"
       },
-      "ForBidden": {
+      "Forbidden": {
         "description": "(Forbidden) no tienes los permisos necesarios"
       },
       "NotFound": {
@@ -359,7 +359,7 @@
           }
         }
       },
-      "ForBidden": {
+      "Forbidden": {
         "type": "object",
         "properties": {
           "status": {
