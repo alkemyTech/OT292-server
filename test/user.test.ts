@@ -8,13 +8,13 @@ import { generateToken } from "../src/utils/jwt.handle";
 chai.use(chaiHttp);
 
 
-// const userTest = {
-//    firstName : "elon",
-//    lastName : "Musk",
-//    email : "soyElonMusk@gmail.com",
-//    password : "123456E",
+const userTest = {
+   firstName : "elon",
+   lastName : "Musk",
+   email : "soyElonMusk@gmail.com",
+   password : "123456E",
 
-// }
+}
 
 const Admin = {
     firstName: "User",
