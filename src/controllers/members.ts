@@ -58,7 +58,7 @@ export async function readAll(req: Request, res: Response, next: NextFunction) {
 
     const pages = calculatePage(result.count, page, offset, limit, req.baseUrl);
     return res.status(200).json(
-      { message: { pagination: pages, members: result.rows }, status: 200 },
+      { message: { pagination: pages, members: result.rows.map((r) => r.toJSON()) }, status: 200 },
     );
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
