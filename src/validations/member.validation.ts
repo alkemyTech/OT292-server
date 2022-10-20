@@ -20,7 +20,10 @@ const schemaLimit = checkSchema({
 const schemaId = checkSchema({
   id: {
     in: ['params'],
-    exists: { errorMessage: 'Must provide an ID' },
+    notEmpty: {
+      errorMessage: 'Must provide an ID',
+      bail: true,
+    },
     isInt: { errorMessage: 'ID must be an integuer' },
     toInt: true,
   },
@@ -134,7 +137,7 @@ const schemaDescription = checkSchema({
   description: {
     in: ['body'],
     isString: {
-      errorMessage: 'Content must be string',
+      errorMessage: 'Description must be string',
     },
     optional: { options: { nullable: true } },
   },
