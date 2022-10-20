@@ -7,8 +7,8 @@ import { User } from './user';
 
 export class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
   declare id: CreationOptional<Number>;
-  declare userId: ForeignKey<User>;
-  declare newId: ForeignKey<News>;
+  declare userId: ForeignKey<User['id']>;
+  declare newId: ForeignKey<News['id']>;
   declare body: string;
 
   declare createdAt: CreationOptional<Date>;
