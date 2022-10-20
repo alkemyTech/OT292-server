@@ -25,7 +25,6 @@ export function errorHandler(
   res.status(statusCode);
   if (error.contents) {
     return res.json({
-      name: error.name,
       status: statusCode,
       message: error.message,
       errors: error.contents,

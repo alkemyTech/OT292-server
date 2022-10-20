@@ -9,7 +9,7 @@ const createRandomMember : Function = () : Object => ({
   image: faker.image.imageUrl(),
   description: faker.lorem.sentence(),
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(3, new Date()),
 });
 
 const fillMembers : Function = (n:number) : Object[] => {

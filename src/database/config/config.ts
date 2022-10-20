@@ -12,6 +12,7 @@ const config = {
   test: {
     dialect: 'sqlite',
     storage: ':memory:',
+    logging: false,
   },
   production: {
     username: process.env.DB_USER,

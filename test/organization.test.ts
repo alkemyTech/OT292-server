@@ -36,7 +36,7 @@ describe('Organization controllers test', () => {
     await db.sequelize.sync({ force: true });
     await db.Organization.create(org);
     const roleAdmin = await db.Role.create({ name: 'admin' });
-    const roleUser = await db.Role.create({ name: 'admin' });
+    const roleUser = await db.Role.create({ name: 'user' });
     const userAdmin = await db.User.create(Admin);
     const user = await db.User.create(User);
     adminToken = generateToken(userAdmin.id, roleAdmin.id);

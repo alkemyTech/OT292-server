@@ -5,7 +5,7 @@ const schemaId = checkSchema({
   id: {
     in: ['params'],
     exists: { errorMessage: 'Must provide an ID' },
-    isInt: { errorMessage: 'ID must be an integuer' },
+    isInt: { errorMessage: 'ID must be an integer' },
     toInt: true,
   },
 });
@@ -49,14 +49,11 @@ const schemaImage = checkSchema({
 const validateCreation = [
   ...schemaName,
   ...schemaContent,
-  ...schemaImage,
   reportError,
 ];
 
 const validateUpdate = [
-  ...schemaName,
-  ...schemaContent,
-  ...schemaImage,
+  ...schemaId,
   reportError,
 ];
 
