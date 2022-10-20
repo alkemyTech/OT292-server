@@ -6,7 +6,7 @@ const createRandomActivity : Function = () : Object => ({
   content: faker.lorem.sentence(),
   image: faker.image.imageUrl(),
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(1, new Date()),
 });
 
 const fillActivities : Function = (n:number) : Object[] => {

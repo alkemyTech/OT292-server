@@ -128,10 +128,16 @@ export const validateReadAll = [
   reportError,
 ];
 
+export const validateGetComments = [
+  ...schemaId,
+  reportError,
+];
+
 export default {
   validateCreation,
   validateUpdate,
   validateRead,
   validateReadAll,
   validateDelete,
+  validateGetComments,
 };
