@@ -20,6 +20,7 @@ import slideRouter from './routes/slide';
 import membersRouter from './routes/members';
 import contactsRouter from './routes/contacts';
 import backofficeRouter from './routes/backoffice';
+import commentsRouter from './routes/comments';
 
 import swaggerDocument from '../docs/openapi.json';
 
@@ -58,6 +59,7 @@ app.use('/slides', slideRouter);
 app.use('/members', membersRouter);
 app.use('/contacts', contactsRouter);
 app.use('/backoffice', backofficeRouter);
+app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler
 // app.use((req: Request, res: Response, next: NextFunction) => {
