@@ -12,7 +12,7 @@ const createActivity = async (req: Request, res: Response, next: NextFunction) =
     const newActivity = await db.Activity.create({
       name,
       content,
-      image,
+      image: image || '',
     });
     return res.status(201).json({ message: newActivity.toJSON(), status: 201 });
   } catch (error: Error | any) {
