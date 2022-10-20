@@ -9,7 +9,7 @@ import db from '../models/index';
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const existingUser = await userByEmail(req.body.email);
   if (existingUser) {
-    return next(createHttpError(400, 'email already used'));
+    return next(createHttpError(409, 'Email already used'));
   }
 
   const user = buildUser(req.body);
@@ -18,7 +18,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newUser = await user.save();
     const dataUser = filterPassword(newUser);
-    return res.status(200).json({ message: dataUser, status: 200 });
+    return res.status(201).json({ message: dataUser, status: 201 });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
   }
