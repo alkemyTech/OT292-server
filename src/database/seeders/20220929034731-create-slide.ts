@@ -7,7 +7,7 @@ const createRandomSlides : Function = () : Object => ({
   order: faker.random.numeric(2),
   organization_Id: 1,
   created_at: faker.date.past(1, new Date()),
-  updated_at: faker.datatype.boolean() ? faker.date.past(3, new Date()) : null,
+  updated_at: faker.date.past(1, new Date()),
 });
 
 const fillSlides : Function = (n:number) : Object[] => {

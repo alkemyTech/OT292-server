@@ -11,5 +11,6 @@ router.get('/', validateToken, verifyAdmin, validator.validateReadAll, controlle
 router.get('/:id', validateToken, verifyAdmin, validator.validateRead, controller.readDetails);
 router.put('/:id', validateToken, verifyAdmin, validator.validateUpdate, controller.update);
 router.delete('/:id', validateToken, verifyAdmin, validator.validateDelete, controller.remove);
+router.get('/:id/comments', validateToken, validator.validateRead, controller.getComments);
 
 export default router;
