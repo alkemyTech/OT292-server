@@ -6,7 +6,7 @@ import validateToken from '../middlewares/authenticateToken';
 
 const router : Router = express.Router();
 
-router.get('/', validateToken, verifyAdmin, validator.readAll, controller.getAll);
+router.get('/', validateToken, verifyAdmin, controller.getAll);
 router.post('/', validateToken, validator.createContact, controller.createContact);
 
 export default router;
