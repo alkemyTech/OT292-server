@@ -6,7 +6,6 @@ import createHttpError from "http-errors";
 const createComment = async (req: Request, res:Response, next: NextFunction) =>{
     try {
       const userId= req.userId;
-      if(userId===undefined) throw new Error("userId must be present");
         const commentSaved : CommentClass = await db.Comment.create({
           userId,
           newId:req.body.newId,
