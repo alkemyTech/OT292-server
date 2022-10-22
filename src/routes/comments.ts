@@ -7,6 +7,7 @@ import verifyAdmin from '../middlewares/verifyAdmin';
 const router:Router = express.Router()
 
 router.get('/', validateToken, verifyAdmin, commentsController.listComments);
+router.put('/:id',validateToken,commentsController.updateComment)
 router.post('/',validateToken,validateCreateComment,commentsController.createComment)
 
 export default router
