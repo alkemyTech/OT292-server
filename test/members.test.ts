@@ -53,7 +53,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name cannot be empty'],
@@ -70,7 +69,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name must be string'],
@@ -87,7 +85,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name must be alphabetic'],
@@ -111,7 +108,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -136,7 +132,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -162,7 +157,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -185,7 +179,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[image]: Image cannot be empty'],
@@ -202,7 +195,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[image]: Image must be string'],
@@ -221,7 +213,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[description]: Description must be string'],
@@ -285,7 +276,6 @@ describe('Member controller test', () => {
 
         expect(res).to.have.status(400);
         expect(res.body).to.deep.include({
-          name: 'BadRequestError',
           status: 400,
           message: 'Input validation error',
           errors: [
@@ -304,7 +294,6 @@ describe('Member controller test', () => {
 
         expect(res).to.have.status(400);
         expect(res.body).to.deep.include({
-          name: 'BadRequestError',
           status: 400,
           message: 'Input validation error',
           errors: [
@@ -471,7 +460,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['params[id]: ID must be an integuer'],
@@ -500,7 +488,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name cannot be empty'],
@@ -517,7 +504,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name must be string'],
@@ -534,7 +520,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[name]: Name must be alphabetic'],
@@ -558,7 +543,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -583,7 +567,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -609,7 +592,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: [
@@ -632,7 +614,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[image]: Image cannot be empty'],
@@ -649,7 +630,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[image]: Image must be string'],
@@ -668,7 +648,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['body[description]: Description must be string'],
@@ -761,7 +740,6 @@ describe('Member controller test', () => {
 
           expect(res).to.have.status(400);
           expect(res.body).to.deep.include({
-            name: 'BadRequestError',
             status: 400,
             message: 'Input validation error',
             errors: ['params[id]: ID must be an integuer'],
