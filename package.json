@@ -7,7 +7,7 @@
     "dev": "ts-node ./src/bin/www.ts",
     "dev:watch": "nodemon -L ./src/bin/www.ts",
     "build": "tsc --build",
-    "test": "mocha --require ts-node/register test/**/*.ts",
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
     "migrate":"npm run build && sequelize-cli db:migrate"
   },
   "dependencies": {
