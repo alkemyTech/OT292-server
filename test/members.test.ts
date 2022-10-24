@@ -721,7 +721,7 @@ describe('Member controller test', () => {
         it('should return 404 if is empty', async () => {
           const res = await chai
             .request(app)
-            .put('/members/')
+            .delete('/members/')
             .set('Authorization', adminBearerToken)
             .send(baseMember);
 
@@ -734,7 +734,7 @@ describe('Member controller test', () => {
         it('should return 400 if is not integuer', async () => {
           const res = await chai
             .request(app)
-            .put('/members/NotInteguer')
+            .delete('/members/NotInteguer')
             .set('Authorization', adminBearerToken)
             .send(baseMember);
 
@@ -748,7 +748,7 @@ describe('Member controller test', () => {
         it('should return 404 if member id not exist', async () => {
           const res = await chai
             .request(app)
-            .put('/members/99999')
+            .delete('/members/99999')
             .set('Authorization', adminBearerToken)
             .send(baseMember);
 
