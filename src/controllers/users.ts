@@ -5,15 +5,18 @@ import {
   buildUser, filterPassword, passwordHash, userByEmail,
 } from '../services/userService';
 import db from '../models/index';
+import upload from '../services/upload';
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  const image = req.file;
+  if (!image) return next(createHttpError(400, 'Must provide an image'));
   const existingUser = await userByEmail(req.body.email);
   if (existingUser) {
     return next(createHttpError(409, 'Email already used'));
   }
-
   const user = buildUser(req.body);
   user.password = passwordHash(req.body.password);
+  user.photo = await upload(image);
 
   try {
     const newUser = await user.save();
