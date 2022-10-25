@@ -59,7 +59,7 @@ async function deleteUser(req: Request, res: Response, next: NextFunction) {
 
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
-  const { firstName, lastName, photo } = req.body;
+  const { firstName, lastName } = req.body;
 
   const existingUser = await db.User.findByPk(id);
   if (!existingUser) {
@@ -69,7 +69,7 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
   const updateData = {
     firstName: firstName || existingUser.firstName,
     lastName: lastName || existingUser.lastName,
-    photo: photo || existingUser.photo,
+    photo: req.file ? await upload(req.file) : existingUser.photo,
   };
 
   try {
