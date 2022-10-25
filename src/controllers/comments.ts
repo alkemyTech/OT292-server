@@ -24,7 +24,6 @@ const createComment = async (req: Request, res:Response, next: NextFunction) => 
       newId: req.body.newId,
       body: req.body.body,
     });
-
     return res.status(201).json({
       status: 201,
       message: commentSaved,
