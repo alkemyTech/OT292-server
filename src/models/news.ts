@@ -14,7 +14,7 @@ export class News extends Model<InferAttributes<News>, InferCreationAttributes<N
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
 
-  declare categoryId: ForeignKey<Category>;
+  declare categoryId: ForeignKey<Category['id']>;
   declare type: string;
 
   static associate(models: any) {

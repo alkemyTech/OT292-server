@@ -2,7 +2,9 @@ import bcrypt from 'bcryptjs';
 import db from '../../src/models';
 import { User } from '../../src/models/user';
 import { Role } from '../../src/models/role';
+import { News } from '../../src/models/news';
 import { generateToken } from '../../src/utils/jwt.handle';
+import { Member } from '../../src/models/member';
 
 export const baseUser = {
   firstname: 'test',
@@ -19,6 +21,18 @@ export const baseMember = {
   linkedinUrl: 'https://www.linkedin.com/route',
   image: 'https://www.imageBank.com/img',
   description: 'some description',
+};
+
+export const baseNews = {
+  name: 'Test News',
+  content: 'Nulla officia id laboris nulla velit veniam et ad dolore ullamco ullamco consectetur.',
+  image: 'https://www.imageBank.com/img',
+  categoryId: 1,
+};
+
+export const baseCategory = {
+  name: 'General',
+  description: 'Aliquip occaecat qui cillum deserunt aute anim eiusmod ad magna cupidatat aute irure.',
 };
 
 const getRole = async (roleName:string) : Promise<Role> => {
@@ -57,10 +71,16 @@ const getToken = async (roleString:string) : Promise<string> => {
   return `Bearer ${generateToken(user.id, user.roleId)}`;
 };
 
-const fillMember = async (n: number) => {
+const fillMember = async (n: number) : Promise<Member[]> => {
   const members = (new Array(n)).fill(baseMember);
   const membersSaved = await db.Member.bulkCreate(members);
   return membersSaved;
+};
+
+const fillNews = async (n : number) : Promise<News[]> => {
+  const news = (new Array(n)).fill(baseNews);
+  const newsSaved = await db.News.bulkCreate(news);
+  return newsSaved;
 };
 
 const saveMember = async () => {
@@ -71,5 +91,6 @@ const saveMember = async () => {
 export default {
   getToken,
   fillMember,
+  fillNews,
   saveMember,
 };
