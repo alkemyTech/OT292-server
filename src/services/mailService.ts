@@ -29,7 +29,7 @@ async function sendMail(to: string, data: any, email: string, subject: string) {
   const body = ejs.compile(str)(data);
   const msg = {
     to,
-    from: email,
+    from: process.env.EMAIL_SENDER!,
     subject,
     html: body,
 

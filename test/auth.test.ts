@@ -12,6 +12,17 @@ chai.use(chaiHttp);
 describe('Auth controller test', () => {
   before(async () => {
     await db.sequelize.sync({ force: true });
+    await db.Organization.create({
+      name: 'Test',
+      email: 'org@org.org',
+      phone: 123456789,
+      welcomeText: 'Welcome to Test',
+      address: 'Test address',
+      image: 'https://www.test.com',
+      facebookUrl: 'https://www.facebook.com',
+      linkedinUrl: 'https://www.linkedin.com',
+      instagramUrl: 'https://www.instagram.com',
+    });
   });
 
   describe('POST /auth/register', () => {
@@ -115,12 +126,13 @@ describe('Auth controller test', () => {
     });
 
     it('Should return the created user', async () => {
-      const res = await chai.request(app).post('/auth/register').send({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'asd@asd.asd',
-        password: '123456',
-      });
+      const res = await chai.request(app).post('/auth/register').attach(
+        'image',
+        'test/utils/image.png',
+      ).field('firstName', 'John')
+        .field('lastName', 'Doe')
+        .field('email', 'asd@asd.asd')
+        .field('password', '123456');
 
       expect(res.status).to.equal(201);
       expect(res.body.status).to.equal(201);
@@ -134,12 +146,13 @@ describe('Auth controller test', () => {
         email: 'used@used.used',
         password: '123456',
       });
-      const res = await chai.request(app).post('/auth/register').send({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'used@used.used',
-        password: '123456',
-      });
+      const res = await chai.request(app).post('/auth/register').attach(
+        'image',
+        'test/utils/image.png',
+      ).field('firstName', 'John')
+        .field('lastName', 'Doe')
+        .field('email', 'used@used.used')
+        .field('password', '123456');
 
       expect(res.status).to.equal(409);
       expect(res.body.status).to.equal(409);
