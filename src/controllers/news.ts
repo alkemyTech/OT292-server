@@ -14,14 +14,14 @@ const readAll = async (req: Request, res: Response, next: NextFunction) => {
     const offset: number | undefined = parseInt(req.query.offset as string, 10) || 10;
     const page: number = parseInt(req.query.page as string, 10) || 1;
 
-    const categories = await db.News.findAndCountAll({
+    const news = await db.News.findAndCountAll({
       limit,
       offset: offset * (page - 1),
       attributes: ['name'],
     });
-    const paginat = calculatePage(categories.count, page, offset, limit, req.baseUrl);
+    const paginat = calculatePage(news.count, page, offset, limit, req.baseUrl);
     return res.status(200).json({
-      message: { pagination: paginat, categories: categories.rows },
+      message: { pagination: paginat, news: news.rows },
       status: 200,
     });
   } catch (error: Error | any) {
@@ -32,7 +32,7 @@ const readAll = async (req: Request, res: Response, next: NextFunction) => {
 const readDetails = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newById = await db.News.findByPk(req.params.id);
-    return res.status(200).json(newById);
+    return res.status(200).json({ status: 200, message: newById?.toJSON() });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message));
   }
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       type: 'news',
     });
 
-    return res.status(201).json(newsSaved);
+    return res.status(201).json({ status: 201, message: newsSaved.toJSON() });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message));
   }
@@ -60,9 +60,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
       where: { id: req.params.id },
     });
     if (!result) {
-      return res
-        .status(404)
-        .json({ status: 404, message: 'Resource not found' });
+      return next(createHttpError(404, 'Not Found'));
     }
     return res.sendStatus(204);
   } catch (error: Error | any) {
