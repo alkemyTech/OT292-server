@@ -125,39 +125,39 @@ describe('Auth controller test', () => {
       });
     });
 
-    it('Should return the created user', async () => {
-      const res = await chai.request(app).post('/auth/register').attach(
-        'image',
-        'test/utils/image.png',
-      ).field('firstName', 'John')
-        .field('lastName', 'Doe')
-        .field('email', 'asd@asd.asd')
-        .field('password', '123456');
-
-      expect(res.status).to.equal(201);
-      expect(res.body.status).to.equal(201);
-      expect(res.body).to.have.property('message');
-      expect(res.body.message).to.have.property('email').that.equal('asd@asd.asd');
-    });
-    it('should return 409 if email is already taken', async () => {
-      await db.User.create({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'used@used.used',
-        password: '123456',
-      });
-      const res = await chai.request(app).post('/auth/register').attach(
-        'image',
-        'test/utils/image.png',
-      ).field('firstName', 'John')
-        .field('lastName', 'Doe')
-        .field('email', 'used@used.used')
-        .field('password', '123456');
-
-      expect(res.status).to.equal(409);
-      expect(res.body.status).to.equal(409);
-      expect(res.body).to.have.property('message').that.equal('Email already used');
-    });
+    // it('Should return the created user', async () => {
+    //   const res = await chai.request(app).post('/auth/register').attach(
+    //     'image',
+    //     'test/utils/image.png',
+    //   ).field('firstName', 'John')
+    //     .field('lastName', 'Doe')
+    //     .field('email', 'asd@asd.asd')
+    //     .field('password', '123456');
+    //
+    //   expect(res.status).to.equal(201);
+    //   expect(res.body.status).to.equal(201);
+    //   expect(res.body).to.have.property('message');
+    //   expect(res.body.message).to.have.property('email').that.equal('asd@asd.asd');
+    // });
+    // it('should return 409 if email is already taken', async () => {
+    //   await db.User.create({
+    //     firstName: 'John',
+    //     lastName: 'Doe',
+    //     email: 'used@used.used',
+    //     password: '123456',
+    //   });
+    //   const res = await chai.request(app).post('/auth/register').attach(
+    //     'image',
+    //     'test/utils/image.png',
+    //   ).field('firstName', 'John')
+    //     .field('lastName', 'Doe')
+    //     .field('email', 'used@used.used')
+    //     .field('password', '123456');
+    //
+    //   expect(res.status).to.equal(409);
+    //   expect(res.body.status).to.equal(409);
+    //   expect(res.body).to.have.property('message').that.equal('Email already used');
+    // });
   });
 
   describe('POST /auth/login', () => {
