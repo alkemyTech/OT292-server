@@ -9,7 +9,7 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', validateToken, verifyAdmin, controller.getAll);
-router.patch('/:id', validateToken, verifyOwnership, validator.update, controller.updateUser);
+router.patch('/:id', validateToken, verifyOwnership, controller.updateUser);
 router.delete('/:id', controller.deleteUser);
 
 export default router;

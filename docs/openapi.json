@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Alkemy 292",
-    "version": "1.0"
+    "version": "1.0.0",
+    "title": "ONG_ALKEMY",
+    "description": "API ONG para la aceleracion en Nodejs de Alkemy"
   },
   "servers": [
     {
@@ -15,6 +16,51 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "parameters": {
+      "memberId": {
+        "name": "memberId",
+        "in": "path",
+        "description": "ID of the member to update",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Set a limit for pagination",
+        "required": false,
+        "allowEmptyValue": false,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "Set a offset for pagination",
+        "required": false,
+        "allowEmptyValue": false,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "Set the number page wanted",
+        "required": false,
+        "allowEmptyValue": false,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
       }
     },
     "responses": {
@@ -63,17 +109,391 @@
             }
           }
         }
+      },
+      "403": {
+        "description": "The user does not have permission to access the resource",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    403
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "The requested resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    404
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "enum": [
+                    500
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "returnedMemberCreated": {
+        "description": "Succesfull member created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 201
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Federico"
+                    },
+                    "facebookUrl": {
+                      "type": "string",
+                      "example": "https://www.facebook.com/route"
+                    },
+                    "instagramUrl": {
+                      "type": "string",
+                      "example": "https://www.instagram.com/route"
+                    },
+                    "linkedinUrl": {
+                      "type": "string",
+                      "example": "https://www.linkedin.com/route"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://www.imageBank.com/img"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "some description"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-10-19T17:03:58.666Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-19T17:03:58.666Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "returnedMemberUpdated": {
+        "description": "Succesfull member created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Federico"
+                    },
+                    "facebookUrl": {
+                      "type": "string",
+                      "example": "https://www.facebook.com/route"
+                    },
+                    "instagramUrl": {
+                      "type": "string",
+                      "example": "https://www.instagram.com/route"
+                    },
+                    "linkedinUrl": {
+                      "type": "string",
+                      "example": "https://www.linkedin.com/route"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://www.imageBank.com/img"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "some description"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-10-19T17:03:58.666Z"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-10-19T17:03:58.666Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "returnedMembersPages": {
+        "description": "Returns a list of members and url actual page, next ,lastpage and count.",
+        "content": {
+          "aplication/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "string",
+                          "example": "http://host:port/members?page=1&offset=10&limit=10"
+                        },
+                        "next": {
+                          "type": "string",
+                          "example": "http://host:port/members?page=2&offset=10&limit=10"
+                        },
+                        "lastpage": {
+                          "type": "string",
+                          "example": "http://host:port/members?page=2&offset=10&limit=10"
+                        },
+                        "count": {
+                          "type": "integer",
+                          "example": 2
+                        }
+                      }
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Federico"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "validationQueryException": {
+        "description": "Validation query exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "BadRequestError"
+                },
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Input validation error"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "query[limit]: limit must be integuer",
+                      "query[offset]: offset must be integuer",
+                      "query[page]: page must be integuer"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "validationBodyException": {
+        "description": "Validation body exception",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "BadRequestError"
+                },
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Input validation error"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": [
+                      "body[name]: Name cannot be empty",
+                      "body[facebookUrl]: Facebook url cannot be empty",
+                      "body[instagramUrl]: Instagram url cannot be empty",
+                      "body[linkedinUrl]: Linkedin url cannot be empty",
+                      "body[image]: Image must be string",
+                      "body[description]: Description must be string"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "unauthenticatedException": {
+        "description": "Unauthenticated - Need to be logged in",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      },
+      "unauthorizatedException": {
+        "description": "Unauthorizated - Need more permissions",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 403
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Forbidden"
+                }
+              }
+            }
+          }
+        }
+      },
+      "deletedSuccesfully": {
+        "description": "Deleted succesfully - Return a empty object.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "example": {}
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "postMember": {
+        "description": "Include all  or partial info needed to create a member",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Member"
+            }
+          }
+        }
+      },
+      "putMember": {
+        "description": "include all  or partial info needed to update a member",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Member"
+            }
+          }
+        }
       }
     },
     "schemas": {
       "UserPost": {
         "type": "object",
-        "required": [
-          "firstName",
-          "lastName",
-          "email",
-          "password"
-        ],
         "properties": {
           "firstName": {
             "type": "string",
@@ -96,7 +516,7 @@
             "description": "Contraseña del usuario",
             "example": "123456"
           },
-          "photo": {
+          "image": {
             "description": "Foto del usuario",
             "type": "string",
             "format": "binary"
@@ -155,6 +575,213 @@
             "format": "email"
           }
         }
+      },
+      "Testimonio": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "elon Musk"
+          },
+          "image": {
+            "type": "string",
+            "example": "elon.png"
+          },
+          "content": {
+            "type": "string",
+            "example": "Este es mi testimonio de la compra de twitter"
+          }
+        }
+      },
+      "BodyTestimonioPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "nombre del testimonio"
+          },
+          "image": {
+            "type": "string",
+            "description": "imagen del testimonio."
+          },
+          "content": {
+            "type": "string",
+            "description": "contenido del testimonio"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Testimonios": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Testimonio"
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      },
+      "Categoria": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Tecnologia"
+          },
+          "description": {
+            "type": "string",
+            "example": "Musk compra Twitter"
+          },
+          "image": {
+            "type": "string",
+            "example": "tecnologia.png"
+          }
+        }
+      },
+      "BodyCategoriesPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "nombre de la categoria"
+          },
+          "description": {
+            "type": "string",
+            "description": "descripcion de la categoria."
+          },
+          "image": {
+            "type": "string",
+            "description": "imagen que identifique la categoria"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Categorias": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Categoria"
+        }
+      },
+      "Member": {
+        "type": "object",
+        "required": [
+          "name",
+          "image"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre del usuario",
+            "example": "Juan"
+          },
+          "facebookUrl": {
+            "type": "string",
+            "description": "Ruta de perfil de facebook",
+            "example": "https://www.facebook.com/juan"
+          },
+          "instagramUrl": {
+            "type": "string",
+            "description": "Ruta de perfil de instagram",
+            "example": "https://www.instagram.com/juan"
+          },
+          "linkedinUrl": {
+            "type": "string",
+            "description": "Ruta de perfil de linkedin",
+            "example": "https://www.linkedin.com/juan"
+          },
+          "image": {
+            "type": "string",
+            "description": "Ruta de imagen",
+            "example": "https://www.imgBank.com/juanImage"
+          },
+          "description": {
+            "description": "Descripcion de usuario",
+            "type": "string",
+            "example": "Qui ut voluptate velit sint."
+          }
+        }
+      },
+      "newPostBody": {
+        "type": "object",
+        "required": [
+          "name",
+          "content",
+          "image"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name",
+            "example": "Nueva recaudación"
+          },
+          "content": {
+            "type": "string",
+            "description": "New content",
+            "example": "Nueva recaudación el dia lunes"
+          },
+          "type": {
+            "type": "string",
+            "description": "New type",
+            "example": "News"
+          },
+          "image": {
+            "description": "Image of new",
+            "type": "string",
+            "example": "www.imagen.com"
+          },
+          "categoryId": {
+            "description": "Id of the associated category",
+            "type": "integer",
+            "example": "1"
+          }
+        }
+      },
+      "New": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "content",
+          "type",
+          "image",
+          "categoryId"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "New name",
+            "example": "Nueva recaudación"
+          },
+          "content": {
+            "type": "string",
+            "description": "New content",
+            "example": "Nueva recaudación el dia lunes"
+          },
+          "type": {
+            "type": "string",
+            "description": "New type",
+            "example": "News"
+          },
+          "image": {
+            "description": "Image of new",
+            "type": "string",
+            "example": "www.imagen.com"
+          },
+          "categoryId": {
+            "description": "Id of the associated category",
+            "type": "integer",
+            "example": "1"
+          }
+        }
       }
     }
   },
@@ -167,6 +794,22 @@
     {
       "name": "Auth",
       "description": "Authentication"
+    },
+    {
+      "name": "Testimonials",
+      "description": "CRUD Testimonials"
+    },
+    {
+      "name": "Categorias",
+      "description": "CRUD Categorias"
+    },
+    {
+      "name": "Members",
+      "description": "Allow us to access to member data."
+    },
+    {
+      "name": "News",
+      "description": "CRUD News"
     }
   ],
   "paths": {
@@ -231,7 +874,7 @@
         "summary": "Register a new user",
         "requestBody": {
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UserPost"
               }
@@ -338,7 +981,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UserPost"
               }
@@ -387,6 +1030,857 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/testimonials": {
+      "get": {
+        "tags": [
+          "Testimonials"
+        ],
+        "summary": "Obtener lista de Testimonios (solo Admin)",
+        "description": "Lista todos los testimonios (Solo Admin)",
+        "responses": {
+          "200": {
+            "description": "Operacion Exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Testimonio"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Testimonials"
+        ],
+        "summary": "Agregar Testimonios (solo Admin)",
+        "description": "Agregar testimonios a la base de datos",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Crear objeto del testimonio",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyTestimonioPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Testimonio agregado con exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Testimonio"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/testimonials/{id}": {
+      "put": {
+        "tags": [
+          "Testimonials"
+        ],
+        "summary": "Editar Testimonio (solo Admin)",
+        "description": "Edita testimonios por ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del testimonio  a modificar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos a modificar",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Testimonio"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Operacion Exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Testimonio"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Testimonials"
+        ],
+        "summary": "Eliminar Testimonio (solo Admin)",
+        "description": "Elimina un Testimonio por Id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id del testimonio a  eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Testimonio eliminado con exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Testimonio"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Obtener lista de categorias (solo Admin)",
+        "description": "Lista todas las categorias (Solo Admin)",
+        "responses": {
+          "200": {
+            "description": "Operacion Exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorias"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Agregar categorias (solo Admin)",
+        "description": "Agregar categoria a la base de datos",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Crear objeto de la categoria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BodyCategoriesPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Categoria agregada con exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Obtener categoria por ID (solo Admin)",
+        "description": "Retorna la categoria indicada por parametro id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la categoria",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion Exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Editar Categorias (solo Admin)",
+        "description": "Edita categorias por ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la categoria a modificar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos a modificar",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categoria"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Operacion Exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Eliminar categoria (solo Admin)",
+        "description": "Elimina una categoria por Id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id de la categoria a  eliminar.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria eliminada con exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/members/": {
+      "post": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Create a member",
+        "description": "Allow us to create a member and save it in the system.",
+        "security": [
+          {
+            "bearerTokenJWT": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/postMember"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/returnedMemberCreated"
+          },
+          "400": {
+            "$ref": "#/components/responses/validationBodyException"
+          },
+          "401": {
+            "$ref": "#/components/responses/unauthenticatedException"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Returns a list of members",
+        "description": "Allow us get info of members.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          }
+        ],
+        "security": [
+          {
+            "bearerTokenJWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/returnedMembersPages"
+          },
+          "400": {
+            "$ref": "#/components/responses/validationQueryException"
+          },
+          "401": {
+            "$ref": "#/components/responses/unauthenticatedException"
+          },
+          "403": {
+            "$ref": "#/components/responses/unauthorizatedException"
+          }
+        }
+      }
+    },
+    "/members/{memberId}": {
+      "put": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Update a member",
+        "description": "Allow us to update a member and save it in the system.",
+        "security": [
+          {
+            "bearerTokenJWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/memberId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/postMember"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/returnedMemberUpdated"
+          },
+          "400": {
+            "$ref": "#/components/responses/validationBodyException"
+          },
+          "401": {
+            "$ref": "#/components/responses/unauthenticatedException"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Delete a member",
+        "description": "Allow us to delete a member in the system.",
+        "security": [
+          {
+            "bearerTokenJWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/memberId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/deletedSuccesfully"
+          },
+          "401": {
+            "$ref": "#/components/responses/unauthenticatedException"
+          },
+          "403": {
+            "$ref": "#/components/responses/unauthorizatedException"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Get news list (Admin)",
+        "description": "List all news only the administrator",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Set a limit for pagination",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Set a offset for pagination",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Set the number page wanted",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "message": {
+                      "type": "array",
+                      "$ref": "#/components/schemas/New"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Add new (Admin)",
+        "description": "Add new to database",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Create new object",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/newPostBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "New added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "enum": [
+                        201
+                      ]
+                    },
+                    "message": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/New"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/news/{id}": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Get a new (Admin)",
+        "description": "Get a new by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the new to look for",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "message": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/New"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Put new (Admin)",
+        "description": "Edit new by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the new to modify",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create new object",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/newPostBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "enum": [
+                        200
+                      ]
+                    },
+                    "message": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/New"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Remove new(Admin)",
+        "description": "Remove a new by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the new to look for",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "number",
+                      "enum": [
+                        204
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
