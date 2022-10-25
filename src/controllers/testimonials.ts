@@ -30,7 +30,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   let newTestimonial;
   try {
     newTestimonial = await db.Testimonial.create({ name, content, image });
-    return res.status(200).send(newTestimonial);
+    return res.status(200).send({ status: 200, message: newTestimonial });
   } catch (error: Error | any) {
     return next(createHttpError(500, error.message, { expose: false }));
   }
