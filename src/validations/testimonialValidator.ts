@@ -5,7 +5,7 @@ const schemaId = checkSchema({
   id: {
     in: ['params'],
     exists: { errorMessage: 'Must provide an ID' },
-    isInt: { errorMessage: 'ID must be an integuer' },
+    isInt: { errorMessage: 'ID must be an integer' },
     toInt: true,
   },
 });
