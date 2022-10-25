@@ -5,7 +5,7 @@ const schemaId = checkSchema({
   id: {
     in: ['params'],
     exists: { errorMessage: 'Must provide an ID' },
-    isInt: { errorMessage: 'ID must be an integuer' },
+    isInt: { errorMessage: 'ID must be an integer' },
     toInt: true,
   },
 });
@@ -30,18 +30,6 @@ const schemaContent = checkSchema({
     },
     isString: {
       errorMessage: 'Content must be string',
-    },
-  },
-});
-
-const schemaImage = checkSchema({
-  image: {
-    in: ['body'],
-    notEmpty: {
-      errorMessage: 'Image cannot be empty',
-    },
-    isString: {
-      errorMessage: 'Image must be string',
     },
   },
 });
@@ -85,9 +73,7 @@ const validateCreation = [
 ];
 
 const validateUpdate = [
-  ...schemaName,
-  ...schemaContent,
-  ...schemaImage,
+  ...schemaId,
   reportError,
 ];
 
