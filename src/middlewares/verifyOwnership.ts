@@ -1,12 +1,43 @@
 import { NextFunction, Request, Response } from 'express';
-import verifyAdmin from './verifyAdmin';
+import createHttpError from 'http-errors';
+import { Role } from '../models/role';
+import db from '../models/index';
 
 export default async function verifyOwnership(req: Request, res: Response, next: NextFunction) {
-  const { id } = req.params;
+  const idcoment = Number(req.params.id);
   const { userId } = req;
+  let usersearch;
+  let coment;
 
-  if (Number(id) === userId) {
-    return next();
+  try {
+    usersearch = await db.User.findOne({
+      where: { id: userId },
+      attributes: ['id', 'firstName', 'roleId'],
+      include: {
+        model: Role,
+        attributes: ['name'],
+      },
+    });
+    if (!usersearch) {
+      return next(createHttpError(401));
+    }
+  } catch (error: Error | any) {
+    return next(createHttpError(500));
   }
-  return verifyAdmin(req, res, next);
+
+  try {
+    coment = await db.Comment.findOne({ where: { id: idcoment }, attributes: ['userId'] });
+    if (!coment) {
+      return next(createHttpError(404));
+    }
+    if (usersearch.roleId === 1) {
+      return next();
+    }
+    if (usersearch.id === coment.userId) {
+      return next();
+    }
+    return next(createHttpError(401));
+  } catch (error: Error | any) {
+    return next(createHttpError(500));
+  }
 }
