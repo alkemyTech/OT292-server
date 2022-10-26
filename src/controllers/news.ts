@@ -3,6 +3,7 @@ import createHttpError from 'http-errors';
 import { News } from '../models/news';
 import db from '../models/index';
 import calculatePage from '../utils/pagination';
+import upload from '../services/upload';
 
 async function index(req: Request, res: Response) {
   res.json({ message: `${News.name} controller` });
@@ -39,17 +40,21 @@ const readDetails = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
+  const image = req.file;
+  if (!image) return next(createHttpError(400, 'Must provide an image'));
   try {
-    const newsSaved: News = await News.create({
+    const urlImage = await upload(image);
+    const newsSaved: News = await News.build({
       name: req.body.name,
       content: req.body.content,
-      image: req.body.image,
+      image: urlImage,
       categoryId: req.body.categoryId ? req.body.categoryId : null,
       type: 'news',
     });
-
+    await newsSaved.save();
     return res.status(201).json({ status: 201, message: newsSaved.toJSON() });
   } catch (error: Error | any) {
+    console.log(error);
     return next(createHttpError(500, error.message));
   }
 };
@@ -70,18 +75,21 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
+  const image = req.file;
+  if (!image) return next(createHttpError(400, 'Must provide an image'));
   const {
-    name, content, image, categoryId,
+    name, content, categoryId,
   } = req.body;
 
   let news;
   try {
+    const urlImage = await upload(image);
     news = await db.News.findByPk(id);
     if (!news) { return next(createHttpError(404, 'News not found')); }
 
     if (name) news.name = name;
     if (content) news.content = content;
-    if (image) news.image = image;
+    if (image) news.image = urlImage;
     if (categoryId) news.categoryId = categoryId;
     news.save();
 
