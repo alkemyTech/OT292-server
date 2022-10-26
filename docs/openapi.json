@@ -508,7 +508,7 @@
           "email": {
             "type": "string",
             "description": "Email del usuario",
-            "example": "test@test.test",
+            "example": "alkemy292@hotmail.com",
             "pattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
           },
           "password": {
@@ -520,6 +520,11 @@
             "description": "Foto del usuario",
             "type": "string",
             "format": "binary"
+          },
+          "roleId": {
+            "description": "Rol del usuario",
+            "type": "int",
+            "example": 1
           }
         }
       },
@@ -665,7 +670,7 @@
           "name"
         ]
       },
-      "Categorias": {
+      "Category": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Categoria"
@@ -734,9 +739,9 @@
             "example": "News"
           },
           "image": {
-            "description": "Image of new",
+            "description": "Image New",
             "type": "string",
-            "example": "www.imagen.com"
+            "format": "binary"
           },
           "categoryId": {
             "description": "Id of the associated category",
@@ -800,8 +805,8 @@
       "description": "CRUD Testimonials"
     },
     {
-      "name": "Categorias",
-      "description": "CRUD Categorias"
+      "name": "Category",
+      "description": "CRUD Category"
     },
     {
       "name": "Members",
@@ -1039,11 +1044,22 @@
         "tags": [
           "Testimonials"
         ],
-        "summary": "Obtener lista de Testimonios (solo Admin)",
-        "description": "Lista todos los testimonios (Solo Admin)",
+        "summary": "Get testimonials list (Admin)",
+        "description": "List all testimonials only the administrator",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Operacion Exitosa",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -1067,15 +1083,15 @@
         "tags": [
           "Testimonials"
         ],
-        "summary": "Agregar Testimonios (solo Admin)",
-        "description": "Agregar testimonios a la base de datos",
+        "summary": "Add testimonial (Admin)",
+        "description": "Add testimonial to database",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Crear objeto del testimonio",
+          "description": "Create new testimonial",
           "content": {
             "application/json": {
               "schema": {
@@ -1087,7 +1103,7 @@
         },
         "responses": {
           "200": {
-            "description": "Testimonio agregado con exito",
+            "description": "Add testimonial to database",
             "content": {
               "application/json": {
                 "schema": {
@@ -1113,7 +1129,7 @@
         "tags": [
           "Testimonials"
         ],
-        "summary": "Editar Testimonio (solo Admin)",
+        "summary": "Testimonial update (solo Admin)",
         "description": "Edita testimonios por ID",
         "security": [
           {
@@ -1124,7 +1140,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "ID del testimonio  a modificar",
+            "description": "Id of the testimonial to update",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1132,7 +1148,7 @@
           }
         ],
         "requestBody": {
-          "description": "Datos a modificar",
+          "description": "Data to update",
           "content": {
             "application/json": {
               "schema": {
@@ -1144,7 +1160,7 @@
         },
         "responses": {
           "200": {
-            "description": "Operacion Exitosa",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -1171,8 +1187,8 @@
         "tags": [
           "Testimonials"
         ],
-        "summary": "Eliminar Testimonio (solo Admin)",
-        "description": "Elimina un Testimonio por Id",
+        "summary": "Delete a testimonial",
+        "description": "Testimonials deleted successfully",
         "security": [
           {
             "bearerAuth": []
@@ -1182,7 +1198,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Id del testimonio a  eliminar.",
+            "description": "Id of the testimonial to delete",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1191,7 +1207,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Testimonio eliminado con exito",
+            "description": "Testimonial deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -1218,17 +1234,28 @@
     "/categories": {
       "get": {
         "tags": [
-          "Categorias"
+          "Category"
         ],
-        "summary": "Obtener lista de categorias (solo Admin)",
-        "description": "Lista todas las categorias (Solo Admin)",
+        "summary": "Get categories list (Admin)",
+        "description": "List all categories only the administrator",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Operacion Exitosa",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Categorias"
+                  "$ref": "#/components/schemas/Category"
                 }
               }
             }
@@ -1246,17 +1273,17 @@
       },
       "post": {
         "tags": [
-          "Categorias"
+          "Category"
         ],
-        "summary": "Agregar categorias (solo Admin)",
-        "description": "Agregar categoria a la base de datos",
+        "summary": "Add category (Admin)",
+        "description": "Add category to database",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Crear objeto de la categoria",
+          "description": "Create new object category",
           "content": {
             "application/json": {
               "schema": {
@@ -1268,7 +1295,7 @@
         },
         "responses": {
           "200": {
-            "description": "Categoria agregada con exito",
+            "description": "Category added successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -1292,9 +1319,9 @@
     "/categories/{id}": {
       "get": {
         "tags": [
-          "Categorias"
+          "Category"
         ],
-        "summary": "Obtener categoria por ID (solo Admin)",
+        "summary": "Get category (admin)",
         "description": "Retorna la categoria indicada por parametro id",
         "parameters": [
           {
@@ -1309,7 +1336,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Operacion Exitosa",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -1334,10 +1361,10 @@
       },
       "put": {
         "tags": [
-          "Categorias"
+          "Category"
         ],
-        "summary": "Editar Categorias (solo Admin)",
-        "description": "Edita categorias por ID",
+        "summary": "Category update (Admin)",
+        "description": "Edita Category por ID",
         "security": [
           {
             "bearerAuth": []
@@ -1367,7 +1394,7 @@
         },
         "responses": {
           "200": {
-            "description": "Operacion Exitosa",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -1392,9 +1419,9 @@
       },
       "delete": {
         "tags": [
-          "Categorias"
+          "Category"
         ],
-        "summary": "Eliminar categoria (solo Admin)",
+        "summary": "Category delete (Admin)",
         "description": "Elimina una categoria por Id",
         "security": [
           {
@@ -1654,15 +1681,13 @@
           }
         ],
         "requestBody": {
-          "description": "Create new object",
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/newPostBody"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -1782,15 +1807,13 @@
           }
         ],
         "requestBody": {
-          "description": "Create new object",
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/newPostBody"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
