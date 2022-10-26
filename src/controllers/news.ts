@@ -3,6 +3,7 @@ import createHttpError from 'http-errors';
 import { News } from '../models/news';
 import db from '../models/index';
 import calculatePage from '../utils/pagination';
+import upload from '../services/upload';
 
 async function index(req: Request, res: Response) {
   res.json({ message: `${News.name} controller` });
@@ -39,11 +40,15 @@ const readDetails = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.file) return next(createHttpError(400, 'Image is required'));
+
+  const image = await upload(req.file);
+
   try {
     const newsSaved: News = await News.create({
       name: req.body.name,
       content: req.body.content,
-      image: req.body.image,
+      image,
       categoryId: req.body.categoryId ? req.body.categoryId : null,
       type: 'news',
     });

@@ -736,7 +736,7 @@
           "image": {
             "description": "Image of new",
             "type": "string",
-            "example": "www.imagen.com"
+            "format": "binary"
           },
           "categoryId": {
             "description": "Id of the associated category",
@@ -1656,7 +1656,7 @@
         "requestBody": {
           "description": "Create new object",
           "content": {
-            "application/x-www-form-urlencoded": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/newPostBody"
               }
