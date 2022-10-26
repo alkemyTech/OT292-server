@@ -51,19 +51,6 @@ const schemaContent = checkSchema({
   },
 });
 
-const schemaImage = checkSchema({
-  image: {
-    in: ['body'],
-    notEmpty: {
-      errorMessage: 'Image cannot be empty',
-      bail: true,
-    },
-    isString: {
-      errorMessage: 'Image must be string',
-    },
-  },
-});
-
 const schemaLimit = checkSchema({
   limit: {
     in: ['query'],
@@ -99,7 +86,6 @@ const schemaOffset = checkSchema({
 const validateCreation = [
   ...schemaName,
   ...schemaContent,
-  ...schemaImage,
   ...schemaCategoryId,
   reportError,
 ];
@@ -107,7 +93,6 @@ const validateCreation = [
 const validateUpdate = [
   ...schemaName,
   ...schemaContent,
-  ...schemaImage,
   ...schemaCategoryId,
   reportError,
 ];
